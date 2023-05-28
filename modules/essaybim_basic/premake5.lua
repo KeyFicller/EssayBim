@@ -22,7 +22,11 @@ project "essaybim_basic"
     }
 
     includedirs {
-        g_includeDir.. "/basic"
+        "inc",
+
+        g_includeDir.. "/basic",
+
+        g_thirdDir.. "/spdlog/include"
     }
 
     postbuildcommands

@@ -11,9 +11,16 @@ namespace EB
      */
     class EB_EXPORT Log final
     {
+        friend class LogImpl;
+    public:
+        /*
+         * @biref     destructor for logger.
+         */
+        virtual ~Log();
+
     private:
         /*
-         * @brief      constructor for log protected.
+         * @brief      constructor for logger protected.
          * @param[in]  name      name of logger.
          */
         explicit Log(const std::string& name);
@@ -33,5 +40,9 @@ namespace EB
 
     public:
         void trace(const char* fmt);
+
+    private:
+        /* < implement class pointer > */
+        LogImpl* m_pImpl = nullptr;
     };
 }

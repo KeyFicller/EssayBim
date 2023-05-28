@@ -17,6 +17,7 @@ project "demo"
     }
 
     includedirs {
+        "inc",
         g_includeDir.. "/basic"
     }
 

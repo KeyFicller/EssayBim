@@ -1,12 +1,18 @@
 #include "basic_log.h"
 
-#include <iostream>
+#include "basic_log_impl.h"
 
 namespace EB
 {
+    Log::~Log()
+    {
+        delete m_pImpl;
+        m_pImpl = nullptr;
+    }
+
     Log::Log(const std::string& name)
     {
-        (void)(name);
+        m_pImpl = new LogImpl(name);
     }
 
     Log& Log::core()
@@ -23,7 +29,7 @@ namespace EB
 
     void Log::trace(const char* fmt)
     {
-        std::cout << fmt << std::endl;
+        return m_pImpl->trace(fmt);
     }
 
 }
