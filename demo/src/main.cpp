@@ -1,7 +1,9 @@
 #include "basic_log.h"
 #include "basic_assert.h"
+#include "basic_time_step.h"
 
 #include <iostream>
+#include <windows.h>
 
 int main()
 {
@@ -12,8 +14,14 @@ int main()
 
     std::string str = "hello";
     EB_CORE_ERROR("error at %s", str.c_str());
+
+    EB_CORE_INFO("Time : %f", EB::TimeStep::deltaTime().seconds());
+    {
+        Sleep(2000);
+    }
+    EB_CORE_INFO("Time : %f", EB::TimeStep::deltaTime().seconds());
     
-    EB_ASSERT(false);
+    EB_ASSERT(true);
 
     return 0;
 }

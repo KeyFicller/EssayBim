@@ -8,7 +8,6 @@ namespace EB
 {
     class LogImpl final
     {
-        friend class Log;
     public:
         explicit LogImpl(const std::string& name);
 

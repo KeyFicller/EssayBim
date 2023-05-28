@@ -1,6 +1,7 @@
 #pragma once
 
 #include "basic_export.h"
+#include "basic_impl_template.h"
 
 #include <string>
 
@@ -11,7 +12,7 @@ namespace EB
      */
     class EB_EXPORT Log final
     {
-        friend class LogImpl;
+        EB_IMPL_DECLARATION_DISABLE_COPY(Log)
     public:
         /*
          * @biref     destructor for logger.
@@ -73,10 +74,6 @@ namespace EB
          * @param[in]    ...       arguments.
          */
         void critical(const char* fmt, ...);
-
-    private:
-        /* < implement class pointer > */
-        LogImpl* m_pImpl = nullptr;
     };
 }
 
