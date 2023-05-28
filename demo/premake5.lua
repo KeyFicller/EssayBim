@@ -17,10 +17,10 @@ project "demo"
     }
 
     includedirs {
-
+        g_includeDir.. "/basic"
     }
 
     links {
-
+        "essaybim_basic"
     }
 

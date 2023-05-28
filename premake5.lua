@@ -6,7 +6,7 @@ g_thirdDir = g_workspaceDir .. "/third"
 print("g_workspaceDir: " .. g_workspaceDir)
 print("g_outputDir: " .. g_outputDir)
 
-workspace "Orchids"
+workspace "EassyBim"
 	configurations {"Debug", "Release"}
 	filter "system:windows"
 		platforms {"x64"}

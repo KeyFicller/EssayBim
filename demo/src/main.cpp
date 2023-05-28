@@ -1,8 +1,10 @@
+#include "basic_log.h"
+
 #include <iostream>
 
 int main()
 {
-    std::cout << "hello world." << std::endl;
+    EB::Log::core().trace("hello world.");
 
     return 0;
 }
