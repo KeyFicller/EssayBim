@@ -1,5 +1,7 @@
 #pragma once
 
+#include <spdlog/spdlog.h>
+
 #include <string>
 
 namespace EB
@@ -12,5 +14,12 @@ namespace EB
 
     public:
         void trace(const char* fmt);
+        void info(const char* fmt);
+        void warn(const char* fmt);
+        void error(const char* fmt);
+        void critical(const char* fmt);
+
+    private:
+        spdlog::logger m_RawLogger;
     };
 }
