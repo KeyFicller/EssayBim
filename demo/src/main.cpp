@@ -1,12 +1,15 @@
 #include "basic_log.h"
 #include "basic_assert.h"
 #include "basic_time_step.h"
+#include "basic_instrument.h"
 
 #include <iostream>
 #include <windows.h>
 
 int main()
 {
+    EB_PROFILE_BEGIN("main", "result.json");
+
     EB::Log::core().trace("hello world.");
     EB::Log::core().trace("hello world %d.", 0);
 
@@ -17,11 +20,14 @@ int main()
 
     EB_CORE_INFO("Time : %f", EB::TimeStep::deltaTime().seconds());
     {
+        EB_PROFILE_SCOPED("Sleeping");
         Sleep(2000);
     }
     EB_CORE_INFO("Time : %f", EB::TimeStep::deltaTime().seconds());
     
     EB_ASSERT(true);
+
+    EB_PROFILE_END();
 
     return 0;
 }
