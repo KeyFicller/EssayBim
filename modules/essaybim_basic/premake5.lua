@@ -8,7 +8,8 @@ project "essaybim_basic"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL"
+        "EB_BUILD_DLL",
+        "YAML_CPP_STATIC_DEFINE"
     }
 
     files {
@@ -26,10 +27,15 @@ project "essaybim_basic"
 
         g_includeDir.. "/basic",
 
-        g_thirdDir.. "/spdlog/include"
+        g_thirdDir.. "/spdlog/include",
+        g_thirdDir.. "/yaml-cpp/include"
     }
 
     postbuildcommands
     {
         ("{COPY} %{cfg.buildtarget.relpath} \"../../bin/" .. g_outputDir .. "/demo/\"")
+    }
+
+    links {
+        "yaml-cpp"
     }

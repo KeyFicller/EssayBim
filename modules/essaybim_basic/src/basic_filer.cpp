@@ -65,4 +65,9 @@ namespace EB
         EB_IMPL->flushOut(pFiler, size);
     }
 
+    bool Filer::seek(int index)
+    {
+        return EB_IMPL->seek(index);
+    }
+
 }

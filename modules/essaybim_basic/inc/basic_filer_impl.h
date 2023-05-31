@@ -25,13 +25,14 @@ namespace EB
         std::string readString();
         void flushIn(Filer* pFiler);
         void flushOut(Filer*& pFiler, int size);
+        bool seek(int index);
 
     private:
         void writeBytes(const char* value, int size)
         {
             int capacity = m_Index + size;
             if (capacity > static_cast<int>(m_Data.size())) {
-                m_Data.reserve(capacity);
+                m_Data.resize(2 * capacity);
             }
             memcpy_s(m_Data.data() + m_Index, size, value, size);
             m_Index += size;

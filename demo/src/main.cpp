@@ -1,33 +1,25 @@
+#include "basic_filer.h"
 #include "basic_log.h"
 #include "basic_assert.h"
-#include "basic_time_step.h"
-#include "basic_instrument.h"
+
+#include "basic_yaml_base.h"
 
 #include <iostream>
 #include <windows.h>
 
 int main()
 {
-    EB_PROFILE_BEGIN("main", "result.json");
 
-    EB::Log::core().trace("hello world.");
-    EB::Log::core().trace("hello world %d.", 0);
+    EB::YamlServer::instance().startYamlOut();
+    EB::YamlServer::instance().yamlOut("boolean", false);
+    EB::YamlServer::instance().endYamlOut("test.yaml");
 
-    EB_CORE_ERROR("error at %d for %s", 123, "failed");
+    EB::YamlServer::instance().startYamlIn("test.yaml");
+    bool res = true;
+    EB_YAML_IN("boolean", res);
+    EB::YamlServer::instance().endYamlIn();
 
-    std::string str = "hello";
-    EB_CORE_ERROR("error at %s", str.c_str());
-
-    EB_CORE_INFO("Time : %f", EB::TimeStep::deltaTime().seconds());
-    {
-        EB_PROFILE_SCOPED("Sleeping");
-        Sleep(2000);
-    }
-    EB_CORE_INFO("Time : %f", EB::TimeStep::deltaTime().seconds());
-    
-    EB_ASSERT(true);
-
-    EB_PROFILE_END();
+    EB_CORE_ASSERT(!res);
 
     return 0;
 }

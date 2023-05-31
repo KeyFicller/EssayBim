@@ -95,5 +95,11 @@ namespace EB
          * @param[in]   size     flushed out char size.
          */
         void flushOut(Filer*& pFiler, int size);
+
+        /*
+         * @brief    seek to specific index.
+         * @return   false if seek failed.
+         */
+        bool seek(int index);
     };
 }

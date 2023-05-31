@@ -1,3 +1,6 @@
 [submodule "third/spdlog"]
 	path = third/spdlog
 	url = git@git.zhlh6.cn:KeyFicller/spdlog.git
+[submodule "third/yaml-cpp"]
+	path = third/yaml-cpp
+	url = git@git.zhlh6.cn:KeyFicller/yaml-cpp.git

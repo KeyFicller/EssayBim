@@ -74,4 +74,13 @@ namespace EB
         pFiler->m_pImpl->writeBytes(m_Data.data() + m_Index, size);
     }
 
+    bool FilerImpl::seek(int index)
+    {
+        if (index >= m_Data.size() || index < 0) {
+            return false;
+        }
+        m_Index = index;
+        return true;
+    }
+
 }
