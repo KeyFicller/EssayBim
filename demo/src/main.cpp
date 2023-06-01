@@ -2,6 +2,7 @@
 #include "basic_log.h"
 #include "basic_assert.h"
 #include "basic_vector.h"
+#include "basic_file_server.h"
 
 #include "basic_yaml_base.h"
 
@@ -22,6 +23,9 @@ int main()
     EB::Vec3 res3;
     EB_YAML_IN("Vec3", res3);
     EB::YamlServer::instance().endYamlIn();
+
+    EB_CORE_INFO("%s", EB::FileServer::instance().projectPathRoot(EB::eModules::kBasic).c_str());
+    EB_CORE_INFO("%s", EB::FileServer::instance().resourcesPathRoot().c_str());
 
     EB_CORE_ASSERT(!res);
 
