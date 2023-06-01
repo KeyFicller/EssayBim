@@ -28,7 +28,8 @@ project "essaybim_basic"
         g_includeDir.. "/basic",
 
         g_thirdDir.. "/spdlog/include",
-        g_thirdDir.. "/yaml-cpp/include"
+        g_thirdDir.. "/yaml-cpp/include",
+        g_thirdDir.. "/glm"
     }
 
     postbuildcommands

@@ -2,6 +2,7 @@
 
 #include "basic_export.h"
 #include "basic_impl_template.h"
+#include "basic_vector.h"
 
 #include <string>
 
@@ -97,6 +98,90 @@ namespace EB
          * @param[out]  value  boolean value.
          */
         void yamlOut(const std::string& key, bool value);
+
+        /*
+         * @brief   push a int value with key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  integer value.
+         */
+        void yamlIn(const std::string& key, int& value);
+
+        /*
+         * @brief  read a int value of key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  integer value.
+         */
+        void yamlOut(const std::string& key, int value);
+
+        /*
+         * @brief   push a real value with key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  real value.
+         */
+        void yamlIn(const std::string& key, float& value);
+
+        /*
+         * @brief  read a read value of key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  real value.
+         */
+        void yamlOut(const std::string& key, float value);
+
+        /*
+         * @brief   push a string value with key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  string value.
+         */
+        void yamlIn(const std::string& key, std::string& value);
+
+        /*
+         * @brief  read a string value of key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  string value.
+         */
+        void yamlOut(const std::string& key, const std::string& value);
+
+        /*
+         * @brief   push a vec2 value with key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  vec2 value.
+         */
+        void yamlIn(const std::string& key, Vec2& value);
+
+        /*
+         * @brief  read a vec2 value of key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  vec2 value.
+         */
+        void yamlOut(const std::string& key, const Vec2& value);
+
+        /*
+         * @brief   push a vec3 value with key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  vec3 value.
+         */
+        void yamlIn(const std::string& key, Vec3& value);
+
+        /*
+         * @brief  read a vec3 value of key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  vec3 value.
+         */
+        void yamlOut(const std::string& key, const Vec3& value);
+
+        /*
+         * @brief   push a vec4 value with key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  vec4 value.
+         */
+        void yamlIn(const std::string& key, Vec4& value);
+
+        /*
+         * @brief  read a vec4 value of key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  vec4 value.
+         */
+        void yamlOut(const std::string& key, const Vec4& value);
     };
 
 

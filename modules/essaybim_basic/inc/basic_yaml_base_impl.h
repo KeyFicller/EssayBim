@@ -9,8 +9,91 @@
 #include <stack>
 #include <functional>
 
+namespace YAML
+{
+    template <>
+    struct convert<EB::Vec2>
+    {
+        static Node encode(const EB::Vec2& rhs)
+        {
+            Node node;
+            for (int i = 0; i < 2; i++) {
+                node.push_back(rhs[i]);
+            }
+            return node;
+        }
+
+        static bool decode(const Node& node, EB::Vec2& rhs)
+        {
+            if (!node.IsSequence() || node.size() != 2) {
+                return false;
+            }
+
+            for (int i = 0; i < 2; i++) {
+                rhs[i] = node[i].as<float>();
+            }
+            return true;
+        }
+    };
+
+    template <>
+    struct convert<EB::Vec3>
+    {
+        static Node encode(const EB::Vec3& rhs)
+        {
+            Node node;
+            for (int i = 0; i < 3; i++) {
+                node.push_back(rhs[i]);
+            }
+            return node;
+        }
+
+        static bool decode(const Node& node, EB::Vec3& rhs)
+        {
+            if (!node.IsSequence() || node.size() != 3) {
+                return false;
+            }
+
+            for (int i = 0; i < 3; i++) {
+                rhs[i] = node[i].as<float>();
+            }
+            return true;
+        }
+    };
+
+    template <>
+    struct convert<EB::Vec4>
+    {
+        static Node encode(const EB::Vec4& rhs)
+        {
+            Node node;
+            for (int i = 0; i < 4; i++) {
+                node.push_back(rhs[i]);
+            }
+            return node;
+        }
+
+        static bool decode(const Node& node, EB::Vec4& rhs)
+        {
+            if (!node.IsSequence() || node.size() != 4) {
+                return false;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                rhs[i] = node[i].as<float>();
+            }
+            return true;
+        }
+    };
+}
+
 namespace EB
 {
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec2& v);
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec3& v);
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec4& v);
+
+
     class YamlServerImpl
     {
         friend class YamlBase;

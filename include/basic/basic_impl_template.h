@@ -1,9 +1,11 @@
 #pragma once
 
+#include "basic_pointer.h"
+
 #define EB_IMPL_DECLARATION(_class)     \
     friend class _class##Impl;          \
     private:                            \
-    _class##Impl* m_pImpl = nullptr;
+    Scoped<_class##Impl> m_pImpl;
 
 #define EB_IMPL                         \
     (m_pImpl)

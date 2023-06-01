@@ -7,13 +7,12 @@ namespace EB
 {
     Log::~Log()
     {
-        delete EB_IMPL;
-        EB_IMPL = nullptr;
+
     }
 
     Log::Log(const std::string& name)
     {
-        EB_IMPL = new LogImpl(name);
+        EB_IMPL = createScoped<LogImpl>(name);
     }
 
     Log& Log::core()

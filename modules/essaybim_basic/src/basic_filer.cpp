@@ -6,13 +6,12 @@ namespace EB
 
     Filer::Filer()
     {
-        EB_IMPL = new FilerImpl();
+        EB_IMPL = createScoped<FilerImpl>();
     }
 
     Filer::~Filer()
     {
-        delete m_pImpl;
-        m_pImpl = nullptr;
+
     }
 
     void Filer::writeBool(bool value)

@@ -2,6 +2,12 @@
 
 #include <memory>
 
+/*
+ * comment by zhangyuhui:  mainly because i don't export implement class while building dll,
+ *                         so i choose to disable this warning.
+ */
+#pragma warning(disable: 4251)
+
 namespace EB
 {
     template <typename T>
@@ -19,7 +25,7 @@ namespace EB
     template <typename T, typename ... Args>
     constexpr Scoped<T> createScoped(Args&& ...args)
     {
-        return std::make_unique<T>(std::forward<Args>(args...));
+        return std::make_unique<T>(std::forward<Args>(args)...);
     }
 
     /*
@@ -31,6 +37,6 @@ namespace EB
     template <typename T, typename ... Args>
     constexpr Shared<T> createShared(Args&& ...args)
     {
-        return std::make_shared<T>(std::forward<Args>(args...));
+        return std::make_shared<T>(std::forward<Args>(args)...);
     }
 }

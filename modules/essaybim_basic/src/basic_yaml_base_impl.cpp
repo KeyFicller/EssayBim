@@ -9,10 +9,42 @@
 #define EB_CORE_ASSERT_HAS_EMMITER() EB_CORE_ASSERT(m_pCurEmitter, ERR_NO_EMITTER)
 #define EB_CORE_ASSERT_NO_EMMITER() EB_CORE_ASSERT(!m_pCurEmitter, ERR_HAS_EMITTER)
 #define EB_CORE_ASSERT_EMPTY_NODE_STACK() EB_CORE_ASSERT(m_CurNodeStack.empty(), ERR_NOT_EMPTY_STACK)
-#define EB_CORE_ASSERT_NOT_EMPTY_NODE_STACK() EB_CORE_ASSERT(m_CurNodeStack.empty(), ERR_EMPTY_STACK)
+#define EB_CORE_ASSERT_NOT_EMPTY_NODE_STACK() EB_CORE_ASSERT(!m_CurNodeStack.empty(), ERR_EMPTY_STACK)
 
 namespace EB
 {
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec2& v)
+    {
+        out << YAML::Flow;
+        out << YAML::BeginSeq;
+        for (int i = 0; i < 2; i++) {
+            out << v[i];
+        }
+        out << YAML::EndSeq;
+        return out;
+    }
+
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec3& v)
+    {
+        out << YAML::Flow;
+        out << YAML::BeginSeq;
+        for (int i = 0; i < 3; i++) {
+            out << v[i];
+        }
+        out << YAML::EndSeq;
+        return out;
+    }
+
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec4& v)
+    {
+        out << YAML::Flow;
+        out << YAML::BeginSeq;
+        for (int i = 0; i < 4; i++) {
+            out << v[i];
+        }
+        out << YAML::EndSeq;
+        return out;
+    }
 
     YamlServerImpl::YamlServerImpl()
         : m_pCurEmitter(nullptr)

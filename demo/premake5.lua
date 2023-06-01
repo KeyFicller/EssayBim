@@ -8,7 +8,7 @@ project "demo"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-
+        "USE_GLM_IN_MODULE"
     }
 
     files {
@@ -17,8 +17,9 @@ project "demo"
     }
 
     includedirs {
-        "inc",
-        g_includeDir.. "/basic"
+        g_includeDir.. "/basic",
+
+        g_thirdDir.. "/glm"
     }
 
     links {

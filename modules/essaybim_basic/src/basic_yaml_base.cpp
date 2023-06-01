@@ -6,13 +6,11 @@ namespace EB
 
     YamlServer::YamlServer()
     {
-        EB_IMPL = new YamlServerImpl();
+        EB_IMPL = createScoped<YamlServerImpl>();
     }
 
     YamlServer::~YamlServer()
     {
-        delete m_pImpl;
-        m_pImpl = nullptr;
     }
 
     YamlServer& YamlServer::instance()
@@ -66,6 +64,36 @@ namespace EB
         EB_IMPL->yamlIn<bool>(key, value);
     }
 
+    void YamlServer::yamlIn(const std::string& key, int& value)
+    {
+        EB_IMPL->yamlIn<int>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, float& value)
+    {
+        EB_IMPL->yamlIn<float>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, std::string& value)
+    {
+        EB_IMPL->yamlIn<std::string>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, Vec2& value)
+    {
+        EB_IMPL->yamlIn<Vec2>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, Vec3& value)
+    {
+        EB_IMPL->yamlIn<Vec3>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, Vec4& value)
+    {
+        EB_IMPL->yamlIn<Vec4>(key, value);
+    }
+
     void YamlServer::yamlOut(const std::string& key)
     {
         EB_IMPL->yamlOut(key);
@@ -74,6 +102,36 @@ namespace EB
     void YamlServer::yamlOut(const std::string& key, bool value)
     {
         EB_IMPL->yamlOut<bool>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, int value)
+    {
+        EB_IMPL->yamlOut<int>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, float value)
+    {
+        EB_IMPL->yamlOut<float>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, const std::string& value)
+    {
+        EB_IMPL->yamlOut<std::string>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, const Vec2& value)
+    {
+        EB_IMPL->yamlOut<Vec2>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, const Vec3& value)
+    {
+        EB_IMPL->yamlOut<Vec3>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, const Vec4& value)
+    {
+        EB_IMPL->yamlOut<Vec4>(key, value);
     }
 
     YamlBase::AutoMapWrapper::AutoMapWrapper()

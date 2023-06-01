@@ -7,18 +7,16 @@ namespace EB
 
     TimeStep::TimeStep(float time /*= 0.f*/)
     {
-        EB_IMPL = new TimeStepImpl(time);
+        EB_IMPL = createScoped<TimeStepImpl>(time);
     }
 
     TimeStep::TimeStep(const TimeStep& other)
     {
-        EB_IMPL = new TimeStepImpl(*other.m_pImpl);
+        EB_IMPL = createScoped<TimeStepImpl>(*other.m_pImpl);
     }
 
     TimeStep::~TimeStep()
     {
-        delete EB_IMPL;
-        EB_IMPL = nullptr;
     }
 
     TimeStep TimeStep::deltaTime()

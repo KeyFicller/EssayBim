@@ -4,3 +4,6 @@
 [submodule "third/yaml-cpp"]
 	path = third/yaml-cpp
 	url = git@git.zhlh6.cn:KeyFicller/yaml-cpp.git
+[submodule "third/glm"]
+	path = third/glm
+	url = git@git.zhlh6.cn:KeyFicller/glm.git

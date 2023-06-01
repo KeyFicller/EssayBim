@@ -6,7 +6,7 @@ namespace EB
 {
     Instrument::Instrument()
     {
-        EB_IMPL = new InstrumentImpl();
+        EB_IMPL = createScoped<InstrumentImpl>();
     }
 
     Instrument& Instrument::instance()
@@ -32,18 +32,17 @@ namespace EB
 
     InstrumentTimer::InstrumentTimer(const std::string& name)
     {
-        EB_IMPL = new InstrumentTimerImpl(name);
+        EB_IMPL = createScoped<InstrumentTimerImpl>(name);
     }
 
     InstrumentTimer::InstrumentTimer(const char* name)
     {
-        EB_IMPL = new InstrumentTimerImpl(name);
+        EB_IMPL = createScoped<InstrumentTimerImpl>(name);
     }
 
     InstrumentTimer::~InstrumentTimer()
     {
-        delete EB_IMPL;
-        EB_IMPL = nullptr;
+
     }
 
     void InstrumentTimer::stop()
