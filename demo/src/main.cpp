@@ -6,6 +6,8 @@
 
 #include "basic_yaml_base.h"
 
+#include "renderer_vertex_buffer.h"
+
 #include <iostream>
 #include <windows.h>
 
@@ -28,6 +30,8 @@ int main()
     EB_CORE_INFO("%s", EB::FileServer::instance().resourcesPathRoot().c_str());
 
     EB_CORE_ASSERT(!res);
+
+    EB::VertexBuffer::create(10);
 
     return 0;
 }
