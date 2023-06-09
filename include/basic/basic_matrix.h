@@ -5,6 +5,7 @@
 
 #ifdef USE_GLM_IN_MODULE
 #include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #endif
 
 #ifdef USE_IMGUI_IN_MODULE
@@ -75,14 +76,19 @@ namespace EB
 
 #ifdef USE_GLM_IN_MODULE
         /**
-         * @brief    enable implicit cast to glm::mat3.
+         * @brief   cast to glm::mat3 usage.
+         * @return   reference of glm::mat3 form
          */
-        operator glm::mat3() {
-            return glm::mat3(
-                static_cast<glm::vec3>(m_Data[0]),
-                static_cast<glm::vec3>(m_Data[1]),
-                static_cast<glm::vec3>(m_Data[2])
-            );
+        glm::mat3& toGlm() {
+            return *reinterpret_cast<glm::mat3*>(m_Data);
+        }
+
+        /**
+         * @brief   cast to glm::mat3 usage.
+         * @return   reference of glm::mat3 form
+         */
+        const glm::mat3& toGlm() const {
+            return *reinterpret_cast<const glm::mat3*>(m_Data);
         }
 
         /**
@@ -90,7 +96,9 @@ namespace EB
          * @param[in]    other      glm:: mat3 value.
          */
         Mat3(const glm::mat3& other) {
-            m_Data = { other[0], other[1], other[2] };
+            m_Data[0] = Vec3(other[0]);
+            m_Data[1] = Vec3(other[1]);
+            m_Data[2] = Vec3(other[2]);
         }
 
         /*
@@ -98,7 +106,9 @@ namespace EB
          * @param[in]   other       glm::mat3 value.
          */
         Mat3& operator = (const glm::mat3& other) {
-            m_Data = { other[0], other[1], other[2] };
+            m_Data[0] = Vec3(other[0]);
+            m_Data[1] = Vec3(other[1]);
+            m_Data[2] = Vec3(other[2]);
             return *this;
         }
 #endif
@@ -141,10 +151,10 @@ namespace EB
          */
         operator glm::mat4() {
             return glm::mat4(
-                static_cast<glm::vec3>(m_Data[0]),
-                static_cast<glm::vec3>(m_Data[1]),
-                static_cast<glm::vec3>(m_Data[2]),
-                static_cast<glm::vec3>(m_Data[3])
+                static_cast<glm::vec4>(m_Data[0]),
+                static_cast<glm::vec4>(m_Data[1]),
+                static_cast<glm::vec4>(m_Data[2]),
+                static_cast<glm::vec4>(m_Data[3])
             );
         }
 
@@ -153,7 +163,10 @@ namespace EB
          * @param[in]    other      glm:: mat4 value.
          */
         Mat4(const glm::mat4& other) {
-            m_Data = { other[0], other[1], other[2], other[3] };
+            m_Data[0] = Vec4(other[0]);
+            m_Data[1] = Vec4(other[1]);
+            m_Data[2] = Vec4(other[2]);
+            m_Data[3] = Vec4(other[3]);
         }
 
         /*
@@ -161,7 +174,10 @@ namespace EB
          * @param[in]   other       glm::mat4 value.
          */
         Mat4& operator = (const glm::mat4& other) {
-            m_Data = { other[0], other[1], other[2], other[3] };
+            m_Data[0] = Vec4(other[0]);
+            m_Data[1] = Vec4(other[1]);
+            m_Data[2] = Vec4(other[2]);
+            m_Data[3] = Vec4(other[3]);
             return *this;
         }
 #endif

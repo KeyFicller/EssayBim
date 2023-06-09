@@ -8,7 +8,8 @@ project "essaybim_renderer"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL"
+        "EB_BUILD_DLL",
+        "USE_GLM_IN_MODULE"
     }
 
     ignoredefaultlibraries {

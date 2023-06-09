@@ -4,6 +4,7 @@
 
 #ifdef USE_GLM_IN_MODULE
 #include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #endif
 
 #ifdef USE_IMGUI_IN_MODULE
@@ -160,7 +161,9 @@ namespace EB
          * @param[in]    other      glm:: vec3 value.
          */
         Vec3(const glm::vec3& other) {
-            m_Data = { other.x, other.y, other.z };
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            m_Data[2] = other.z;
         }
 
         /*
@@ -168,7 +171,9 @@ namespace EB
          * @param[in]   other       glm::vec3 value.
          */
         Vec3& operator = (const glm::vec3& other) {
-            m_Data = { other.x, other.y, other.z };
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            m_Data[2] = other.z;
             return *this;
         }
 #endif
@@ -271,7 +276,10 @@ namespace EB
          * @param[in]    other      glm:: vec4 value.
          */
         Vec4(const glm::vec4& other) {
-            m_Data = { other.x, other.y, other.z, other.w };
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            m_Data[2] = other.z;
+            m_Data[3] = other.w;
         }
 
         /*
@@ -279,7 +287,10 @@ namespace EB
          * @param[in]   other       glm::vec4 value.
          */
         Vec4& operator = (const glm::vec4& other) {
-            m_Data = { other.x, other.y, other.z£¬ other.w };
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            m_Data[2] = other.z;
+            m_Data[3] = other.w;
             return *this;
         }
 #endif
