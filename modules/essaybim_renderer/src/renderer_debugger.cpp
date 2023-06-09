@@ -17,7 +17,7 @@ namespace EB
             errorCount++;
         }
         if (errorCount) {
-            EB_CORE_WARN("[OpenGL Error]%d renderer error ignored.", errorCount);
+            EB_CORE_WARN("[OpenGL Error]: %d renderer error ignored.", errorCount);
         }
     }
 

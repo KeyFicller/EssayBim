@@ -7,68 +7,68 @@
 
 namespace EB
 {
-    /*
+    /**
      * @brief    this class is used to define logging system.
      */
     class EB_EXPORT Log final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Log)
     public:
-        /*
+        /**
          * @biref     destructor for logger.
          */
         virtual ~Log();
 
     private:
-        /*
+        /**
          * @brief      constructor for logger protected.
          * @param[in]  name      name of logger.
          */
         explicit Log(const std::string& name);
 
     public:
-        /*
+        /**
          * @brief      get global core logger instance.
          * @return     reference to global core logger instance.
          */
         static Log& core();
 
-        /*
+        /**
          * @brief      get global core logger instance.
          * @return     reference to global core logger instance.
          */
         static Log& client();
 
     public:
-        /*
+        /**
          * @breif        format logging at level trace.
          * @param[in]    fmt       format string.
          * @param[in]    ...       arguments.
          */
         void trace(const char* fmt, ...);
 
-        /*
+        /**
          * @breif        format logging at level info.
          * @param[in]    fmt       format string.
          * @param[in]    ...       arguments.
          */
         void info(const char* fmt, ...);
 
-        /*
+        /**
          * @breif        format logging at level warn.
          * @param[in]    fmt       format string.
          * @param[in]    ...       arguments.
          */
         void warn(const char* fmt, ...);
 
-        /*
+        /**
          * @breif        format logging at level error.
          * @param[in]    fmt       format string.
          * @param[in]    ...       arguments.
          */
         void error(const char* fmt, ...);
 
-        /*
+        /**
          * @breif        format logging at level critical.
          * @param[in]    fmt       format string.
          * @param[in]    ...       arguments.

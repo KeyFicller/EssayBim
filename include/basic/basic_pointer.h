@@ -2,7 +2,7 @@
 
 #include <memory>
 
-/*
+/**
  * comment by zhangyuhui:  mainly because i don't export implement class while building dll,
  *                         so i choose to disable this warning.
  */
@@ -16,7 +16,7 @@ namespace EB
     template <typename T>
     using Shared = std::shared_ptr<T>;
 
-    /*
+    /**
      * @breif     create unique pointer.
      * @template    T      class type.
      * @param[in]  args    parameters for constructor.
@@ -28,7 +28,7 @@ namespace EB
         return std::make_unique<T>(std::forward<Args>(args)...);
     }
 
-    /*
+    /**
      * @breif     create shared pointer.
      * @template    T      class type.
      * @param[in]  args    parameters for constructor.
