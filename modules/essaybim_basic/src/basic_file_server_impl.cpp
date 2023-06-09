@@ -3,6 +3,7 @@
 #include "basic_assert.h"
 
 #include <windows.h>
+#include <fstream>
 
 namespace
 {
@@ -72,6 +73,22 @@ namespace EB
         else {
             return exeRootPath() + "\\..\\..\\..\\resources";
         }
+    }
+
+    std::string FileServerImpl::readFromFilePath(const std::string& filePath)
+    {
+        std::string result;
+        std::ifstream fin(filePath, std::ios::binary);
+        if (fin) {
+            fin.seekg(0, std::ios::end);
+            result.reserve(fin.tellg());
+            fin.seekg(0, std::ios::beg);
+            fin.read(&result[0], result.size());
+        }
+        else {
+            EB_CORE_ERROR("can't open file path : %s", filePath.c_str());
+        }
+        return result;
     }
 
 }

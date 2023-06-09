@@ -31,4 +31,9 @@ namespace EB
         return EB_IMPL->resourcesPathRoot();
     }
 
+    std::string FileServer::readFromFilePath(const std::string& filePath)
+    {
+        return EB_IMPL->readFromFilePath(filePath);
+    }
+
 }

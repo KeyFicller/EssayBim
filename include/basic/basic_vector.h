@@ -12,6 +12,7 @@
 
 /**
  * comment by zhangyuhui:  latter i may change this from int[] to individual values.
+ * this is a header only file, thus no need to export.
  */
 
 namespace EB
@@ -148,10 +149,27 @@ namespace EB
 
 #ifdef USE_GLM_IN_MODULE
         /**
-         * @brief    enable implicit cast to glm::vec3.s
+         * @brief    enable implicit cast to glm::vec3.
          */
         operator glm::vec3() {
             return glm::vec3(m_Data[0], m_Data[1], m_Data[2]);
+        }
+
+        /**
+         * @brief    enable implicit cast from glm::vec3.
+         * @param[in]    other      glm:: vec3 value.
+         */
+        Vec3(const glm::vec3& other) {
+            m_Data = { other.x, other.y, other.z };
+        }
+
+        /*
+         * @breif   enable operator = with glm::vec3.
+         * @param[in]   other       glm::vec3 value.
+         */
+        Vec3& operator = (const glm::vec3& other) {
+            m_Data = { other.x, other.y, other.z };
+            return *this;
         }
 #endif
 
@@ -246,6 +264,23 @@ namespace EB
          */
         operator glm::vec4() {
             return glm::vec4(m_Data[0], m_Data[1], m_Data[2], m_Data[3]);
+        }
+
+        /**
+         * @brief    enable implicit cast from glm::vec4.
+         * @param[in]    other      glm:: vec4 value.
+         */
+        Vec4(const glm::vec4& other) {
+            m_Data = { other.x, other.y, other.z, other.w };
+        }
+
+        /*
+         * @breif   enable operator = with glm::vec4.
+         * @param[in]   other       glm::vec4 value.
+         */
+        Vec4& operator = (const glm::vec4& other) {
+            m_Data = { other.x, other.y, other.z£¬ other.w };
+            return *this;
         }
 #endif
 

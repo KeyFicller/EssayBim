@@ -51,5 +51,12 @@ namespace EB
          * @return  directory of resources.
          */
         std::string resourcesPathRoot() const;
+
+        /**
+         * @brief   read string from file path.
+         * @param[in]   filePath     file location.
+         * @return    string read out.
+         */
+        std::string readFromFilePath(const std::string& filePath) const;
     };
 }

@@ -68,4 +68,10 @@ namespace EB
         return -1;
     }
 
+    std::unordered_map<GLenum, std::string> Utils_Renderer::parseShaderSource(const std::string& source)
+    {
+        auto shaderTypeStringToGLenum = [](const std::string& shaderTypeStr) -> GLenum {
+        };
+    }
+
 }

@@ -4,6 +4,8 @@
 
 #include <glad/glad.h>
 
+#include <unordered_map>
+
 namespace EB
 {
     namespace Utils_Renderer
@@ -28,5 +30,12 @@ namespace EB
          * @return    OpenGL data type.
          */
         GLenum glTypeOfShaderType(eShaderDataType type);
+
+        /**
+         * @brief   parse shader source into vertex shader source and fragment shader source.
+         * @param[in]   source    source data.
+         * @return    map of vertex shader source and fragment shader source.
+         */
+        std::unordered_map<GLenum, std::string> parseShaderSource(const std::string& source);
     }
 }
