@@ -1,6 +1,6 @@
 #include "renderer_vertex_buffer_impl.h"
 
-#include "renderer_debugger.h"
+#include "renderer_gl_debugger.h"
 
 #include <glad/glad.h>
 

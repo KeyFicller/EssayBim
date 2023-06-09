@@ -15,7 +15,8 @@ project "essaybim_basic"
     files {
         g_includeDir.. "/basic/**.h",
         "inc/**.h",
-        "src/**.cpp"
+        "src/**.cpp",
+        "premake5.lua"
     }
 
     vpaths {

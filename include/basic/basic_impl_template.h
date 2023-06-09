@@ -16,7 +16,7 @@
     _class& operator = (const _class& other) = delete;
 
 #define EB_IMPL_ENABLE_COPY(_class)                        \
-    private:                                               \
+    public:                                                \
     _class(const _class& other);                           \
     _class& operator = (const _class& other);
 
@@ -27,3 +27,12 @@
 #define EB_IMPL_DECLARATION_ENABLE_COPY(_class)          \
     EB_IMPL_DECLARATION(_class)                          \
     EB_IMPL_ENABLE_COPY(_class)
+
+#define EB_IMPL_DEFAULT_COPY_IMPLEMENT(_class)                     \
+    _class::_class(const _class& other) {                          \
+        m_pImpl = createScoped<_class##Impl>(*other.m_pImpl);      \
+    }                                                              \
+    _class& _class::operator = (const _class& other) {             \
+        m_pImpl = createScoped<_class##Impl>(*other.m_pImpl);      \
+        return *this;                                              \
+    }

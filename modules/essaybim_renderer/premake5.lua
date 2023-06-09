@@ -18,7 +18,8 @@ project "essaybim_renderer"
     files {
         g_includeDir.. "/renderer/**.h",
         "inc/**.h",
-        "src/**.cpp"
+        "src/**.cpp",
+        "premake5.lua"
     }
 
     vpaths {

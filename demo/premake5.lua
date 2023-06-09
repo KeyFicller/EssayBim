@@ -13,7 +13,8 @@ project "demo"
 
     files {
         "inc/**.h",
-        "src/**.cpp"
+        "src/**.cpp",
+        "premake5.lua"
     }
 
     includedirs {

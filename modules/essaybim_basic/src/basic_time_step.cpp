@@ -4,15 +4,11 @@
 
 namespace EB
 {
+    EB_IMPL_DEFAULT_COPY_IMPLEMENT(TimeStep);
 
     TimeStep::TimeStep(float time /*= 0.f*/)
     {
         EB_IMPL = createScoped<TimeStepImpl>(time);
-    }
-
-    TimeStep::TimeStep(const TimeStep& other)
-    {
-        EB_IMPL = createScoped<TimeStepImpl>(*other.m_pImpl);
     }
 
     TimeStep::~TimeStep()
@@ -27,12 +23,6 @@ namespace EB
     TimeStep::operator float() const
     {
         return static_cast<float>(*EB_IMPL);
-    }
-
-    TimeStep& TimeStep::operator=(const TimeStep& other)
-    {
-        *EB_IMPL = other.seconds();
-        return *this;
     }
 
     float TimeStep::seconds() const

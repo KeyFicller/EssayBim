@@ -1,4 +1,4 @@
-#include "renderer_debugger.h"
+#include "renderer_gl_debugger.h"
 
 #include "basic_assert.h"
 
