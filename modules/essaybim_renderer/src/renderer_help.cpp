@@ -5,6 +5,7 @@
 #include "renderer_index_buffer.h"
 #include "renderer_shader.h"
 #include "renderer_buffer_layout.h"
+#include "renderer_graphics_context.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -57,8 +58,8 @@ namespace EB
         }
 
         /* Make the window's context current */
-        glfwMakeContextCurrent(window);
-        gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        auto gc = GraphicsContext::create(window);
+        gc->initialize();
 
         /* - Initialize test data here - */
         auto vao = VertexArray::create();
@@ -70,7 +71,7 @@ namespace EB
         vao->addVertexBuffer(vbo);
         auto ibo = IndexBuffer::create(indices, 3);
         vao->setIndexBuffer(ibo);
-        //auto shader = Shader::create("demo", vertexShaderSource, fragmentShaderSource);
+        auto shader = Shader::create("demo", vertexShaderSource, fragmentShaderSource);
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -78,12 +79,12 @@ namespace EB
             /* Render here */
             glClear(GL_COLOR_BUFFER_BIT);
 
-            //shader->bind();
+            shader->bind();
             vao->bind();
             glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
             /* Swap front and back buffers */
-            glfwSwapBuffers(window);
+            gc->swapBuffers();
 
             /* Poll for and process events */
             glfwPollEvents();
