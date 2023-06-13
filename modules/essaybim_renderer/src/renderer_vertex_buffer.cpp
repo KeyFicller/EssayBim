@@ -16,7 +16,7 @@ namespace EB
 
     VertexBuffer::~VertexBuffer()
     {
-
+        EB_IMPL.release();
     }
 
     VertexBuffer::VertexBuffer(float* pVertices, unsigned int size)

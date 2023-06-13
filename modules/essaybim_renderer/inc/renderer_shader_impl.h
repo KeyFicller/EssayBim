@@ -14,6 +14,7 @@ namespace EB
         ShaderImpl(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
         ShaderImpl(const std::string& name, const std::string& filePath);
         ShaderImpl(const std::string& filePath);
+        ~ShaderImpl();
 
     public:
         void bind() const;

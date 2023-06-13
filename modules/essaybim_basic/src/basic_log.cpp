@@ -7,7 +7,7 @@ namespace EB
 {
     Log::~Log()
     {
-
+        EB_IMPL.release();
     }
 
     Log::Log(const std::string& name)

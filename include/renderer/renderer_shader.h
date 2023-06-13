@@ -16,6 +16,33 @@ namespace EB
         EB_IMPL_DECLARATION_DISABLE_COPY(Shader)
     public:
         /**
+         * @brief   create a shader with name and shader sources.
+         * @param[in]     name          name of this shader.
+         * @param[in]     vertexSrc     source string of vertex shader.
+         * @param[in]     fragmentSrc   source string of fragment shader.
+         * @return  shared pointer to created shader.
+         */
+        static Shared<Shader> create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+
+        /**
+         * @brief    create a shader with name and shader source path.
+         * @param[in]     name          name of this shader.
+         * @param[in]     filePath      file path of shader source.
+         * @return  shared pointer to created shader.
+         */
+        static Shared<Shader> create(const std::string& name, const std::string& filePath);
+
+        /**
+         * @brief   create a shader with shader source path.
+         * <p>
+         * the file name will be set as shader name.
+         * @param[in]     filePath      file path of shader source.
+         * @return  shared pointer to created shader.
+         */
+        static Shared<Shader> create(const std::string& filePath);
+
+    public:
+        /**
          * @brief    constructor for shader.
          * @param[in]     name          name of this shader.
          * @param[in]     vertexSrc     source string of vertex shader.
@@ -37,6 +64,11 @@ namespace EB
          * @param[in]     filePath      file path of shader source.
          */
         Shader(const std::string& filePath);
+
+        /**
+         * @brief    destructor for shader.
+         */
+        ~Shader();
 
     public:
         /**

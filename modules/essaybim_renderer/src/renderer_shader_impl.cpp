@@ -27,6 +27,14 @@ namespace EB
     }
 
     ShaderImpl::ShaderImpl(const std::string& filePath)
+        : m_Name(FileServer::instance().fileNameOfPath(filePath))
+    {
+        std::string source = FileServer::instance().readFromFilePath(filePath);
+        std::unordered_map<GLenum, std::string> sources = Utils_Renderer::parseShaderSource(source);
+        _compile(sources);
+    }
+
+    ShaderImpl::~ShaderImpl()
     {
         EB_GL_AUTO_TRACE();
         glDeleteProgram(m_RendererId);
@@ -87,22 +95,84 @@ namespace EB
 
     void ShaderImpl::setMat3(const std::string& key, const Mat3& value)
     {
-        glUniformMatrix3fv(_location(key), 1, GL_FALSE, glm::value_ptr(value.toGlm()));
+        EB_GL_AUTO_TRACE();
+        glUniformMatrix3fv(_location(key), 1, GL_FALSE, glm::value_ptr((glm::mat3)value));
     }
 
     void ShaderImpl::setMat4(const std::string& key, const Mat4& value)
     {
-        glUniformMatrix4fv(_location(key), 1, GL_FALSE, nullptr);
+        EB_GL_AUTO_TRACE();
+        glUniformMatrix4fv(_location(key), 1, GL_FALSE, glm::value_ptr((glm::mat4)value));
     }
 
     void ShaderImpl::_compile(const std::unordered_map<GLenum, std::string>& shaderSources)
     {
+        EB_GL_AUTO_TRACE();
+        GLuint program = glCreateProgram();
+        std::vector<GLenum> glShaderIds;
+        glShaderIds.reserve(shaderSources.size());
+        for (auto& shaderSource : shaderSources) {
+            GLenum type = shaderSource.first;
+            const std::string& source = shaderSource.second;
+            GLuint shader = glCreateShader(type);
+            const GLchar* sourceCStr = source.c_str();
+            glShaderSource(shader, 1, &sourceCStr, 0);
+            glCompileShader(shader);
+            GLint isCompiled = 0;
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
 
+            if (isCompiled == GL_FALSE)
+            {
+                GLint infoLogLength = 0;
+                glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+                std::vector<GLchar> infoLog(infoLogLength);
+                glGetShaderInfoLog(shader, infoLogLength, &infoLogLength, infoLog.data());
+                glDeleteShader(shader);
+
+                EB_CORE_ERROR("%s", infoLog.data());
+                EB_CORE_ASSERT(false, "Shader source compile failed.");
+                break;
+            }
+
+            glAttachShader(program, shader);
+            glShaderIds.push_back(shader);
+        }
+
+        glLinkProgram(program);
+        GLint isLinked = 0;
+        glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
+        if (isLinked == GL_FALSE)
+        {
+            GLint infoLogLength = 0;
+            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
+            std::vector<GLchar> infoLog(infoLogLength);
+            glGetProgramInfoLog(program, infoLogLength, &infoLogLength, infoLog.data());
+            glDeleteProgram(program);
+            for (auto id : glShaderIds) {
+                glDeleteShader(id);
+            }
+
+            EB_CORE_ERROR("%s", infoLog.data());
+            EB_CORE_ASSERT(false, "Shader source link failed.");
+            return;
+        }
+
+        for (auto id : glShaderIds) {
+            glDetachShader(program, id);
+            glDeleteShader(id);
+        }
+
+        m_RendererId = program;
     }
 
     GLint ShaderImpl::_location(const std::string& key)
     {
-        return -1;
+        if (m_LocationCacheMap.find(key) == m_LocationCacheMap.end()) {
+            GLint location = glGetUniformLocation(m_RendererId, key.c_str());
+            EB_CORE_ASSERT(location != -1, "Key not found.");
+            m_LocationCacheMap[key] = location;
+        }
+        return m_LocationCacheMap[key];
     }
 
 }

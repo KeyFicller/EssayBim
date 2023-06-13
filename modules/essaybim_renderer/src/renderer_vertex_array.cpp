@@ -5,6 +5,11 @@
 namespace EB
 {
 
+    Shared<VertexArray> VertexArray::create()
+    {
+        return createShared<VertexArray>();
+    }
+
     VertexArray::VertexArray()
     {
         EB_IMPL = createScoped<VertexArrayImpl>();
@@ -12,7 +17,7 @@ namespace EB
 
     VertexArray::~VertexArray()
     {
-
+        EB_IMPL.release();
     }
 
     void VertexArray::bind() const

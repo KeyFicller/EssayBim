@@ -5,6 +5,11 @@
 namespace EB
 {
 
+    Shared<IndexBuffer> IndexBuffer::create(unsigned int* pIndices, unsigned int count)
+    {
+        return createShared<IndexBuffer>(pIndices, count);
+    }
+
     IndexBuffer::IndexBuffer(unsigned int* pIndices, unsigned int count)
     {
         EB_IMPL = createScoped<IndexBufferImpl>(pIndices, count);

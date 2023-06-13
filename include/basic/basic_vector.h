@@ -152,8 +152,15 @@ namespace EB
         /**
          * @brief    enable implicit cast to glm::vec3.
          */
-        operator glm::vec3() {
-            return glm::vec3(m_Data[0], m_Data[1], m_Data[2]);
+        operator glm::vec3& () {
+            return *reinterpret_cast<glm::vec3*>(this);
+        }
+
+        /**
+         * @brief    enable implicit cast to glm::vec3.
+         */
+        operator glm::vec3 () const {
+            return *reinterpret_cast<const glm::vec3*>(this);
         }
 
         /**
@@ -267,8 +274,15 @@ namespace EB
         /**
          * @brief    enable implicit cast to glm::vec4.
          */
-        operator glm::vec4() {
-            return glm::vec4(m_Data[0], m_Data[1], m_Data[2], m_Data[3]);
+        operator glm::vec4& () {
+            return *reinterpret_cast<glm::vec4*>(this);
+        }
+
+        /**
+         * @brief    enable implicit cast to glm::vec4.
+         */
+        operator glm::vec4 () const {
+            return *reinterpret_cast<const glm::vec4*>(this);
         }
 
         /**

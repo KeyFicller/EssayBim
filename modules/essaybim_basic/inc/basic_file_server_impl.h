@@ -10,5 +10,6 @@ namespace EB
         std::string projectPathRoot(eModules mod) const;
         std::string resourcesPathRoot() const;
         std::string readFromFilePath(const std::string& filePath);
+        std::string fileNameOfPath(const std::string& filePath) const;
     };
 }

@@ -18,6 +18,13 @@ namespace EB
         EB_IMPL_DECLARATION_DISABLE_COPY(VertexArray)
     public:
         /**
+         * @brief   create a vertex array.
+         * @return   shared pointer of create vertex array.
+         */
+        static Shared<VertexArray> create();
+
+    public:
+        /**
          * @brief    constructor of vertex array.
          */
         VertexArray();

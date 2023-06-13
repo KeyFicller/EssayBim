@@ -42,7 +42,7 @@ namespace EB
 
     InstrumentTimer::~InstrumentTimer()
     {
-
+        EB_IMPL.release();
     }
 
     void InstrumentTimer::stop()

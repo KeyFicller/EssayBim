@@ -12,7 +12,7 @@ namespace EB
 
     FileServer::~FileServer()
     {
-
+        EB_IMPL.release();
     }
 
     const EB::FileServer& FileServer::instance()
@@ -34,6 +34,11 @@ namespace EB
     std::string FileServer::readFromFilePath(const std::string& filePath) const
     {
         return EB_IMPL->readFromFilePath(filePath);
+    }
+
+    std::string FileServer::fileNameOfPath(const std::string& filePath) const
+    {
+        return EB_IMPL->fileNameOfPath(filePath);
     }
 
 }

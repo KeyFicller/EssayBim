@@ -18,7 +18,7 @@ namespace EB
          * @param[in]    count           data count.
          * @return    shared pointer of created index buffer.
          */
-        static Shared<IndexBuffer> create(float* pIndices, unsigned int count);
+        static Shared<IndexBuffer> create(unsigned int* pIndices, unsigned int count);
 
     public:
         /**

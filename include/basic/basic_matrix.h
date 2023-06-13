@@ -76,18 +76,18 @@ namespace EB
 
 #ifdef USE_GLM_IN_MODULE
         /**
-         * @brief   cast to glm::mat3 usage.
+         * @brief   enable implicit cast to glm::mat3.
          * @return   reference of glm::mat3 form
          */
-        glm::mat3& toGlm() {
+        operator glm::mat3& () {
             return *reinterpret_cast<glm::mat3*>(m_Data);
         }
 
         /**
-         * @brief   cast to glm::mat3 usage.
+         * @brief   enable implicit cast to glm::mat3.
          * @return   reference of glm::mat3 form
          */
-        const glm::mat3& toGlm() const {
+        operator glm::mat3() const {
             return *reinterpret_cast<const glm::mat3*>(m_Data);
         }
 
@@ -148,15 +148,20 @@ namespace EB
 #ifdef USE_GLM_IN_MODULE
         /**
          * @brief    enable implicit cast to glm::mat4.
+         * @return   reference of glm::mat4 form
          */
-        operator glm::mat4() {
-            return glm::mat4(
-                static_cast<glm::vec4>(m_Data[0]),
-                static_cast<glm::vec4>(m_Data[1]),
-                static_cast<glm::vec4>(m_Data[2]),
-                static_cast<glm::vec4>(m_Data[3])
-            );
+        operator glm::mat4&() {
+            return *reinterpret_cast<glm::mat4*>(this);
         }
+
+        /**
+         * @brief    enable implicit cast to glm::mat4.
+         * @return   reference of glm::mat4 form
+         */
+        operator glm::mat4 () const {
+            return *reinterpret_cast<const glm::mat4*>(this);
+        }
+
 
         /**
          * @brief    enable implicit cast from glm::mat4.

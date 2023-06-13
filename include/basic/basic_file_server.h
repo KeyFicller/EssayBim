@@ -58,5 +58,12 @@ namespace EB
          * @return    string read out.
          */
         std::string readFromFilePath(const std::string& filePath) const;
+
+        /**
+         * @brief   get file name of file path.
+         * @param[in]   filePath     file location.
+         * @return  file name without suffix.
+         */
+        std::string fileNameOfPath(const std::string& filePath) const;
     };
 }

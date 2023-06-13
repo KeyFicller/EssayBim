@@ -91,4 +91,15 @@ namespace EB
         return result;
     }
 
+    std::string FileServerImpl::fileNameOfPath(const std::string& filePath) const
+    {
+        size_t lastSlash = filePath.find_last_of("/\\");
+        lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+        size_t lastDot = filePath.find_last_of('.');
+        lastDot = lastDot == std::string::npos ? filePath.size() : lastDot;
+
+        size_t count = lastDot - lastSlash;
+        return filePath.substr(lastSlash, count);
+    }
+
 }

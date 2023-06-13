@@ -13,6 +13,7 @@ namespace EB
 
     TimeStep::~TimeStep()
     {
+        EB_IMPL.release();
     }
 
     TimeStep TimeStep::deltaTime()
