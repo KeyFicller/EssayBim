@@ -26,7 +26,7 @@ namespace EB
 
     BufferLayout::~BufferLayout()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     const std::vector<EB::BufferLayoutElement>& BufferLayout::elements() const

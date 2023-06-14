@@ -37,7 +37,7 @@ namespace EB
 
     Shader::~Shader()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     void Shader::bind() const

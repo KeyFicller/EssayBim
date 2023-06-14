@@ -12,7 +12,7 @@ namespace EB
 
     FileServer::~FileServer()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     const EB::FileServer& FileServer::instance()

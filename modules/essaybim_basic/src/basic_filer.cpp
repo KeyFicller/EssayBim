@@ -11,7 +11,7 @@ namespace EB
 
     Filer::~Filer()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     void Filer::writeBool(bool value)

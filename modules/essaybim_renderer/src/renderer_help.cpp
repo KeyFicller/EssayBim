@@ -6,6 +6,7 @@
 #include "renderer_shader.h"
 #include "renderer_buffer_layout.h"
 #include "renderer_graphics_context.h"
+#include "renderer_entry.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -77,11 +78,10 @@ namespace EB
         while (!glfwWindowShouldClose(window))
         {
             /* Render here */
-            glClear(GL_COLOR_BUFFER_BIT);
+            RendererEntry::instance().clear();
 
             shader->bind();
-            vao->bind();
-            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+            RendererEntry::instance().mesh(vao);
 
             /* Swap front and back buffers */
             gc->swapBuffers();

@@ -13,7 +13,7 @@ namespace EB
 
     TimeStep::~TimeStep()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     TimeStep TimeStep::deltaTime()

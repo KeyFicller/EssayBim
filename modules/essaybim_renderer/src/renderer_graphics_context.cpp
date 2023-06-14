@@ -17,7 +17,7 @@ namespace EB
 
     GraphicsContext::~GraphicsContext()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     void GraphicsContext::initialize()

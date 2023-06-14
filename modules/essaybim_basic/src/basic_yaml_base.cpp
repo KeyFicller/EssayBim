@@ -11,6 +11,7 @@ namespace EB
 
     YamlServer::~YamlServer()
     {
+        EB_IMPL.reset();
     }
 
     YamlServer& YamlServer::instance()

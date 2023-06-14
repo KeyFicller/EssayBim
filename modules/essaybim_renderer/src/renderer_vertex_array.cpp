@@ -17,7 +17,7 @@ namespace EB
 
     VertexArray::~VertexArray()
     {
-        EB_IMPL.release();
+        EB_IMPL.reset();
     }
 
     void VertexArray::bind() const
