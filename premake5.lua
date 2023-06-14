@@ -18,5 +18,6 @@ workspace "EassyBim"
 
 include "third"
 include "modules"
+include "resources"
 include "essaybim"
 include "demo"

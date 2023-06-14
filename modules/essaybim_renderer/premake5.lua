@@ -35,7 +35,8 @@ project "essaybim_renderer"
 
         g_thirdDir.. "/glm",
         g_thirdDir.. "/glad/include",
-        g_thirdDir.. "/glfw/include"
+        g_thirdDir.. "/glfw/include",
+        g_thirdDir.. "/stb"
     }
 
     postbuildcommands

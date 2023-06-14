@@ -7,6 +7,10 @@
 #include "renderer_buffer_layout.h"
 #include "renderer_graphics_context.h"
 #include "renderer_entry.h"
+#include "renderer_shader_library.h"
+#include "renderer_texture.h"
+
+#include "basic_file_server.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -16,30 +20,16 @@ namespace EB
     namespace
     {
         float vertices[] = {
-            -0.5f, -0.5f,  0.0f,
-             0.5f, -0.5f,  0.0f,
-             0.0f,  0.5f,  0.0f
+            -0.5f, -0.5f,  0.0f,  0.0f,  0.0f,
+             0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.0f,  1.0f,  1.0f,
+            -0.5f,  0.5f,  0.0f,  0.0f,  1.0f
         };
 
         unsigned int indices[] = {
-            0, 1, 2
+            0, 1, 2,
+            2, 3, 0
         };
-
-        const char* vertexShaderSource =
-            "#version 330 core                                      \n"
-            "layout (location = 0) in vec3 aPos;                    \n"
-            "void main()                                            \n"
-            "{                                                      \n"
-            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);   \n"
-            "}                                                      \0";
-
-        const char* fragmentShaderSource =
-            "#version 330 core                                      \n"
-            "out vec4 FragColor;                                    \n"
-            "void main()                                            \n"
-            "{                                                      \n"
-            "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);           \n"
-            "}                                                      \0";
     }
 
     int TestRenderer::showDemoRender()
@@ -66,13 +56,21 @@ namespace EB
         auto vao = VertexArray::create();
         auto vbo = VertexBuffer::create(vertices, sizeof(vertices));
         BufferLayout layout{
-            {"position", eShaderDataType::kFloat3, false}
+            {"aPos", eShaderDataType::kFloat3, false},
+            {"aTexCoord", eShaderDataType::kFloat2, false}
         };
         vbo->setLayout(layout);
         vao->addVertexBuffer(vbo);
-        auto ibo = IndexBuffer::create(indices, 3);
+        auto ibo = IndexBuffer::create(indices, 6);
         vao->setIndexBuffer(ibo);
-        auto shader = Shader::create("demo", vertexShaderSource, fragmentShaderSource);
+        auto shader = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_texture.glsl");
+        shader->bind();
+        shader->setInt("uTexture", 0);
+        ShaderLibrary shaderLib;
+        shaderLib.add(shader);
+        auto texture = Texture2D::create(FileServer::instance().resourcesPathRoot() + "\\textures\\penguin.jpg");
+        texture->bind(0);
+        shader->unbind();
 
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
@@ -80,7 +78,7 @@ namespace EB
             /* Render here */
             RendererEntry::instance().clear();
 
-            shader->bind();
+            shaderLib.shader("flat_texture")->bind();
             RendererEntry::instance().mesh(vao);
 
             /* Swap front and back buffers */

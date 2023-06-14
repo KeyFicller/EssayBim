@@ -21,7 +21,7 @@ namespace EB
     };
 }
 
-//#define EB_ENABLE_RENDERER_DEBUG
+#define EB_ENABLE_RENDERER_DEBUG
 #ifdef EB_ENABLE_RENDERER_DEBUG
     #define EB_GL_TRACE(x) do {\
         ::EB::GLDebugger::clearError();\

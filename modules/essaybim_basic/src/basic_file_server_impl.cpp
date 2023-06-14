@@ -81,7 +81,7 @@ namespace EB
         std::ifstream fin(filePath, std::ios::binary);
         if (fin) {
             fin.seekg(0, std::ios::end);
-            result.reserve(fin.tellg());
+            result.resize(fin.tellg());
             fin.seekg(0, std::ios::beg);
             fin.read(&result[0], result.size());
         }

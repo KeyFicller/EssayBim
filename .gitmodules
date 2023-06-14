@@ -13,3 +13,6 @@
 [submodule "third/glad"]
 	path = third/glad
 	url = git@git.zhlh6.cn:KeyFicller/glad.git
+[submodule "third/stb"]
+	path = third/stb
+	url = git@git.zhlh6.cn:KeyFicller/stb.git
