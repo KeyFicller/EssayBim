@@ -5,6 +5,7 @@
 #include "basic_vector.h"
 
 #include <string>
+#include <functional>
 
 namespace EB
 {
@@ -74,114 +75,128 @@ namespace EB
         bool hasKey(const std::string& key);
 
         /**
-         * @breif    push a key to yaml cache is key is not empty.
-         * @param[in]   key    yaml map key.
-         */
-        void yamlOut(const std::string& key);
-
-        /**
          * @breif    read value to yaml cache is key is not empty.
          * @param[in]   key    yaml map key.
          */
         void yamlIn(const std::string& key);
 
         /**
-         * @brief   push a bool value with key to yaml cache.
+         * @breif    push a key to yaml cache is key is not empty.
+         * @param[in]   key    yaml map key.
+         */
+        void yamlOut(const std::string& key);
+
+        /**
+         * @brief   read a bool value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  boolean value.
          */
         void yamlIn(const std::string& key, bool& value);
 
         /**
-         * @brief  read a bool value of key from yaml cache.
+         * @brief  write a bool value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  boolean value.
          */
         void yamlOut(const std::string& key, bool value);
 
         /**
-         * @brief   push a int value with key to yaml cache.
+         * @brief   read a int value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  integer value.
          */
         void yamlIn(const std::string& key, int& value);
 
         /**
-         * @brief  read a int value of key from yaml cache.
+         * @brief  write a int value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  integer value.
          */
         void yamlOut(const std::string& key, int value);
 
         /**
-         * @brief   push a real value with key to yaml cache.
+         * @brief   read a real value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  real value.
          */
         void yamlIn(const std::string& key, float& value);
 
         /**
-         * @brief  read a read value of key from yaml cache.
+         * @brief  write a read value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  real value.
          */
         void yamlOut(const std::string& key, float value);
 
         /**
-         * @brief   push a string value with key to yaml cache.
+         * @brief   read a string value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  string value.
          */
         void yamlIn(const std::string& key, std::string& value);
 
         /**
-         * @brief  read a string value of key from yaml cache.
+         * @brief  write a string value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  string value.
          */
         void yamlOut(const std::string& key, const std::string& value);
 
         /**
-         * @brief   push a vec2 value with key to yaml cache.
+         * @brief   read a vec2 value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  vec2 value.
          */
         void yamlIn(const std::string& key, Vec2& value);
 
         /**
-         * @brief  read a vec2 value of key from yaml cache.
+         * @brief  write a vec2 value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  vec2 value.
          */
         void yamlOut(const std::string& key, const Vec2& value);
 
         /**
-         * @brief   push a vec3 value with key to yaml cache.
+         * @brief   read a vec3 value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  vec3 value.
          */
         void yamlIn(const std::string& key, Vec3& value);
 
         /**
-         * @brief  read a vec3 value of key from yaml cache.
+         * @brief  write a vec3 value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  vec3 value.
          */
         void yamlOut(const std::string& key, const Vec3& value);
 
         /**
-         * @brief   push a vec4 value with key to yaml cache.
+         * @brief   read a vec4 value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  vec4 value.
          */
         void yamlIn(const std::string& key, Vec4& value);
 
         /**
-         * @brief  read a vec4 value of key from yaml cache.
+         * @brief  write a vec4 value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  vec4 value.
          */
         void yamlOut(const std::string& key, const Vec4& value);
+
+        /**
+         * @brief  read a sequence from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   func   function return object pointer during reading.
+         */
+        void yamlInSequence(const std::string& key, std::function<YamlBase* ()> func);
+
+        /**
+         * @brief  write a sequence to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   func   function return object pointer during writing.
+         */
+        void yamlOutSequence(const std::string& key, std::function<YamlBase* ()> func);
     };
 
 
@@ -195,7 +210,7 @@ namespace EB
         /**
          * @brief  this class is used to auto insert yaml map key word.
          */
-        class AutoMapWrapper
+        class EB_EXPORT AutoMapWrapper
         {
         public:
             /**
@@ -251,3 +266,18 @@ namespace EB
 
 #define EB_YAML_OUT(...)     ::EB::YamlServer::instance().yamlOut(__VA_ARGS__)
 #define EB_YAML_IN(...)      ::EB::YamlServer::instance().yamlIn(__VA_ARGS__)
+#define EB_YAML_OUT_SEQ(...) ::EB::YamlServer::instance().yamlOutSequence(__VA_ARGS__)
+#define EB_YAML_IN_SEQ(...) ::EB::YamlServer::instance().yamlInSequence(__VA_ARGS__)
+
+#define EB_DECLARE_YAML_KEYS(_key_list)               \
+    namespace {                                       \
+        struct KeyRegistration {                      \
+            _key_list()                               \
+        };                                            \
+    }                                                 \
+    static KeyRegistration s_Key
+
+#define EB_DEFINE_YAML_KEY(_key_name)                      \
+    const std::string _key_name = #_key_name;
+
+#define EB_YAML_AUTO_MAP() ::EB::YamlBase::AutoMapWrapper wrapper

@@ -135,6 +135,16 @@ namespace EB
         EB_IMPL->yamlOut<Vec4>(key, value);
     }
 
+    void YamlServer::yamlInSequence(const std::string& key, std::function<YamlBase* ()> func)
+    {
+        EB_IMPL->yamlInSequence(key, func);
+    }
+
+    void YamlServer::yamlOutSequence(const std::string& key, std::function<YamlBase* ()> func)
+    {
+        EB_IMPL->yamlOutSequence(key, func);
+    }
+
     YamlBase::AutoMapWrapper::AutoMapWrapper()
     {
         YamlServer::instance().beginMap();

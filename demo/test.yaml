@@ -1,2 +1,6 @@
-boolean: false
-Vec3: [1, 1, 2]
+material:
+  Name: ""
+  Ambient: [0, 0, 0]
+  Diffuse: [0, 0, 0]
+  Specular: [0, 0, 0]
+  Shininess: 0
