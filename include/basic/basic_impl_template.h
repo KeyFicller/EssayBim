@@ -4,11 +4,14 @@
 
 #define EB_IMPL_DECLARATION(_class)     \
     friend class _class##Impl;          \
-    private:                            \
+    protected:                            \
     Scoped<_class##Impl> m_pImpl;
 
 #define EB_IMPL                         \
     (m_pImpl)
+
+#define EB_IMPL_D(_class)               \
+    static_cast<_class##Impl*>(EB_IMPL.get())
 
 #define EB_IMPL_DISABLE_COPY(_class)                        \
     private:                                                \

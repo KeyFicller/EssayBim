@@ -95,6 +95,11 @@ namespace EB
         Event();
 
         /**
+         * @biref   constructor for event with specified implement class.
+         */
+        Event(EventImpl& impl);
+
+        /**
          * @brief   destructor for event.
          */
         virtual ~Event();
@@ -116,7 +121,7 @@ namespace EB
          * @brief   get event string information.
          * @return  string information of event.
          */
-        virtual std::string toString() const;
+        std::string toString() const;
 
         /**
          * @brief   check if event in category.
@@ -138,9 +143,9 @@ namespace EB
         void setHandled(bool handled = true);
     };
 
-#define EB_DECLARE_EVENT_TYPE(type)                                   \
-    public:                                                           \
-        static eEventType staticType() { return eEventType::type; }   \
-        eEventType type() const override { return staticType; }       \
-        const char* name() const override { return #type; }
+#define EB_DECLARE_EVENT_TYPE(_type)                                   \
+    public:                                                            \
+        static eEventType staticType() { return eEventType::_type; }   \
+        eEventType type() const override { return staticType(); }      \
+        const char* name() const override { return #_type; }
 }

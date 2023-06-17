@@ -2,10 +2,7 @@
 
 namespace EB
 {
-#define YAML_KEY_LIST()            \
-    EB_DEFINE_YAML_KEY(Materials);
-
-    EB_DECLARE_YAML_KEYS(YAML_KEY_LIST);
+    EB_DECLARE_YAML_KEYS(Materials);
 
     Shared<Material> MaterialLibrary::material(const std::string& key)
     {

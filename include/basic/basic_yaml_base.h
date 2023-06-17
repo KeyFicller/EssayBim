@@ -269,15 +269,32 @@ namespace EB
 #define EB_YAML_OUT_SEQ(...) ::EB::YamlServer::instance().yamlOutSequence(__VA_ARGS__)
 #define EB_YAML_IN_SEQ(...) ::EB::YamlServer::instance().yamlInSequence(__VA_ARGS__)
 
-#define EB_DECLARE_YAML_KEYS(_key_list)               \
-    namespace {                                       \
-        struct KeyRegistration {                      \
-            _key_list()                               \
-        };                                            \
-    }                                                 \
-    static KeyRegistration s_Key
-
 #define EB_DEFINE_YAML_KEY(_key_name)                      \
     const std::string _key_name = #_key_name;
 
 #define EB_YAML_AUTO_MAP() ::EB::YamlBase::AutoMapWrapper wrapper
+#define EB_DEFINE_YAML_KEY_EXPAND(x) x
+
+#define EB_DEFINE_YAML_KEY_0()
+#define EB_DEFINE_YAML_KEY_1(_first_key) EB_DEFINE_YAML_KEY(_first_key)
+#define EB_DEFINE_YAML_KEY_2(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_1(__VA_ARGS__))
+#define EB_DEFINE_YAML_KEY_3(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_2(__VA_ARGS__))
+#define EB_DEFINE_YAML_KEY_4(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_3(__VA_ARGS__))
+#define EB_DEFINE_YAML_KEY_5(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_4(__VA_ARGS__))
+
+// from https://stackoverflow.com/questions/2124339/c-preprocessor-va-args-number-of-arguments
+#define GET_ARG_COUNT(...)  INTERNAL_EXPAND_ARGS_PRIVATE(INTERNAL_ARGS_AUGMENTER(__VA_ARGS__))
+#define INTERNAL_ARGS_AUGMENTER(...) unused, __VA_ARGS__
+#define INTERNAL_EXPAND(x) x
+#define INTERNAL_EXPAND_ARGS_PRIVATE(...) INTERNAL_EXPAND(INTERNAL_GET_ARG_COUNT_PRIVATE(__VA_ARGS__, EB_DEFINE_YAML_KEY_5, EB_DEFINE_YAML_KEY_4, EB_DEFINE_YAML_KEY_3, EB_DEFINE_YAML_KEY_2, EB_DEFINE_YAML_KEY_1, EB_DEFINE_YAML_KEY_0))
+#define INTERNAL_GET_ARG_COUNT_PRIVATE(_1_, _2_, _3_, _4_, _5_, _6_, count, ...) count
+
+#define EB_DEFINE_YAML_KEY_N(...) EB_DEFINE_YAML_KEY_EXPAND(GET_ARG_COUNT(__VA_ARGS__)(__VA_ARGS__))
+
+#define EB_DECLARE_YAML_KEYS(...)                                                \
+    namespace {                                                                  \
+        struct KeyRegistration {                                                 \
+            EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_N(__VA_ARGS__))         \
+        };                                                                       \
+    }                                                                            \
+    static KeyRegistration s_Key

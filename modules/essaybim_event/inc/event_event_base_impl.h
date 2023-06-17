@@ -11,7 +11,7 @@ namespace EB
         ~EventImpl() = default;
 
     public:
-        std::string toString() const;
+        virtual std::string toString() const;
         bool isInCategory(eEventCategory category);
         bool isHandled() const;
         void setHandled(bool handled = true);

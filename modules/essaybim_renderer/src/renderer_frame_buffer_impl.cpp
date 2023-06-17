@@ -100,7 +100,7 @@ namespace EB
     {
         EB_GL_AUTO_TRACE();
         glDeleteFramebuffers(1, &m_RendererId);
-        glDeleteTextures(m_ColorAttachments.size(), m_ColorAttachments.data());
+        glDeleteTextures((GLsizei)m_ColorAttachments.size(), m_ColorAttachments.data());
         glDeleteTextures(1, &m_DepthAttachment);
     }
 
@@ -163,7 +163,7 @@ namespace EB
         EB_GL_AUTO_TRACE();
         if (m_RendererId) {
             glDeleteFramebuffers(1, &m_RendererId);
-            glDeleteTextures(m_ColorAttachments.size(), m_ColorAttachments.data());
+            glDeleteTextures((GLsizei)m_ColorAttachments.size(), m_ColorAttachments.data());
             glDeleteTextures(1, &m_DepthAttachment);
             m_ColorAttachments.clear();
             m_DepthAttachment = 0;
@@ -175,7 +175,7 @@ namespace EB
         bool multiSampled = m_Specification.Samples > 1;
         if (m_ColorAttachmentSpecifications.size()) {
             m_ColorAttachments.resize(m_ColorAttachmentSpecifications.size());
-            glCreateTextures(targetTexture(multiSampled), m_ColorAttachments.size(), m_ColorAttachments.data());
+            glCreateTextures(targetTexture(multiSampled), (GLsizei)m_ColorAttachments.size(), m_ColorAttachments.data());
             for (unsigned int i = 0; i < m_ColorAttachments.size(); i++) {
                 glBindTexture(targetTexture(multiSampled), m_ColorAttachments[i]);
                 switch (m_ColorAttachmentSpecifications[i])

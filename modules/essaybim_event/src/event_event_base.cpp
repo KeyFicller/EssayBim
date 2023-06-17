@@ -10,6 +10,11 @@ namespace EB
         EB_IMPL = createScoped<EventImpl>(this);
     }
 
+    Event::Event(EventImpl& impl)
+    {
+        EB_IMPL = std::unique_ptr<EventImpl>(&impl);
+    }
+
     Event::~Event()
     {
         EB_IMPL.reset();

@@ -2,15 +2,7 @@
 
 namespace EB
 {
-#define YAML_KEY_LIST()            \
-    EB_DEFINE_YAML_KEY(Name);      \
-    EB_DEFINE_YAML_KEY(Ambient);   \
-    EB_DEFINE_YAML_KEY(Diffuse);   \
-    EB_DEFINE_YAML_KEY(Specular);  \
-    EB_DEFINE_YAML_KEY(Shininess);
-
-    EB_DECLARE_YAML_KEYS(YAML_KEY_LIST);
-
+    EB_DECLARE_YAML_KEYS(Name, Ambient, Diffuse, Specular, Shininess);
 
     void Material::subYamlIn(const std::string& key)
     {
