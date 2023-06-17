@@ -21,4 +21,10 @@ namespace EB
         return EB_IMPL(WindowResizedEvent)->height();
     }
 
+    WindowClosedEvent::WindowClosedEvent()
+        : Event(*new WindowClosedEventImpl(this))
+    {
+
+    }
+
 }

@@ -28,4 +28,17 @@ namespace EB
         return ss.str();
     }
 
+    WindowClosedEventImpl::WindowClosedEventImpl(Event* pFacade)
+        : EventImpl(pFacade)
+    {
+
+    }
+
+    std::string WindowClosedEventImpl::toString() const
+    {
+        std::stringstream ss;
+        ss << m_pFacade->name();
+        return ss.str();
+    }
+
 }

@@ -37,6 +37,10 @@ namespace EB
     class EB_EXPORT WindowClosedEvent : public Event
     {
         EB_EVENT_DECLARE_TYPE(kWindowClosed)
-
+    public:
+        /**
+         * @brief   constructor for window closed event.
+         */
+        WindowClosedEvent();
     };
 }

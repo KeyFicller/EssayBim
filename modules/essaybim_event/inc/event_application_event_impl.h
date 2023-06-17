@@ -16,4 +16,12 @@ namespace EB
         unsigned int m_Width;
         unsigned int m_Height;
     };
+
+    class WindowClosedEventImpl : public EventImpl
+    {
+    public:
+        WindowClosedEventImpl(Event* pFacade);
+    public:
+        std::string toString() const override;
+    };
 }
