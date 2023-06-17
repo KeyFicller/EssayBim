@@ -7,12 +7,12 @@ namespace EB
 {
     Log::~Log()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     Log::Log(const std::string& name)
     {
-        EB_IMPL = createScoped<LogImpl>(name);
+        EB_IMPL() = createScoped<LogImpl>(name);
     }
 
     Log& Log::core()
@@ -34,7 +34,7 @@ namespace EB
         char buff[256];
         _vsprintf_s_l(buff, 256, fmt, 0, _args);
         __crt_va_end(_args);
-        return EB_IMPL->trace(buff);
+        return EB_IMPL()->trace(buff);
     }
 
     void Log::info(const char* fmt, ...)
@@ -44,7 +44,7 @@ namespace EB
         char buff[256];
         _vsprintf_s_l(buff, 256, fmt, 0, _args);
         __crt_va_end(_args);
-        return EB_IMPL->info(buff);
+        return EB_IMPL()->info(buff);
     }
 
     void Log::warn(const char* fmt, ...)
@@ -54,7 +54,7 @@ namespace EB
         char buff[256];
         _vsprintf_s_l(buff, 256, fmt, 0, _args);
         __crt_va_end(_args);
-        return EB_IMPL->warn(buff);
+        return EB_IMPL()->warn(buff);
     }
 
     void Log::error(const char* fmt, ...)
@@ -64,7 +64,7 @@ namespace EB
         char buff[256];
         _vsprintf_s_l(buff, 256, fmt, 0, _args);
         __crt_va_end(_args);
-        return EB_IMPL->error(buff);
+        return EB_IMPL()->error(buff);
     }
 
     void Log::critical(const char* fmt, ...)
@@ -74,7 +74,7 @@ namespace EB
         char buff[256];
         _vsprintf_s_l(buff, 256, fmt, 0, _args);
         __crt_va_end(_args);
-        return EB_IMPL->critical(buff);
+        return EB_IMPL()->critical(buff);
     }
 
 }

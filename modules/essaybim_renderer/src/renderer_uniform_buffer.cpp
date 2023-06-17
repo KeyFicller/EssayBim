@@ -12,17 +12,17 @@ namespace EB
 
     UniformBuffer::UniformBuffer(unsigned int size, unsigned int binding)
     {
-        EB_IMPL = createScoped<UniformBufferImpl>(size, binding);
+        EB_IMPL() = createScoped<UniformBufferImpl>(size, binding);
     }
 
     UniformBuffer::~UniformBuffer()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     void UniformBuffer::setData(const void* data, unsigned int size, unsigned int offset)
     {
-        EB_IMPL->setData(data, size, offset);
+        EB_IMPL()->setData(data, size, offset);
     }
 
 }

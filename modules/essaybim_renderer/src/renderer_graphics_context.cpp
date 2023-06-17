@@ -12,22 +12,22 @@ namespace EB
 
     GraphicsContext::GraphicsContext(GLFWwindow* windowHandle)
     {
-        EB_IMPL = createScoped<GraphicsContextImpl>(windowHandle);
+        EB_IMPL() = createScoped<GraphicsContextImpl>(windowHandle);
     }
 
     GraphicsContext::~GraphicsContext()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     void GraphicsContext::initialize()
     {
-        EB_IMPL->initialize();
+        EB_IMPL()->initialize();
     }
 
     void GraphicsContext::swapBuffers()
     {
-        EB_IMPL->swapBuffers();
+        EB_IMPL()->swapBuffers();
     }
 
 }

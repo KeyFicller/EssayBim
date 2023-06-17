@@ -268,33 +268,106 @@ namespace EB
 #define EB_YAML_IN(...)      ::EB::YamlServer::instance().yamlIn(__VA_ARGS__)
 #define EB_YAML_OUT_SEQ(...) ::EB::YamlServer::instance().yamlOutSequence(__VA_ARGS__)
 #define EB_YAML_IN_SEQ(...) ::EB::YamlServer::instance().yamlInSequence(__VA_ARGS__)
-
-#define EB_DEFINE_YAML_KEY(_key_name)                      \
-    const std::string _key_name = #_key_name;
-
 #define EB_YAML_AUTO_MAP() ::EB::YamlBase::AutoMapWrapper wrapper
-#define EB_DEFINE_YAML_KEY_EXPAND(x) x
 
-#define EB_DEFINE_YAML_KEY_0()
-#define EB_DEFINE_YAML_KEY_1(_first_key) EB_DEFINE_YAML_KEY(_first_key)
-#define EB_DEFINE_YAML_KEY_2(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_1(__VA_ARGS__))
-#define EB_DEFINE_YAML_KEY_3(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_2(__VA_ARGS__))
-#define EB_DEFINE_YAML_KEY_4(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_3(__VA_ARGS__))
-#define EB_DEFINE_YAML_KEY_5(_first_key, ...) EB_DEFINE_YAML_KEY(_first_key) EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_4(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEY(_key_name)   const std::string _key_name = #_key_name;
+#define EB_YAML_DEFINE_KEYS_0()
+#define EB_YAML_DEFINE_KEYS_1(_first_key) EB_YAML_DEFINE_KEY(_first_key)
+#define EB_YAML_DEFINE_KEYS_2(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_1(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_3(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_2(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_4(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_3(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_5(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_4(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_6(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_5(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_7(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_6(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_8(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_7(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_9(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_8(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_10(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_9(__VA_ARGS__))
 
-// from https://stackoverflow.com/questions/2124339/c-preprocessor-va-args-number-of-arguments
-#define GET_ARG_COUNT(...)  INTERNAL_EXPAND_ARGS_PRIVATE(INTERNAL_ARGS_AUGMENTER(__VA_ARGS__))
-#define INTERNAL_ARGS_AUGMENTER(...) unused, __VA_ARGS__
-#define INTERNAL_EXPAND(x) x
-#define INTERNAL_EXPAND_ARGS_PRIVATE(...) INTERNAL_EXPAND(INTERNAL_GET_ARG_COUNT_PRIVATE(__VA_ARGS__, EB_DEFINE_YAML_KEY_5, EB_DEFINE_YAML_KEY_4, EB_DEFINE_YAML_KEY_3, EB_DEFINE_YAML_KEY_2, EB_DEFINE_YAML_KEY_1, EB_DEFINE_YAML_KEY_0))
-#define INTERNAL_GET_ARG_COUNT_PRIVATE(_1_, _2_, _3_, _4_, _5_, _6_, count, ...) count
+#define EB_YAML_DEFINE_KEYS_N(...) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_GET_MACRO(EB_ARGS_AUGMENTER(__VA_ARGS__))(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_GET_MACRO(...) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_GET_MARCO_NAME(             \
+    __VA_ARGS__,                                                                                           \
+    EB_YAML_DEFINE_KEYS_10,                                                                                \
+    EB_YAML_DEFINE_KEYS_9,                                                                                 \
+    EB_YAML_DEFINE_KEYS_8,                                                                                 \
+    EB_YAML_DEFINE_KEYS_7,                                                                                 \
+    EB_YAML_DEFINE_KEYS_6,                                                                                 \
+    EB_YAML_DEFINE_KEYS_5,                                                                                 \
+    EB_YAML_DEFINE_KEYS_4,                                                                                 \
+    EB_YAML_DEFINE_KEYS_3,                                                                                 \
+    EB_YAML_DEFINE_KEYS_2,                                                                                 \
+    EB_YAML_DEFINE_KEYS_1,                                                                                 \
+    EB_YAML_DEFINE_KEYS_0                                                                                  \
+))
+#define EB_YAML_DEFINE_KEYS_GET_MARCO_NAME(_arg1, _arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8, _arg9, _arg10, _arg11, _macro, ...) _macro
 
-#define EB_DEFINE_YAML_KEY_N(...) EB_DEFINE_YAML_KEY_EXPAND(GET_ARG_COUNT(__VA_ARGS__)(__VA_ARGS__))
-
-#define EB_DECLARE_YAML_KEYS(...)                                                \
+#define EB_YAML_DECLARE_KEYS(...)                                                \
     namespace {                                                                  \
         struct KeyRegistration {                                                 \
-            EB_DEFINE_YAML_KEY_EXPAND(EB_DEFINE_YAML_KEY_N(__VA_ARGS__))         \
+            EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_N(__VA_ARGS__))                  \
         };                                                                       \
     }                                                                            \
     static KeyRegistration s_Key
+
+#define EB_YAML_DEFAULT_IN(_key_name)   EB_YAML_IN(s_Key._key_name, _key_name)
+#define EB_YAML_DEFAULT_INS_0()
+#define EB_YAML_DEFAULT_INS_1(_first_key) EB_YAML_DEFAULT_IN(_first_key)
+#define EB_YAML_DEFAULT_INS_2(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_1(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_3(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_2(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_4(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_3(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_5(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_4(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_6(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_5(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_7(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_6(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_8(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_7(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_9(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_8(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_10(_first_key, ...) EB_YAML_DEFAULT_IN(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_9(__VA_ARGS__))
+
+#define EB_YAML_DEFAULT_INS_N(...) EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_GET_MACRO(EB_ARGS_AUGMENTER(__VA_ARGS__))(__VA_ARGS__))
+#define EB_YAML_DEFAULT_INS_GET_MACRO(...) EB_EXPAND_MACRO(EB_YAML_DEFAULT_INS_GET_MARCO_NAME(             \
+    __VA_ARGS__,                                                                                           \
+    EB_YAML_DEFAULT_INS_10,                                                                                \
+    EB_YAML_DEFAULT_INS_9,                                                                                 \
+    EB_YAML_DEFAULT_INS_8,                                                                                 \
+    EB_YAML_DEFAULT_INS_7,                                                                                 \
+    EB_YAML_DEFAULT_INS_6,                                                                                 \
+    EB_YAML_DEFAULT_INS_5,                                                                                 \
+    EB_YAML_DEFAULT_INS_4,                                                                                 \
+    EB_YAML_DEFAULT_INS_3,                                                                                 \
+    EB_YAML_DEFAULT_INS_2,                                                                                 \
+    EB_YAML_DEFAULT_INS_1,                                                                                 \
+    EB_YAML_DEFAULT_INS_0                                                                                  \
+))
+#define EB_YAML_DEFAULT_INS_GET_MARCO_NAME(_arg1, _arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8, _arg9, _arg10, _arg11, _macro, ...) _macro
+
+#define EB_YAML_IN_DEFAULT_IMPLMENTS(...) EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_N(__VA_ARGS__))
+
+#define EB_YAML_DEFAULT_OUT(_key_name)   EB_YAML_OUT(s_Key._key_name, _key_name)
+#define EB_YAML_DEFAULT_OUTS_0()
+#define EB_YAML_DEFAULT_OUTS_1(_first_key) EB_YAML_DEFAULT_OUT(_first_key)
+#define EB_YAML_DEFAULT_OUTS_2(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_1(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_3(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_2(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_4(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_3(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_5(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_4(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_6(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_5(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_7(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_6(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_8(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_7(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_9(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_8(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_10(_first_key, ...) EB_YAML_DEFAULT_OUT(_first_key); EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_9(__VA_ARGS__))
+
+#define EB_YAML_DEFAULT_OUTS_N(...) EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_GET_MACRO(EB_ARGS_AUGMENTER(__VA_ARGS__))(__VA_ARGS__))
+#define EB_YAML_DEFAULT_OUTS_GET_MACRO(...) EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_GET_MARCO_NAME(             \
+    __VA_ARGS__,                                                                                           \
+    EB_YAML_DEFAULT_OUTS_10,                                                                                \
+    EB_YAML_DEFAULT_OUTS_9,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_8,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_7,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_6,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_5,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_4,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_3,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_2,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_1,                                                                                 \
+    EB_YAML_DEFAULT_OUTS_0                                                                                  \
+))
+#define EB_YAML_DEFAULT_OUTS_GET_MARCO_NAME(_arg1, _arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8, _arg9, _arg10, _arg11, _macro, ...) _macro
+
+#define EB_YAML_OUT_DEFAULT_IMPLMENTS(...) EB_EXPAND_MACRO(EB_YAML_DEFAULT_OUTS_N(__VA_ARGS__))

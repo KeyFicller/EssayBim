@@ -143,7 +143,7 @@ namespace EB
         void setHandled(bool handled = true);
     };
 
-#define EB_DECLARE_EVENT_TYPE(_type)                                   \
+#define EB_EVENT_DECLARE_TYPE(_type)                                   \
     public:                                                            \
         static eEventType staticType() { return eEventType::_type; }   \
         eEventType type() const override { return staticType(); }      \

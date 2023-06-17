@@ -8,12 +8,12 @@ namespace EB
 
     TimeStep::TimeStep(float time /*= 0.f*/)
     {
-        EB_IMPL = createScoped<TimeStepImpl>(time);
+        EB_IMPL() = createScoped<TimeStepImpl>(time);
     }
 
     TimeStep::~TimeStep()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     TimeStep TimeStep::deltaTime()
@@ -23,22 +23,22 @@ namespace EB
 
     TimeStep::operator float() const
     {
-        return static_cast<float>(*EB_IMPL);
+        return static_cast<float>(*EB_IMPL());
     }
 
     float TimeStep::seconds() const
     {
-        return EB_IMPL->seconds();
+        return EB_IMPL()->seconds();
     }
 
     float TimeStep::mileseconds() const
     {
-        return EB_IMPL->mileseconds();
+        return EB_IMPL()->mileseconds();
     }
 
     void TimeStep::operator=(float time)
     {
-        (*EB_IMPL) = time;
+        (*EB_IMPL()) = time;
     }
 
 }

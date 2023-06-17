@@ -16,27 +16,27 @@ namespace EB
 
     BufferLayout::BufferLayout()
     {
-        EB_IMPL = createScoped<BufferLayoutImpl>();
+        EB_IMPL() = createScoped<BufferLayoutImpl>();
     }
 
     BufferLayout::BufferLayout(const std::initializer_list<BufferLayoutElement>& elements)
     {
-        EB_IMPL = createScoped<BufferLayoutImpl>(elements);
+        EB_IMPL() = createScoped<BufferLayoutImpl>(elements);
     }
 
     BufferLayout::~BufferLayout()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     const std::vector<EB::BufferLayoutElement>& BufferLayout::elements() const
     {
-        return EB_IMPL->elements();
+        return EB_IMPL()->elements();
     }
 
     unsigned int BufferLayout::stride() const
     {
-        return EB_IMPL->stride();
+        return EB_IMPL()->stride();
     }
 
 }

@@ -13,12 +13,12 @@ namespace EB
 
     unsigned int WindowResizedEvent::width() const
     {
-        return EB_IMPL_D(WindowResizedEvent)->width();
+        return EB_IMPL(WindowResizedEvent)->width();
     }
 
     unsigned int WindowResizedEvent::height() const
     {
-        return EB_IMPL_D(WindowResizedEvent)->height();
+        return EB_IMPL(WindowResizedEvent)->height();
     }
 
 }

@@ -14,7 +14,5 @@ int main()
     EB::YamlServer::instance().endYamlOut("test.yaml");
     EB::TestRenderer::showDemoRender();
 
-    EB_DEFINE_YAML_KEY_N(a, b, c);
-
     return 0;
 }

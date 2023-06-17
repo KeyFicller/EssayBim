@@ -9,7 +9,7 @@ namespace EB
      */
     class EB_EXPORT WindowResizedEvent : public Event
     {
-        EB_DECLARE_EVENT_TYPE(kWindowResized)
+        EB_EVENT_DECLARE_TYPE(kWindowResized)
     public:
         /**
          * @brief   constructor for window resize event.
@@ -29,5 +29,14 @@ namespace EB
          * @return  height of resized window.
          */
         unsigned int height() const;
+    };
+
+    /**
+     * @brief  this class defines window closed event.
+     */
+    class EB_EXPORT WindowClosedEvent : public Event
+    {
+        EB_EVENT_DECLARE_TYPE(kWindowClosed)
+
     };
 }

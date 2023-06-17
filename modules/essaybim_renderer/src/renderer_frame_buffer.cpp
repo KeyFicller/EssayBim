@@ -12,47 +12,47 @@ namespace EB
 
     FrameBuffer::FrameBuffer(const FrameBufferSpecification& specification)
     {
-        EB_IMPL = createScoped<FrameBufferImpl>(specification);
+        EB_IMPL() = createScoped<FrameBufferImpl>(specification);
     }
 
     FrameBuffer::~FrameBuffer()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     const EB::FrameBufferSpecification& FrameBuffer::specification() const
     {
-        return EB_IMPL->specification();
+        return EB_IMPL()->specification();
     }
 
     void FrameBuffer::bind() const
     {
-        EB_IMPL->bind();
+        EB_IMPL()->bind();
     }
 
     void FrameBuffer::unbind() const
     {
-        EB_IMPL->unbind();
+        EB_IMPL()->unbind();
     }
 
     void FrameBuffer::onResize(unsigned int width, unsigned int height)
     {
-        EB_IMPL->onResize(width, height);
+        EB_IMPL()->onResize(width, height);
     }
 
     int FrameBuffer::pixel(unsigned int attachmentIdx, int x, int y) const
     {
-        return EB_IMPL->pixel(attachmentIdx, x, y);
+        return EB_IMPL()->pixel(attachmentIdx, x, y);
     }
 
     unsigned int FrameBuffer::colorAttachmentRendererId(unsigned int index /*= 0*/) const
     {
-        return EB_IMPL->colorAttachmentRendererId(index);
+        return EB_IMPL()->colorAttachmentRendererId(index);
     }
 
     void FrameBuffer::clearAttachment(unsigned int attachmentIdx, int value)
     {
-        EB_IMPL->clearAttachment(attachmentIdx, value);
+        EB_IMPL()->clearAttachment(attachmentIdx, value);
     }
 
 }

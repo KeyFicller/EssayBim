@@ -6,12 +6,12 @@ namespace EB
 
     YamlServer::YamlServer()
     {
-        EB_IMPL = createScoped<YamlServerImpl>();
+        EB_IMPL() = createScoped<YamlServerImpl>();
     }
 
     YamlServer::~YamlServer()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     YamlServer& YamlServer::instance()
@@ -22,127 +22,127 @@ namespace EB
 
     void YamlServer::beginMap()
     {
-        EB_IMPL->beginMap();
+        EB_IMPL()->beginMap();
     }
 
     void YamlServer::endMap()
     {
-        EB_IMPL->endMap();
+        EB_IMPL()->endMap();
     }
 
     void YamlServer::startYamlOut()
     {
-        EB_IMPL->startYamlOut();
+        EB_IMPL()->startYamlOut();
     }
 
     void YamlServer::endYamlOut(const std::string& filePath)
     {
-        EB_IMPL->endYamlOut(filePath);
+        EB_IMPL()->endYamlOut(filePath);
     }
 
     void YamlServer::startYamlIn(const std::string& filePath)
     {
-        EB_IMPL->startYamlIn(filePath);
+        EB_IMPL()->startYamlIn(filePath);
     }
 
     void YamlServer::endYamlIn()
     {
-        EB_IMPL->endYamlIn();
+        EB_IMPL()->endYamlIn();
     }
 
     bool YamlServer::hasKey(const std::string& key)
     {
-        return EB_IMPL->hasKey(key);
+        return EB_IMPL()->hasKey(key);
     }
 
     void YamlServer::yamlIn(const std::string& key)
     {
-        EB_IMPL->yamlIn(key);
+        EB_IMPL()->yamlIn(key);
     }
 
     void YamlServer::yamlIn(const std::string& key, bool& value)
     {
-        EB_IMPL->yamlIn<bool>(key, value);
+        EB_IMPL()->yamlIn<bool>(key, value);
     }
 
     void YamlServer::yamlIn(const std::string& key, int& value)
     {
-        EB_IMPL->yamlIn<int>(key, value);
+        EB_IMPL()->yamlIn<int>(key, value);
     }
 
     void YamlServer::yamlIn(const std::string& key, float& value)
     {
-        EB_IMPL->yamlIn<float>(key, value);
+        EB_IMPL()->yamlIn<float>(key, value);
     }
 
     void YamlServer::yamlIn(const std::string& key, std::string& value)
     {
-        EB_IMPL->yamlIn<std::string>(key, value);
+        EB_IMPL()->yamlIn<std::string>(key, value);
     }
 
     void YamlServer::yamlIn(const std::string& key, Vec2& value)
     {
-        EB_IMPL->yamlIn<Vec2>(key, value);
+        EB_IMPL()->yamlIn<Vec2>(key, value);
     }
 
     void YamlServer::yamlIn(const std::string& key, Vec3& value)
     {
-        EB_IMPL->yamlIn<Vec3>(key, value);
+        EB_IMPL()->yamlIn<Vec3>(key, value);
     }
 
     void YamlServer::yamlIn(const std::string& key, Vec4& value)
     {
-        EB_IMPL->yamlIn<Vec4>(key, value);
+        EB_IMPL()->yamlIn<Vec4>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key)
     {
-        EB_IMPL->yamlOut(key);
+        EB_IMPL()->yamlOut(key);
     }
 
     void YamlServer::yamlOut(const std::string& key, bool value)
     {
-        EB_IMPL->yamlOut<bool>(key, value);
+        EB_IMPL()->yamlOut<bool>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key, int value)
     {
-        EB_IMPL->yamlOut<int>(key, value);
+        EB_IMPL()->yamlOut<int>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key, float value)
     {
-        EB_IMPL->yamlOut<float>(key, value);
+        EB_IMPL()->yamlOut<float>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key, const std::string& value)
     {
-        EB_IMPL->yamlOut<std::string>(key, value);
+        EB_IMPL()->yamlOut<std::string>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key, const Vec2& value)
     {
-        EB_IMPL->yamlOut<Vec2>(key, value);
+        EB_IMPL()->yamlOut<Vec2>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key, const Vec3& value)
     {
-        EB_IMPL->yamlOut<Vec3>(key, value);
+        EB_IMPL()->yamlOut<Vec3>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key, const Vec4& value)
     {
-        EB_IMPL->yamlOut<Vec4>(key, value);
+        EB_IMPL()->yamlOut<Vec4>(key, value);
     }
 
     void YamlServer::yamlInSequence(const std::string& key, std::function<YamlBase* ()> func)
     {
-        EB_IMPL->yamlInSequence(key, func);
+        EB_IMPL()->yamlInSequence(key, func);
     }
 
     void YamlServer::yamlOutSequence(const std::string& key, std::function<YamlBase* ()> func)
     {
-        EB_IMPL->yamlOutSequence(key, func);
+        EB_IMPL()->yamlOutSequence(key, func);
     }
 
     YamlBase::AutoMapWrapper::AutoMapWrapper()

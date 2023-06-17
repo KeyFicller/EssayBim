@@ -31,42 +31,42 @@ namespace EB
 
     Window::Window(const WindowProperties& properties)
     {
-        EB_IMPL = createScoped<WindowImpl>(properties);
+        EB_IMPL() = createScoped<WindowImpl>(properties);
     }
 
     Window::~Window()
     {
-        EB_IMPL.reset();
+        EB_IMPL().reset();
     }
 
     unsigned int Window::width() const
     {
-        return EB_IMPL->width();
+        return EB_IMPL()->width();
     }
 
     unsigned int Window::height() const
     {
-        return EB_IMPL->height();
+        return EB_IMPL()->height();
     }
 
     bool Window::isVSync() const
     {
-        return EB_IMPL->isVSync();
+        return EB_IMPL()->isVSync();
     }
 
     void Window::setVSync(bool enable /*= true*/)
     {
-        EB_IMPL->setVSync(enable);
+        EB_IMPL()->setVSync(enable);
     }
 
     void Window::setEventCallback(const EventCallbackFn& callback)
     {
-        EB_IMPL->setEventCallback(callback);
+        EB_IMPL()->setEventCallback(callback);
     }
 
     void Window::onUpdate()
     {
-        EB_IMPL->onUpdate();
+        EB_IMPL()->onUpdate();
     }
 
 }
