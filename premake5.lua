@@ -3,6 +3,7 @@ g_workspaceDir = os.getcwd()
 g_outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 g_includeDir = g_workspaceDir .. "/include"
 g_thirdDir = g_workspaceDir .. "/third"
+g_essayBimDir = g_workspaceDir .. "/essaybim"
 print("g_workspaceDir: " .. g_workspaceDir)
 print("g_outputDir: " .. g_outputDir)
 

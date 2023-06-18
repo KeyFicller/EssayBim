@@ -21,6 +21,7 @@ project "demo"
         g_includeDir.. "/basic",
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
+        g_essayBimDir .. "/include",
 
         g_thirdDir.. "/glm"
     }
@@ -28,6 +29,7 @@ project "demo"
     links {
         "essaybim_basic",
         "essaybim_renderer",
-        "essaybim_window"
+        "essaybim_window",
+        "essaybim"
     }
 

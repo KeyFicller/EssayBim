@@ -1,19 +1,19 @@
+#include "essaybim_application_entry.h"
 
-#include "basic_yaml_base.h"
-#include "renderer_material_library.h"
-#include "window_test.h"
-
-#include <iostream>
-#include <windows.h>
-
-int main()
+class DemoApp : public EB::Application
 {
-    EB::Shared<EB::Material> mat = EB::createShared<EB::Material>();
-    EB::YamlServer::instance().startYamlOut();
-    mat->yamlOut("material");
-    EB::YamlServer::instance().endYamlOut("test.yaml");
+public:
+    DemoApp(void)
+        : EB::Application("DemoApp")
+    {
+    }
 
-    EB::TestWindow::showDemoWindow();
+    ~DemoApp()
+    {
+    }
+};
 
-    return 0;
+EB::Application* EB::createApplication()
+{
+    return new DemoApp();
 }
