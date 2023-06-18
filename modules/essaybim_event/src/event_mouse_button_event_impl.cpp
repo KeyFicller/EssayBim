@@ -23,10 +23,22 @@ namespace EB
         return ss.str();
     }
 
-    MouseButtonPressedEventImpl::MouseButtonPressedEventImpl(Event* pFacade, int mouseButton)
-        : MouseButtonEventImpl(pFacade, mouseButton)
+    MouseButtonPressedEventImpl::MouseButtonPressedEventImpl(Event* pFacade, int mouseButton, int repeatCount)
+        : MouseButtonEventImpl(pFacade, mouseButton), m_Repeats(repeatCount)
     {
 
+    }
+
+    int MouseButtonPressedEventImpl::repeats() const
+    {
+        return m_Repeats;
+    }
+
+    std::string MouseButtonPressedEventImpl::toString() const
+    {
+        std::stringstream ss;
+        ss << m_pFacade->name() << ": " << m_Button << " (" << m_Repeats << ") repeats";
+        return ss.str();
     }
 
     MouseButtonReleasedEventImpl::MouseButtonReleasedEventImpl(Event* pFacade, int mouseButton)

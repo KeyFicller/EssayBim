@@ -1,7 +1,7 @@
-#include "renderer_help.h"
 
-#include "renderer_material_library.h"
 #include "basic_yaml_base.h"
+#include "renderer_material_library.h"
+#include "window_test.h"
 
 #include <iostream>
 #include <windows.h>
@@ -12,7 +12,8 @@ int main()
     EB::YamlServer::instance().startYamlOut();
     mat->yamlOut("material");
     EB::YamlServer::instance().endYamlOut("test.yaml");
-    EB::TestRenderer::showDemoRender();
+
+    EB::TestWindow::showDemoWindow();
 
     return 0;
 }

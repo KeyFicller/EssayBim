@@ -20,12 +20,14 @@ project "demo"
     includedirs {
         g_includeDir.. "/basic",
         g_includeDir.. "/renderer",
+        g_includeDir.. "/window",
 
         g_thirdDir.. "/glm"
     }
 
     links {
         "essaybim_basic",
-        "essaybim_renderer"
+        "essaybim_renderer",
+        "essaybim_window"
     }
 

@@ -22,10 +22,15 @@ namespace EB
         return EB_IMPL(MouseButtonEvent)->button();
     }
 
-    MouseButtonPressedEvent::MouseButtonPressedEvent(int mouseButton)
-        : MouseButtonEvent(*new MouseButtonPressedEventImpl(this, mouseButton))
+    MouseButtonPressedEvent::MouseButtonPressedEvent(int mouseButton, int repeatCount)
+        : MouseButtonEvent(*new MouseButtonPressedEventImpl(this, mouseButton, repeatCount))
     {
 
+    }
+
+    int MouseButtonPressedEvent::repeats() const
+    {
+        return EB_IMPL(MouseButtonPressedEvent)->repeats();
     }
 
     MouseButtonReleasedEvent::MouseButtonReleasedEvent(int mouseButton)

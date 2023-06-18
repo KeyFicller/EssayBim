@@ -6,6 +6,8 @@
 #include <string>
 #include <functional>
 
+struct GLFWwindow;
+
 namespace EB
 {
     class Event;
@@ -97,6 +99,12 @@ namespace EB
          * @param[in]   callback    event handle call back.
          */
         void setEventCallback(const EventCallbackFn& callback);
+
+        /**
+         * @brief   get glfw window native pointer.
+         * @return   glfw window native pointer.
+         */
+        GLFWwindow* native() const;
 
     public:
         /**

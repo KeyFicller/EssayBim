@@ -31,6 +31,7 @@ project "essaybim_window"
         "inc",
 
         g_includeDir.. "/basic",
+        g_includeDir.. "/event",
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
 
@@ -46,6 +47,7 @@ project "essaybim_window"
 
     links {
         "essaybim_basic",
+        "essaybim_event",
         "essaybim_renderer",
 
         "glad",

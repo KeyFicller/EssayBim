@@ -72,6 +72,7 @@ namespace EB
      */
     class EB_EXPORT KeyTypedEvent : public KeyEvent
     {
+        EB_EVENT_DECLARE_TYPE(kKeyTyped)
     public:
         /**
          * @brief  constructor for key typed event.

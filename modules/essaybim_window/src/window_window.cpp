@@ -64,6 +64,11 @@ namespace EB
         EB_IMPL()->setEventCallback(callback);
     }
 
+    GLFWwindow* Window::native() const
+    {
+        return EB_IMPL()->native();
+    }
+
     void Window::onUpdate()
     {
         EB_IMPL()->onUpdate();

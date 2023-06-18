@@ -43,7 +43,14 @@ namespace EB
          * @brief  constructor for mouse button pressed event.
          * @param[in]  mouseButton   mouse button identifier. 
          */
-        MouseButtonPressedEvent(int mouseButton);
+        MouseButtonPressedEvent(int mouseButton, int repeatCount);
+
+    public:
+        /**
+         * @brief  get repeat count of key.
+         * @return repeat count of key.
+         */
+        int repeats() const;
     };
 
     /**

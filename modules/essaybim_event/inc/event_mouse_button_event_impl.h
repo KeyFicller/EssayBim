@@ -18,7 +18,12 @@ namespace EB
     class MouseButtonPressedEventImpl : public MouseButtonEventImpl
     {
     public:
-        MouseButtonPressedEventImpl(Event* pFacade, int mouseButton);
+        MouseButtonPressedEventImpl(Event* pFacade, int mouseButton, int repeatCount);
+    public:
+        int repeats() const;
+        std::string toString() const override;
+    protected:
+        int m_Repeats;
     };
 
     class MouseButtonReleasedEventImpl : public MouseButtonEventImpl

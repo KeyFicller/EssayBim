@@ -9,10 +9,9 @@
 namespace EB
 {
 
-    class EB_EXPORT TestRenderer
+    class EB_EXPORT TestWindow
     {
     public:
-        static int showDemoRender();
-
+        static int showDemoWindow();
     };
 }

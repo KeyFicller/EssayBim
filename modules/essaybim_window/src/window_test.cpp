@@ -1,4 +1,4 @@
-#include "renderer_help.h"
+#include "window_test.h"
 
 #include "renderer_vertex_array.h"
 #include "renderer_vertex_buffer.h"
@@ -9,6 +9,8 @@
 #include "renderer_entry.h"
 #include "renderer_shader_library.h"
 #include "renderer_texture.h"
+
+#include "window_window.h"
 
 #include "basic_file_server.h"
 
@@ -32,25 +34,10 @@ namespace EB
         };
     }
 
-    int TestRenderer::showDemoRender()
+    int TestWindow::showDemoWindow()
     {
-        GLFWwindow* window;
-
-        /* Initialize the library */
-        if (!glfwInit())
-            return -1;
-
-        /* Create a windowed mode window and its OpenGL context */
-        window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-        if (!window)
-        {
-            glfwTerminate();
-            return -1;
-        }
-
-        /* Make the window's context current */
-        auto gc = GraphicsContext::create(window);
-        gc->initialize();
+        WindowProperties properties{ "Hello World", 640, 480 };
+        Shared<Window> window = Window::create(properties);
 
         /* - Initialize test data here - */
         auto vao = VertexArray::create();
@@ -73,7 +60,7 @@ namespace EB
         shader->unbind();
 
         /* Loop until the user closes the window */
-        while (!glfwWindowShouldClose(window))
+        while (!glfwWindowShouldClose(window->native()))
         {
             /* Render here */
             RendererEntry::instance().clear();
@@ -82,13 +69,10 @@ namespace EB
             RendererEntry::instance().mesh(vao);
 
             /* Swap front and back buffers */
-            gc->swapBuffers();
-
             /* Poll for and process events */
-            glfwPollEvents();
+            window->onUpdate();
         }
 
-        glfwTerminate();
         return 0;
     }
 

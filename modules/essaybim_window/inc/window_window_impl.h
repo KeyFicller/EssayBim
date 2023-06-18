@@ -20,6 +20,7 @@ namespace EB
         bool isVSync() const;
         void setVSync(bool enable = true);
         void setEventCallback(const Window::EventCallbackFn& callback);
+        GLFWwindow* native() const;
 
     public:
         void onUpdate();
@@ -37,6 +38,6 @@ namespace EB
             bool VSync;
             Window::EventCallbackFn EventCallback;
         } m_Data;
-        Shared<GraphicsContext> m_GraphicsContext;
+        Scoped<GraphicsContext> m_GraphicsContext;
     };
 }
