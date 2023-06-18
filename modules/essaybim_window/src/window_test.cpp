@@ -14,6 +14,8 @@
 
 #include "basic_file_server.h"
 
+#include "event_event_base.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -38,6 +40,11 @@ namespace EB
     {
         WindowProperties properties{ "Hello World", 640, 480 };
         Shared<Window> window = Window::create(properties);
+
+        auto eventCallback = [](Event& event) {
+            EB_CORE_INFO((&event)->toString().c_str());
+        };
+        window->setEventCallback(eventCallback);
 
         /* - Initialize test data here - */
         auto vao = VertexArray::create();
