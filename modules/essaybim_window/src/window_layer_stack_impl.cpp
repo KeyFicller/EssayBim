@@ -11,7 +11,7 @@ namespace EB
     LayerStackImpl::~LayerStackImpl()
     {
         for (auto& layer : m_Layers) {
-            layer->onAttach();
+            layer->onDetach();
         }
         m_Layers.clear();
     }

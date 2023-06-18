@@ -6,6 +6,7 @@
 #include "event_event_dispatcher.h"
 #include "window_window.h"
 #include "renderer_entry.h"
+#include "gui_gui_layer.h"
 
 #include <functional>
 
@@ -22,6 +23,8 @@ namespace EB
         window->setEventCallback(BIND_EVENT_FN(onEvent));
         m_LayerStack = createScoped<LayerStack>();
         m_LayerStack->pushLayer(createShared<TestLayer>("main"));
+        m_GuiLayer = createShared<GuiLayer>("gui", window);
+        m_LayerStack->pushOverLayer(m_GuiLayer);
     }
 
     ApplicationImpl::~ApplicationImpl()
@@ -47,6 +50,12 @@ namespace EB
             for (auto& layer : m_LayerStack->layers()) {
                 layer->onUpdate(ts);
             }
+
+            m_GuiLayer->begin();
+            for (auto& layer : m_LayerStack->layers()) {
+                layer->onGuiRender();
+            }
+            m_GuiLayer->end();
 
             window()->onUpdate();
         }

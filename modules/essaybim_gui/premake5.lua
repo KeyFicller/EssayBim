@@ -1,4 +1,4 @@
-project "essaybim"
+project "essaybim_gui"
     kind "SharedLib"
     language "C++"
     cppdialect "C++17"
@@ -9,6 +9,7 @@ project "essaybim"
 
     defines {
         "EB_BUILD_DLL",
+        "USE_GLM_IN_MODULE"
     }
 
     ignoredefaultlibraries {
@@ -16,26 +17,34 @@ project "essaybim"
     }
 
     files {
+        g_includeDir.. "/gui/**.h",
         "inc/**.h",
-        "include/**.h",
         "src/**.cpp",
         "premake5.lua"
     }
 
+    vpaths {
+        ["include/*"] = {g_includeDir.. "/gui/**.h"}
+    }
+
     includedirs {
         "inc",
-        "include",
 
         g_includeDir.. "/basic",
         g_includeDir.. "/event",
+        g_includeDir.. "/gui",
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
-        g_includeDir.. "/gui"
+
+        g_thirdDir.. "/glm",
+        g_thirdDir.. "/imgui",
+        g_thirdDir.. "/glad/include",
+        g_thirdDir.. "/glfw/include",
     }
 
     postbuildcommands
     {
-        ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. g_outputDir .. "/demo/\"")
+        ("{COPY} %{cfg.buildtarget.relpath} \"../../bin/" .. g_outputDir .. "/demo/\"")
     }
 
     links {
@@ -43,5 +52,8 @@ project "essaybim"
         "essaybim_event",
         "essaybim_renderer",
         "essaybim_window",
-        "essaybim_gui"
+
+        "imgui",
+        "glad",
+        "glfw"
     }

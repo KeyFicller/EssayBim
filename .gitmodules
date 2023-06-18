@@ -16,3 +16,6 @@
 [submodule "third/stb"]
 	path = third/stb
 	url = git@git.zhlh6.cn:KeyFicller/stb.git
+[submodule "third/imgui"]
+	path = third/imgui
+	url = git@git.zhlh6.cn:KeyFicller/imgui.git

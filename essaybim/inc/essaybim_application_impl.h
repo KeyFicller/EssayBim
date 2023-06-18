@@ -5,6 +5,8 @@
 
 namespace EB
 {
+    class GuiLayer;
+
     class ApplicationImpl
     {
     public:
@@ -27,5 +29,6 @@ namespace EB
         bool m_Running = true;
         bool m_Minimized = false;
         Scoped<LayerStack> m_LayerStack;
+        Shared<GuiLayer> m_GuiLayer;
     };
 }
