@@ -1,5 +1,11 @@
 #include "gui_gui_layer.h"
 
+#include "gui_button.h"
+#include "gui_colored_button.h"
+
+#include "basic_assert.h"
+#include "basic_color_defines.h"
+
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -43,7 +49,20 @@ namespace EB
 
     void GuiLayer::onGuiRender()
     {
-        ImGui::ShowDemoWindow();
+        // ImGui::ShowDemoWindow();
+        ImGui::Begin("Test Widgets");
+
+        {   // button widget test
+            EB_WIDGET_IMMEDIATE(Button, "button", EB_WIDGET_SLOT(EB_CORE_INFO("Button Clicked");));
+        }
+
+        {   // colored button widget test
+            static ColoredButton::ButtonColor color{ EB_RED_4, EB_GREEN_4, EB_BLUE_4 };
+            
+            EB_WIDGET_IMMEDIATE(ColoredButton, "colored button", color, EB_WIDGET_SLOT(EB_CORE_INFO("Colored Button Clicked.");));
+        }
+
+        ImGui::End();
     }
 
     void GuiLayer::onEvent(Event& e)

@@ -75,6 +75,41 @@ namespace EB
             return m_Data[index];
         }
 
+#ifdef USE_IMGUI_IN_MODULE
+        /**
+         * @brief    enable implicit cast to ImVec2.
+         */
+        operator ImVec2& () {
+            return *reinterpret_cast<ImVec2*>(this);
+        }
+
+        /**
+         * @brief    enable implicit cast to ImVec2.
+         */
+        operator ImVec2() const {
+            return *reinterpret_cast<const ImVec2*>(this);
+        }
+
+        /**
+         * @brief    enable implicit cast from ImVec2.
+         * @param[in]    other      ImVec2 value.
+         */
+        Vec2(const ImVec2& other) {
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+        }
+
+        /*
+         * @breif   enable operator = with ImVec2.
+         * @param[in]   other       ImVec2 value.
+         */
+        Vec2& operator = (const ImVec2& other) {
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            return *this;
+        }
+#endif
+
         /** < data > */
         float m_Data[2] = { 0.0 };
     };
