@@ -9,5 +9,7 @@ project "resources"
 
     files {
         "shaders/**",
-        "textures/**"
+        "textures/**",
+        "fonts/**",
+        "premake5.lua"
     }

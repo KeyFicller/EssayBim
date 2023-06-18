@@ -8,7 +8,7 @@
 #endif
 
 #ifdef USE_IMGUI_IN_MODULE
-
+#include "imgui.h"
 #endif
 
 /**
@@ -301,6 +301,45 @@ namespace EB
          * @param[in]   other       glm::vec4 value.
          */
         Vec4& operator = (const glm::vec4& other) {
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            m_Data[2] = other.z;
+            m_Data[3] = other.w;
+            return *this;
+        }
+#endif
+
+#ifdef USE_IMGUI_IN_MODULE
+        /**
+         * @brief    enable implicit cast to ImVec4.
+         */
+        operator ImVec4& () {
+            return *reinterpret_cast<ImVec4*>(this);
+        }
+
+        /**
+         * @brief    enable implicit cast to ImVec4.
+         */
+        operator ImVec4() const {
+            return *reinterpret_cast<const ImVec4*>(this);
+        }
+
+        /**
+         * @brief    enable implicit cast from ImVec4.
+         * @param[in]    other      ImVec4 value.
+         */
+        Vec4(const ImVec4& other) {
+            m_Data[0] = other.x;
+            m_Data[1] = other.y;
+            m_Data[2] = other.z;
+            m_Data[3] = other.w;
+        }
+
+        /*
+         * @breif   enable operator = with ImVec4.
+         * @param[in]   other       ImVec4 value.
+         */
+        Vec4& operator = (const ImVec4& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;

@@ -9,7 +9,8 @@ project "essaybim_gui"
 
     defines {
         "EB_BUILD_DLL",
-        "USE_GLM_IN_MODULE"
+        "USE_GLM_IN_MODULE",
+        "USE_IMGUI_IN_MODULE"
     }
 
     ignoredefaultlibraries {

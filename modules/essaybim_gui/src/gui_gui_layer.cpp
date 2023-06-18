@@ -23,7 +23,7 @@ namespace EB
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-        ImGui::StyleColorsDark();
+        setTheme();
 
         ImGui_ImplGlfw_InitForOpenGL(m_Window->native(), true);
         ImGui_ImplOpenGL3_Init("#version 410");
@@ -66,6 +66,43 @@ namespace EB
         // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    }
+
+    void GuiLayer::setTheme(const GuiTheme& theme /*= GuiTheme()*/)
+    {
+        auto& colors = ImGui::GetStyle().Colors;
+        colors[ImGuiCol_WindowBg] = theme.m_Colors.WindowBg;
+
+        // Headers
+        colors[ImGuiCol_Header] = theme.m_Colors.Header;
+        colors[ImGuiCol_HeaderHovered] = theme.m_Colors.HeaderHovered;
+        colors[ImGuiCol_HeaderActive] = theme.m_Colors.HeaderActive;
+
+        // Buttons
+        colors[ImGuiCol_Button] = theme.m_Colors.Button;
+        colors[ImGuiCol_ButtonHovered] = theme.m_Colors.ButtonHovered;
+        colors[ImGuiCol_ButtonActive] = theme.m_Colors.ButtonActive;
+
+        // Frame BG
+        colors[ImGuiCol_FrameBg] = theme.m_Colors.FrameBg;
+        colors[ImGuiCol_FrameBgHovered] = theme.m_Colors.FrameBgHovered;
+        colors[ImGuiCol_FrameBgActive] = theme.m_Colors.FrameBgActive;
+
+        // Tabs
+        colors[ImGuiCol_Tab] = theme.m_Colors.Tab;
+        colors[ImGuiCol_TabHovered] = theme.m_Colors.TabHovered;
+        colors[ImGuiCol_TabActive] = theme.m_Colors.TabActive;
+        colors[ImGuiCol_TabUnfocused] = theme.m_Colors.TabUnfocused;
+        colors[ImGuiCol_TabUnfocusedActive] = theme.m_Colors.TabUnfocusedActive;
+
+        // Title
+        colors[ImGuiCol_TitleBg] = theme.m_Colors.TitleBg;
+        colors[ImGuiCol_TitleBgActive] = theme.m_Colors.TitleBgActive;
+        colors[ImGuiCol_TitleBgCollapsed] = theme.m_Colors.TitleBgCollapsed;
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.Fonts->AddFontFromFileTTF(theme.m_Fonts.FontPath.c_str(), theme.m_Fonts.FontSize);
+        io.FontDefault = io.Fonts->AddFontFromFileTTF(theme.m_Fonts.DefaultFontPath.c_str(), theme.m_Fonts.FontSize);
     }
 
 }
