@@ -70,9 +70,9 @@ namespace EB
         m_Slot = slot;
     }
 
-    const std::string& BaseWidgetImpl::name() const
+    const std::string BaseWidgetImpl::name() const
     {
-        return m_Name;
+        return (m_NameVisible ? "" : "##") + m_Name;
     }
 
 }

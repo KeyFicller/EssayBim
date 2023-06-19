@@ -50,7 +50,7 @@ namespace EB
         EB_IMPL()->setSlot(slot);
     }
 
-    const std::string& BaseWidget::name() const
+    const std::string BaseWidget::name() const
     {
         return EB_IMPL()->name();
     }

@@ -2,9 +2,15 @@
 
 #include "gui_button.h"
 #include "gui_colored_button.h"
+#include "gui_check_box.h"
+#include "gui_image_button.h"
+#include "gui_combo_box.h"
+#include "gui_list_box.h"
+#include "gui_slider_enum.h"
 
 #include "basic_assert.h"
 #include "basic_color_defines.h"
+#include "renderer_texture.h"
 
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
@@ -60,6 +66,29 @@ namespace EB
             static ColoredButton::ButtonColor color{ EB_RED_4, EB_GREEN_4, EB_BLUE_4 };
             
             EB_WIDGET_IMMEDIATE(ColoredButton, "colored button", color, EB_WIDGET_SLOT(EB_CORE_INFO("Colored Button Clicked.");));
+        }
+
+        {   // check box
+            static bool checked = false;
+        
+            EB_WIDGET_IMMEDIATE(CheckBox, "check box", checked, EB_WIDGET_SLOT(EB_CORE_INFO("Check Box Clicked");));
+        }
+
+        {   // image button
+            // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
+            static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\icons\\error.png");
+
+            EB_WIDGET_IMMEDIATE(ImageButton, texture->rendererId(), Vec2(30.f, 30.f), EB_WIDGET_SLOT(EB_CORE_INFO("Image Button Clicked");));
+        }
+
+        {   // enum widget and it's derivations
+            static std::vector<std::string> elements = { "gold", "wood", "water", "fire", "dirt" };
+            static int index = 0;
+
+            EB_WIDGET_IMMEDIATE(ComboBox, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("Combo Box Interacted");));
+            EB_WIDGET_IMMEDIATE(ListBox, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("List Box Interacted");));
+            // crash bug, disable for now.
+            // EB_WIDGET_IMMEDIATE(SliderEnum, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("Slider Enum Interacted");));
         }
 
         ImGui::End();

@@ -77,7 +77,7 @@ namespace EB
          * @brief   get widget name.
          * @return   name of widget.
          */
-        const std::string& name() const;
+        const std::string name() const;
         
     protected:
         /**

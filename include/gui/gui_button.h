@@ -30,7 +30,7 @@ namespace EB
          * @brief   render gui and get triggered status.
          * @return  whether widget is triggered.
          */
-        bool subOnImguiRender();
+        bool subOnImguiRender() override;
 
     protected:
         /** < button size > */

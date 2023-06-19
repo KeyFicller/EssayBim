@@ -17,7 +17,7 @@ namespace EB
         void setEnabled(bool enable = true);
         void setToolTip(const BaseWidget::WidgetSlot& slot);
         void setSlot(const BaseWidget::WidgetSlot& slot);
-        const std::string& name() const;
+        const std::string name() const;
     protected:
         BaseWidget* m_pFacade = nullptr;
         std::string m_Name;
