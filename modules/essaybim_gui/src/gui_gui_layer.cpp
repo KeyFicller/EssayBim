@@ -7,6 +7,11 @@
 #include "gui_combo_box.h"
 #include "gui_list_box.h"
 #include "gui_slider_enum.h"
+#include "gui_text.h"
+#include "gui_arrow_button.h"
+#include "gui_input_text.h"
+#include "gui_multiline_input_text.h"
+#include "gui_hint_input_text.h"
 
 #include "basic_assert.h"
 #include "basic_color_defines.h"
@@ -59,26 +64,22 @@ namespace EB
         ImGui::Begin("Test Widgets");
 
         {   // button widget test
-            EB_WIDGET_IMMEDIATE(Button, "button", EB_WIDGET_SLOT(EB_CORE_INFO("Button Clicked");));
-        }
-
-        {   // colored button widget test
             static ColoredButton::ButtonColor color{ EB_RED_4, EB_GREEN_4, EB_BLUE_4 };
+            // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
+            static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\icons\\error.png");
             
+            EB_WIDGET_IMMEDIATE(Button, "button", EB_WIDGET_SLOT(EB_CORE_INFO("Button Clicked");));
             EB_WIDGET_IMMEDIATE(ColoredButton, "colored button", color, EB_WIDGET_SLOT(EB_CORE_INFO("Colored Button Clicked.");));
+            EB_WIDGET_IMMEDIATE(ArrowButton, "arrow button", ArrowButton::eArrowDirection::kDown, EB_WIDGET_SLOT(EB_CORE_INFO("Arrow Button Clicked");));
+            EB_WIDGET_IMMEDIATE(ImageButton, texture->rendererId(), Vec2(30.f, 30.f), EB_WIDGET_SLOT(EB_CORE_INFO("Image Button Clicked");));
+            ImGui::Separator();
         }
 
         {   // check box
             static bool checked = false;
         
             EB_WIDGET_IMMEDIATE(CheckBox, "check box", checked, EB_WIDGET_SLOT(EB_CORE_INFO("Check Box Clicked");));
-        }
-
-        {   // image button
-            // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
-            static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\icons\\error.png");
-
-            EB_WIDGET_IMMEDIATE(ImageButton, texture->rendererId(), Vec2(30.f, 30.f), EB_WIDGET_SLOT(EB_CORE_INFO("Image Button Clicked");));
+            ImGui::Separator();
         }
 
         {   // enum widget and it's derivations
@@ -89,6 +90,27 @@ namespace EB
             EB_WIDGET_IMMEDIATE(ListBox, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("List Box Interacted");));
             // crash bug, disable for now.
             // EB_WIDGET_IMMEDIATE(SliderEnum, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("Slider Enum Interacted");));
+            ImGui::Separator();
+        }
+
+        {   // text
+        
+            EB_WIDGET_IMMEDIATE(Text, "text by 1");
+            EB_WIDGET_IMMEDIATE(Text, "text by %d", 2);
+            EB_WIDGET_IMMEDIATE(ColoredText, EB_CYAN_4, "color text by 1");
+            EB_WIDGET_IMMEDIATE(ColoredText, EB_CYAN_4, "color text by %d", 2);
+            EB_WIDGET_IMMEDIATE(GrayText, "gray text by 1");
+            EB_WIDGET_IMMEDIATE(GrayText, "gray text by %d", 2);
+            ImGui::Separator();
+        }
+
+        {   // input text
+            static std::string editingStr = "hello world";
+
+            EB_WIDGET_IMMEDIATE(InputText, "input text", editingStr);
+            EB_WIDGET_IMMEDIATE(MultilineInputText, "multiline input text", editingStr);
+            EB_WIDGET_IMMEDIATE(HintInputText, "hint input text", editingStr, "enter");
+            ImGui::Separator();
         }
 
         ImGui::End();

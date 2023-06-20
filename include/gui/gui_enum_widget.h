@@ -22,7 +22,7 @@ namespace EB
         EnumWidget(const std::string& name, int& index, const std::vector<std::string>& items, const WidgetSlot& slot = nullptr);
 
         /**
-         * @brief   constructor for base widget.
+         * @brief   constructor for enum widget.
          * @param[in]  impl  implement of derived class.
          */
         EnumWidget(EnumWidgetImpl& impl);

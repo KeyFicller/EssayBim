@@ -98,7 +98,6 @@ namespace EB
     };
 }
 
-
 #define EB_WIDGET_SLOT(_func)       [&](){_func}
 
 #define EB_WIDGET_IMMEDIATE(_widget_class, ...)  do { \
