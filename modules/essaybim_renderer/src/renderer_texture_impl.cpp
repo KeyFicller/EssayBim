@@ -5,9 +5,12 @@
 #include "basic_assert.h"
 #include "basic_file_server.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 #include <glad/glad.h>
+#define STB_IMAGE_IMPLEMENTATION
+#pragma warning(disable: 26451)
+#pragma warning(disable: 6262)
+#pragma warning(disable: 26819)
+#include <stb_image.h>
 
 namespace EB
 {

@@ -21,10 +21,10 @@ namespace EB
         std::string Title;
 
         /** < width of window > */
-        unsigned int Width;
+        unsigned int Width = 1200;
 
         /** < height of window > */
-        unsigned int Height;
+        unsigned int Height = 800;
     };
 
     /**

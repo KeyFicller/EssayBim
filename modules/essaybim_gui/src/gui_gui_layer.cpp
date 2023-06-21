@@ -12,6 +12,10 @@
 #include "gui_input_text.h"
 #include "gui_multiline_input_text.h"
 #include "gui_hint_input_text.h"
+#include "gui_radio_button.h"
+#include "gui_radio_button_group.h"
+#include "gui_drag_value_input.h"
+#include "gui_slider_value_input.h"
 
 #include "basic_assert.h"
 #include "basic_color_defines.h"
@@ -67,11 +71,13 @@ namespace EB
             static ColoredButton::ButtonColor color{ EB_RED_4, EB_GREEN_4, EB_BLUE_4 };
             // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
             static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\icons\\error.png");
+            static int radioIndex = 0;
             
             EB_WIDGET_IMMEDIATE(Button, "button", EB_WIDGET_SLOT(EB_CORE_INFO("Button Clicked");));
             EB_WIDGET_IMMEDIATE(ColoredButton, "colored button", color, EB_WIDGET_SLOT(EB_CORE_INFO("Colored Button Clicked.");));
             EB_WIDGET_IMMEDIATE(ArrowButton, "arrow button", ArrowButton::eArrowDirection::kDown, EB_WIDGET_SLOT(EB_CORE_INFO("Arrow Button Clicked");));
             EB_WIDGET_IMMEDIATE(ImageButton, texture->rendererId(), Vec2(30.f, 30.f), EB_WIDGET_SLOT(EB_CORE_INFO("Image Button Clicked");));
+            EB_WIDGET_IMMEDIATE(RadioButton, "radio button", radioIndex, 1, EB_WIDGET_SLOT(EB_CORE_INFO("Radio Button Clicked");));
             ImGui::Separator();
         }
 
@@ -90,6 +96,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(ListBox, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("List Box Interacted");));
             // crash bug, disable for now.
             // EB_WIDGET_IMMEDIATE(SliderEnum, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("Slider Enum Interacted");));
+            EB_WIDGET_IMMEDIATE(RadioButtonGroup, "elements", index, elements, EB_WIDGET_SLOT(EB_CORE_INFO("Ratio Button Group Interacted");));
             ImGui::Separator();
         }
 
@@ -112,6 +119,24 @@ namespace EB
             EB_WIDGET_IMMEDIATE(HintInputText, "hint input text", editingStr, "enter");
             ImGui::Separator();
         }
+
+        {   // interact value input
+            static float v = 0.0;
+            static Vec2 v2;
+            static Vec3 v3;
+            static Vec4 v4;
+
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif", v);
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif2", v2);
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif3", v3);
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif4", v4);
+            EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif", v);
+            EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif2", v2);
+            EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif3", v3);
+            EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif4", v4);
+            ImGui::Separator();
+        }
+
 
         ImGui::End();
     }

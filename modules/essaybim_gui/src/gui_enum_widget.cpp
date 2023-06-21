@@ -2,6 +2,8 @@
 
 #include "gui_enum_widget_impl.h"
 
+#include "basic_assert.h"
+
 namespace EB
 {
 
@@ -9,6 +11,7 @@ namespace EB
         : BaseWidget(*new EnumWidgetImpl(this, name, index, items))
     {
         setSlot(slot);
+        EB_CORE_ASSERT(index >= 0 && index < items.size());
     }
 
     EnumWidget::EnumWidget(EnumWidgetImpl& impl)
