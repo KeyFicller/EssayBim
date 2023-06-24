@@ -1,4 +1,5 @@
 #include "basic_filer.h"
+
 #include "basic_filer_impl.h"
 
 namespace EB
@@ -19,7 +20,7 @@ namespace EB
         EB_IMPL()->writeBool(value);
     }
 
-    bool Filer::readBool()
+    bool Filer::readBool() const
     {
         return EB_IMPL()->readBool();
     }
@@ -29,7 +30,7 @@ namespace EB
         EB_IMPL()->writeInt(value);
     }
 
-    int Filer::readInt()
+    int Filer::readInt() const
     {
         return EB_IMPL()->readInt();
     }
@@ -39,9 +40,39 @@ namespace EB
         EB_IMPL()->writeFloat(value);
     }
 
-    float Filer::readFloat()
+    float Filer::readFloat() const
     {
         return EB_IMPL()->readFloat();
+    }
+
+    void Filer::writeVec2(const Vec2& value)
+    {
+        EB_IMPL()->writeVec2(value);
+    }
+
+    Vec2 Filer::readVec2() const
+    {
+        return EB_IMPL()->readVec2();
+    }
+
+    void Filer::writeVec3(const Vec3& value)
+    {
+        EB_IMPL()->writeVec3(value);
+    }
+
+    Vec3 Filer::readVec3() const
+    {
+        return EB_IMPL()->readVec3();
+    }
+
+    void Filer::writeVec4(const Vec4& value)
+    {
+        EB_IMPL()->writeVec4(value);
+    }
+
+    Vec4 Filer::readVec4() const
+    {
+        return EB_IMPL()->readVec4();
     }
 
     void Filer::writeString(const std::string& value)
@@ -49,7 +80,7 @@ namespace EB
         EB_IMPL()->writeString(value);
     }
 
-    std::string Filer::readString()
+    std::string Filer::readString() const
     {
         return EB_IMPL()->readString();
     }
@@ -67,6 +98,11 @@ namespace EB
     bool Filer::seek(int index)
     {
         return EB_IMPL()->seek(index);
+    }
+
+    void Filer::clear()
+    {
+        EB_IMPL()->clear();
     }
 
 }

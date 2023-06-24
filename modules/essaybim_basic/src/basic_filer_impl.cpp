@@ -43,6 +43,42 @@ namespace EB
         return read_Impl<float>();
     }
 
+    void FilerImpl::writeVec2(const Vec2& value)
+    {
+        writeBytes((char*)&value, sizeof(Vec2));
+    }
+
+    Vec2 FilerImpl::readVec2()
+    {
+        Vec2 temp;
+        readBytes((char*)&temp, sizeof(Vec2));
+        return temp;
+    }
+
+    void FilerImpl::writeVec3(const Vec3& value)
+    {
+        writeBytes((char*)&value, sizeof(Vec3));
+    }
+
+    Vec3 FilerImpl::readVec3()
+    {
+        Vec3 temp;
+        readBytes((char*)&temp, sizeof(Vec3));
+        return temp;
+    }
+
+    void FilerImpl::writeVec4(const Vec4& value)
+    {
+        writeBytes((char*)&value, sizeof(Vec4));
+    }
+
+    Vec4 FilerImpl::readVec4()
+    {
+        Vec4 temp;
+        readBytes((char*)&temp, sizeof(Vec4));
+        return temp;
+    }
+
     void FilerImpl::writeString(const std::string& value)
     {
         writeInt(static_cast<int>(value.size()));
@@ -81,6 +117,12 @@ namespace EB
         }
         m_Index = index;
         return true;
+    }
+
+    void FilerImpl::clear()
+    {
+        m_Data.clear();
+        m_Index = 0;
     }
 
 }

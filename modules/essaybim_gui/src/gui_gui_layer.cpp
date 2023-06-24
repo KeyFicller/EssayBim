@@ -20,6 +20,10 @@
 #include "gui_collapsing_header.h"
 #include "gui_tree_node.h"
 #include "gui_range_edit.h"
+#include "gui_tap_widget.h"
+#include "gui_modal_widget.h"
+#include "gui_image_widget.h"
+#include "gui_drag_and_drop.h"
 
 #include "basic_assert.h"
 #include "basic_color_defines.h"
@@ -169,6 +173,51 @@ namespace EB
             
             EB_WIDGET_IMMEDIATE(RangeEditI, "range edit int", mini, maxi, EB_WIDGET_SLOT(EB_CORE_INFO("range edit int interacted");));
             EB_WIDGET_IMMEDIATE(RangeEditF, "range edit float", minf, maxf, EB_WIDGET_SLOT(EB_CORE_INFO("range edit float interacted");));
+            ImGui::Separator();
+        }
+
+        {   // tab widget
+            Shared<TabWidgetItem> item1 = createShared<TabWidgetItem>("item 1");
+            Shared<TabWidgetItem> item2 = createShared<TabWidgetItem>("item 2");
+            Shared<TabWidget> tabWidget = createShared<TabWidget>("tab widget");
+            tabWidget->addTabItem(item1);
+            tabWidget->addTabItem(item2);
+
+            tabWidget->onGuiRender();
+            ImGui::Separator();
+        }
+
+        {   // modal widget
+            ModalWidget modal("delete object", EB_WIDGET_SLOT(
+                EB_WIDGET_IMMEDIATE(ColoredText, EB_RED_4, "confirm ?");
+                EB_WIDGET_IMMEDIATE(Button, "yes", EB_WIDGET_SLOT(ModalWidget::closeCurrentModalWidget();));
+            ));
+            EB_WIDGET_IMMEDIATE(Button, "delete", modal.activeSignal());
+            modal.onGuiRender();
+            ImGui::Separator();
+        }
+
+        {   // image widget
+            // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
+            static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\textures\\game.jpg");
+
+            EB_WIDGET_IMMEDIATE(ImageWidgetWithMagnifier, texture->rendererId(), Vec2(640.f, 400.f), 4.0f);
+            ImGui::Separator();
+        }
+
+        {   // drag and drop
+            static Vec3 v1;
+            static Vec3 v2;
+
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif3_1", v1);
+            EB_WIDGET_IMMEDIATE(DragSource, "drag vec3", [&](Filer* filer) {
+                filer->writeVec3(v1);
+            });
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif3_2", v2);
+            EB_WIDGET_IMMEDIATE(DropTarget, "drag vec3", [&](const Filer* filer) {
+                v2 = filer->readVec3();
+            });
+            ImGui::Separator();
         }
 
 

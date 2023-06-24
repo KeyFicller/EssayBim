@@ -2,7 +2,7 @@
 
 > **<u>Personal Practice Project  - whuzyh1998@163.com</u>**
 >
-> **Current Working Module： **  EssayBim_Gui
+> **Current Working Module： **  EssayBim_Geometry
 
 ## Modules
 
@@ -17,6 +17,10 @@
 ### EssayBim_Gui
 
 > Provide mainly widget ability, based on thirid-parties (imgui)
+
+### EssayBim_Geometry
+
+> On design.
 
 ### EssayBim_Core
 

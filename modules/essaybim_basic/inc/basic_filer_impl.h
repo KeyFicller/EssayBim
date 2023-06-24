@@ -21,11 +21,18 @@ namespace EB
         int readInt();
         void writeFloat(float value);
         float readFloat();
+        void writeVec2(const Vec2& value);
+        Vec2 readVec2();
+        void writeVec3(const Vec3& value);
+        Vec3 readVec3();
+        void writeVec4(const Vec4& value);
+        Vec4 readVec4();
         void writeString(const std::string& value);
         std::string readString();
         void flushIn(Filer* pFiler);
         void flushOut(Filer*& pFiler, int size);
         bool seek(int index);
+        void clear();
 
     private:
         void writeBytes(const char* value, int size)
