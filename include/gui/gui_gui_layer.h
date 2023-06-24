@@ -16,58 +16,58 @@ namespace EB
         struct Colors
         {
             /** < window back ground color > */
-            Vec4 WindowBg = { 0.2f, 0.205f, 0.21f, 1.0f };
+            Vec4f WindowBg = { 0.2f, 0.205f, 0.21f, 1.0f };
 
             /** < head color normal > */
-            Vec4 Header = { 0.2f, 0.205f, 0.21f, 1.0f };
+            Vec4f Header = { 0.2f, 0.205f, 0.21f, 1.0f };
 
             /** < head color hovered > */
-            Vec4 HeaderHovered = { 0.3f, 0.305f, 0.31f, 1.0f };
+            Vec4f HeaderHovered = { 0.3f, 0.305f, 0.31f, 1.0f };
 
             /** < head color active > */
-            Vec4 HeaderActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f HeaderActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < button color normal > */
-            Vec4 Button = { 0.2f, 0.205f, 0.21f, 1.0f };
+            Vec4f Button = { 0.2f, 0.205f, 0.21f, 1.0f };
 
             /** < button color hovered > */
-            Vec4 ButtonHovered = { 0.3f, 0.305f, 0.31f, 1.0f };
+            Vec4f ButtonHovered = { 0.3f, 0.305f, 0.31f, 1.0f };
 
             /** < button color active > */
-            Vec4 ButtonActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f ButtonActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < frame back ground color normal > */
-            Vec4 FrameBg = { 0.2f, 0.205f, 0.21f, 1.0f };
+            Vec4f FrameBg = { 0.2f, 0.205f, 0.21f, 1.0f };
 
             /** < frame back ground color hovered > */
-            Vec4 FrameBgHovered = { 0.3f, 0.305f, 0.31f, 1.0f };
+            Vec4f FrameBgHovered = { 0.3f, 0.305f, 0.31f, 1.0f };
 
             /** < frame back ground color active > */
-            Vec4 FrameBgActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f FrameBgActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < tab color normal > */
-            Vec4 Tab = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f Tab = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < tab color hovered > */
-            Vec4 TabHovered = { 0.38f, 0.3805f, 0.381f, 1.0f };
+            Vec4f TabHovered = { 0.38f, 0.3805f, 0.381f, 1.0f };
 
             /** < tab color active > */
-            Vec4 TabActive = { 0.28f, 0.2805f, 0.281f, 1.0f };
+            Vec4f TabActive = { 0.28f, 0.2805f, 0.281f, 1.0f };
 
             /** < tab color unfocused > */
-            Vec4 TabUnfocused = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f TabUnfocused = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < tab color unfocused active > */
-            Vec4 TabUnfocusedActive = { 0.2f, 0.205f, 0.21f, 1.0f };
+            Vec4f TabUnfocusedActive = { 0.2f, 0.205f, 0.21f, 1.0f };
 
             /** < title back ground color > */
-            Vec4 TitleBg = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f TitleBg = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < title back ground active > */
-            Vec4 TitleBgActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f TitleBgActive = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
             /** < title back ground collapsed > */
-            Vec4 TitleBgCollapsed = { 0.15f, 0.1505f, 0.151f, 1.0f };
+            Vec4f TitleBgCollapsed = { 0.15f, 0.1505f, 0.151f, 1.0f };
 
         } m_Colors;
         struct Fonts

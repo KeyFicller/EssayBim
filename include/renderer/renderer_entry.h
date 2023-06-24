@@ -42,7 +42,7 @@ namespace EB
          * @brief  set clear color.
          * @param[in]  color    clear color.
          */
-        void setClearColor(const Vec4& color) const;
+        void setClearColor(const Vec4f& color) const;
 
         /**
          * @brief  set view port.

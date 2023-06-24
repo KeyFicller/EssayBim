@@ -11,5 +11,6 @@ project "resources"
         "shaders/**",
         "textures/**",
         "fonts/**",
+        "meshs/**",
         "premake5.lua"
     }

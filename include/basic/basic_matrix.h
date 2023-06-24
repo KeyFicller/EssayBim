@@ -22,13 +22,13 @@ namespace EB
         /**
          * @brief  default constructor for Vec2.
          */
-        Mat2() : m_Data{ Vec2(), Vec2() } {}
+        Mat2() : m_Data{ Vec2f(), Vec2f() } {}
 
         /**
          * @brief   get vector by index.
          * @return  reference of vector at index.
          */
-        Vec2& operator [] (int index) {
+        Vec2f& operator [] (int index) {
             EB_CORE_ASSERT(index < 2, "Index out of range.");
             return m_Data[index];
         }
@@ -37,13 +37,13 @@ namespace EB
          * @brief   get vector by index.
          * @return  vector at index.
          */
-        Vec2 operator [] (int index) const {
+        Vec2f operator [] (int index) const {
             EB_CORE_ASSERT(index < 2, "Index out of range.");
             return m_Data[index];
         }
 
         /** < data > */
-        Vec2 m_Data[2];
+        Vec2f m_Data[2];
     };
 
     /**
@@ -54,13 +54,13 @@ namespace EB
         /**
          * @brief  default constructor for Vec3.
          */
-        Mat3() : m_Data{ Vec3(), Vec3(), Vec3() } {}
+        Mat3() : m_Data{ Vec3f(), Vec3f(), Vec3f() } {}
 
         /**
          * @brief   get vector by index.
          * @return  reference of vector at index.
          */
-        Vec3& operator [] (int index) {
+        Vec3f& operator [] (int index) {
             EB_CORE_ASSERT(index < 3, "Index out of range.");
             return m_Data[index];
         }
@@ -69,7 +69,7 @@ namespace EB
          * @brief   get vector by index.
          * @return  vector at index.
          */
-        Vec3 operator [] (int index) const {
+        Vec3f operator [] (int index) const {
             EB_CORE_ASSERT(index < 3, "Index out of range.");
             return m_Data[index];
         }
@@ -96,9 +96,9 @@ namespace EB
          * @param[in]    other      glm:: mat3 value.
          */
         Mat3(const glm::mat3& other) {
-            m_Data[0] = Vec3(other[0]);
-            m_Data[1] = Vec3(other[1]);
-            m_Data[2] = Vec3(other[2]);
+            m_Data[0] = Vec3f(other[0]);
+            m_Data[1] = Vec3f(other[1]);
+            m_Data[2] = Vec3f(other[2]);
         }
 
         /*
@@ -106,15 +106,15 @@ namespace EB
          * @param[in]   other       glm::mat3 value.
          */
         Mat3& operator = (const glm::mat3& other) {
-            m_Data[0] = Vec3(other[0]);
-            m_Data[1] = Vec3(other[1]);
-            m_Data[2] = Vec3(other[2]);
+            m_Data[0] = Vec3f(other[0]);
+            m_Data[1] = Vec3f(other[1]);
+            m_Data[2] = Vec3f(other[2]);
             return *this;
         }
 #endif
 
         /** < data > */
-        Vec3 m_Data[3];
+        Vec3f m_Data[3];
     };
 
     /**
@@ -125,13 +125,13 @@ namespace EB
         /**
          * @brief  default constructor for Vec4.
          */
-        Mat4() : m_Data{ Vec4(),Vec4(), Vec4(), Vec4() } {}
+        Mat4() : m_Data{ Vec4f(),Vec4f(), Vec4f(), Vec4f() } {}
 
         /**
          * @brief   get vector by index.
          * @return  reference of vector at index.
          */
-        Vec4& operator [] (int index) {
+        Vec4f& operator [] (int index) {
             EB_CORE_ASSERT(index < 4, "Index out of range.");
             return m_Data[index];
         }
@@ -140,7 +140,7 @@ namespace EB
          * @brief   get vector by index.
          * @return  vector at index.
          */
-        Vec4 operator [] (int index) const {
+        Vec4f operator [] (int index) const {
             EB_CORE_ASSERT(index < 4, "Index out of range.");
             return m_Data[index];
         }
@@ -168,10 +168,10 @@ namespace EB
          * @param[in]    other      glm:: mat4 value.
          */
         Mat4(const glm::mat4& other) {
-            m_Data[0] = Vec4(other[0]);
-            m_Data[1] = Vec4(other[1]);
-            m_Data[2] = Vec4(other[2]);
-            m_Data[3] = Vec4(other[3]);
+            m_Data[0] = Vec4f(other[0]);
+            m_Data[1] = Vec4f(other[1]);
+            m_Data[2] = Vec4f(other[2]);
+            m_Data[3] = Vec4f(other[3]);
         }
 
         /*
@@ -179,15 +179,15 @@ namespace EB
          * @param[in]   other       glm::mat4 value.
          */
         Mat4& operator = (const glm::mat4& other) {
-            m_Data[0] = Vec4(other[0]);
-            m_Data[1] = Vec4(other[1]);
-            m_Data[2] = Vec4(other[2]);
-            m_Data[3] = Vec4(other[3]);
+            m_Data[0] = Vec4f(other[0]);
+            m_Data[1] = Vec4f(other[1]);
+            m_Data[2] = Vec4f(other[2]);
+            m_Data[3] = Vec4f(other[3]);
             return *this;
         }
 #endif
 
         /** < data > */
-        Vec4 m_Data[4];
+        Vec4f m_Data[4];
     };
 }

@@ -11,7 +11,7 @@ namespace EB
         setSlot(slot);
     }
 
-    Button::Button(const std::string& name, const Vec2& size, const WidgetSlot& slot /*= nullptr*/)
+    Button::Button(const std::string& name, const Vec2f& size, const WidgetSlot& slot /*= nullptr*/)
         : BaseWidget(name), m_Size(size)
     {
         setSlot(slot);

@@ -21,17 +21,17 @@ namespace EB
     /**
      * @brief  this struct is used a 2 component vector.
      */
-    struct Vec2
+    struct Vec2f
     {
         /**
          * @brief  default constructor for Vec2.
          */
-        Vec2() : m_Data{ 0.0, 0.0 } {}
+        Vec2f() : m_Data{ 0.0, 0.0 } {}
 
         /**
          * @brief  constructor for Vec2.
          */
-        Vec2(float x, float y) : m_Data{ x, y } {}
+        Vec2f(float x, float y) : m_Data{ x, y } {}
 
         /**
          * @brief   get first component.
@@ -94,7 +94,7 @@ namespace EB
          * @brief    enable implicit cast from ImVec2.
          * @param[in]    other      ImVec2 value.
          */
-        Vec2(const ImVec2& other) {
+        Vec2f(const ImVec2& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
         }
@@ -103,7 +103,7 @@ namespace EB
          * @breif   enable operator = with ImVec2.
          * @param[in]   other       ImVec2 value.
          */
-        Vec2& operator = (const ImVec2& other) {
+        Vec2f& operator = (const ImVec2& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             return *this;
@@ -117,17 +117,17 @@ namespace EB
     /**
      * @brief  this struct is used a 3 component vector.
      */
-    struct Vec3
+    struct Vec3f
     {
         /**
          * @brief  default constructor for Vec2.
          */
-        Vec3() : m_Data{ 0.0, 0.0, 0.0 } {}
+        Vec3f() : m_Data{ 0.0, 0.0, 0.0 } {}
 
         /**
          * @brief  constructor for Vec2.
          */
-        Vec3(float x, float y, float z) : m_Data{ x, y, z } {}
+        Vec3f(float x, float y, float z) : m_Data{ x, y, z } {}
 
         /**
          * @brief   get first component.
@@ -202,7 +202,7 @@ namespace EB
          * @brief    enable implicit cast from glm::vec3.
          * @param[in]    other      glm:: vec3 value.
          */
-        Vec3(const glm::vec3& other) {
+        Vec3f(const glm::vec3& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;
@@ -212,7 +212,7 @@ namespace EB
          * @breif   enable operator = with glm::vec3.
          * @param[in]   other       glm::vec3 value.
          */
-        Vec3& operator = (const glm::vec3& other) {
+        Vec3f& operator = (const glm::vec3& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;
@@ -225,19 +225,93 @@ namespace EB
     };
 
     /**
+     * @brief  this struct is used a 3 component vector.
+     */
+    struct Vec3i
+    {
+        /**
+         * @brief  default constructor for Vec2.
+         */
+        Vec3i() : m_Data{ 0, 0, 0 } {}
+
+        /**
+         * @brief  constructor for Vec2.
+         */
+        Vec3i(int x, int y, int z) : m_Data{ x, y, z } {}
+
+        /**
+         * @brief   get first component.
+         * @return  reference of first component.
+         */
+        int& x() { return m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  reference of second component.
+         */
+        int& y() { return m_Data[1]; }
+
+        /**
+         * @brief   get third component.
+         * @return  reference of third component.
+         */
+        int& z() { return m_Data[2]; }
+
+        /**
+         * @brief   get first component.
+         * @return  first component.
+         */
+        int x() const { return m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  second component.
+         */
+        int y() const { return m_Data[1]; }
+
+        /**
+         * @brief   get third component.
+         * @return  third component.
+         */
+        int z() const { return m_Data[2]; }
+
+        /**
+         * @brief   get component by index.
+         * @return  reference of component at index.
+         */
+        int& operator [] (int index) {
+            EB_CORE_ASSERT(index < 3, "Index out of range.");
+            return m_Data[index];
+        }
+
+        /**
+         * @brief   get component by index.
+         * @return  component at index.
+         */
+        int operator [] (int index) const {
+            EB_CORE_ASSERT(index < 3, "Index out of range.");
+            return m_Data[index];
+        }
+
+        /** < data > */
+        int m_Data[3] = { 0 };
+    };
+
+
+    /**
      * @brief  this struct is used a 4 component vector.
      */
-    struct Vec4
+    struct Vec4f
     {
         /**
          * @brief  default constructor for Vec4.
          */
-        Vec4() : m_Data{ 0.0, 0.0, 0.0, 0.0 } {}
+        Vec4f() : m_Data{ 0.0, 0.0, 0.0, 0.0 } {}
 
         /**
          * @brief  constructor for Vec4.
          */
-        Vec4(float x, float y, float z, float w) : m_Data{ x, y, z, w } {}
+        Vec4f(float x, float y, float z, float w) : m_Data{ x, y, z, w } {}
 
         /**
          * @brief   get first component.
@@ -324,7 +398,7 @@ namespace EB
          * @brief    enable implicit cast from glm::vec4.
          * @param[in]    other      glm:: vec4 value.
          */
-        Vec4(const glm::vec4& other) {
+        Vec4f(const glm::vec4& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;
@@ -335,7 +409,7 @@ namespace EB
          * @breif   enable operator = with glm::vec4.
          * @param[in]   other       glm::vec4 value.
          */
-        Vec4& operator = (const glm::vec4& other) {
+        Vec4f& operator = (const glm::vec4& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;
@@ -363,7 +437,7 @@ namespace EB
          * @brief    enable implicit cast from ImVec4.
          * @param[in]    other      ImVec4 value.
          */
-        Vec4(const ImVec4& other) {
+        Vec4f(const ImVec4& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;
@@ -374,7 +448,7 @@ namespace EB
          * @breif   enable operator = with ImVec4.
          * @param[in]   other       ImVec4 value.
          */
-        Vec4& operator = (const ImVec4& other) {
+        Vec4f& operator = (const ImVec4& other) {
             m_Data[0] = other.x;
             m_Data[1] = other.y;
             m_Data[2] = other.z;

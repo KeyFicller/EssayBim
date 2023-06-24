@@ -13,7 +13,7 @@
 
 namespace EB
 {
-    YAML::Emitter& operator << (YAML::Emitter& out, const Vec2& v)
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec2f& v)
     {
         out << YAML::Flow;
         out << YAML::BeginSeq;
@@ -24,7 +24,7 @@ namespace EB
         return out;
     }
 
-    YAML::Emitter& operator << (YAML::Emitter& out, const Vec3& v)
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec3f& v)
     {
         out << YAML::Flow;
         out << YAML::BeginSeq;
@@ -35,7 +35,7 @@ namespace EB
         return out;
     }
 
-    YAML::Emitter& operator << (YAML::Emitter& out, const Vec4& v)
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec4f& v)
     {
         out << YAML::Flow;
         out << YAML::BeginSeq;

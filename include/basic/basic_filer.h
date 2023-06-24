@@ -66,37 +66,37 @@ namespace EB
          * @brief   write a vec2 value to stream.
          * @param[in]   value   vec2 value.
          */
-        void writeVec2(const Vec2& value);
+        void writeVec2(const Vec2f& value);
 
         /**
          * @brief   read a vec2 value from stream
          * @return    vec2 value.
          */
-        Vec2 readVec2() const;
+        Vec2f readVec2() const;
 
         /**
          * @brief   write a vec3 value to stream.
          * @param[in]   value   vec3 value.
          */
-        void writeVec3(const Vec3& value);
+        void writeVec3(const Vec3f& value);
 
         /**
          * @brief   read a vec3 value from stream
          * @return    vec3 value.
          */
-        Vec3 readVec3() const;
+        Vec3f readVec3() const;
 
         /**
          * @brief   write a vec4 value to stream.
          * @param[in]   value   vec4 value.
          */
-        void writeVec4(const Vec4& value);
+        void writeVec4(const Vec4f& value);
 
         /**
          * @brief   read a vec4 value from stream
          * @return    vec4 value.
          */
-        Vec4 readVec4() const;
+        Vec4f readVec4() const;
 
         /**
          * @brief  write a string value to stream.

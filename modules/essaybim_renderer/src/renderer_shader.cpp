@@ -70,17 +70,17 @@ namespace EB
         EB_IMPL()->setFloat(key, value);
     }
 
-    void Shader::setFloat2(const std::string& key, const Vec2& value)
+    void Shader::setFloat2(const std::string& key, const Vec2f& value)
     {
         EB_IMPL()->setFloat2(key, value);
     }
 
-    void Shader::setFloat3(const std::string& key, const Vec3& value)
+    void Shader::setFloat3(const std::string& key, const Vec3f& value)
     {
         EB_IMPL()->setFloat3(key, value);
     }
 
-    void Shader::setFloat4(const std::string& key, const Vec4& value)
+    void Shader::setFloat4(const std::string& key, const Vec4f& value)
     {
         EB_IMPL()->setFloat4(key, value);
     }

@@ -75,19 +75,19 @@ namespace EB
         glUniform1f(_location(key), value);
     }
 
-    void ShaderImpl::setFloat2(const std::string& key, const Vec2& value)
+    void ShaderImpl::setFloat2(const std::string& key, const Vec2f& value)
     {
         EB_GL_AUTO_TRACE();
         glUniform2f(_location(key), value.x(), value.y());
     }
 
-    void ShaderImpl::setFloat3(const std::string& key, const Vec3& value)
+    void ShaderImpl::setFloat3(const std::string& key, const Vec3f& value)
     {
         EB_GL_AUTO_TRACE();
         glUniform3f(_location(key), value.x(), value.y(), value.z());
     }
 
-    void ShaderImpl::setFloat4(const std::string& key, const Vec4& value)
+    void ShaderImpl::setFloat4(const std::string& key, const Vec4f& value)
     {
         EB_GL_AUTO_TRACE();
         glUniform4f(_location(key), value.x(), value.y(), value.z(), value.w());

@@ -84,7 +84,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Button, "button", EB_WIDGET_SLOT(EB_CORE_INFO("Button Clicked");));
             EB_WIDGET_IMMEDIATE(ColoredButton, "colored button", color, EB_WIDGET_SLOT(EB_CORE_INFO("Colored Button Clicked.");));
             EB_WIDGET_IMMEDIATE(ArrowButton, "arrow button", ArrowButton::eArrowDirection::kDown, EB_WIDGET_SLOT(EB_CORE_INFO("Arrow Button Clicked");));
-            EB_WIDGET_IMMEDIATE(ImageButton, texture->rendererId(), Vec2(30.f, 30.f), EB_WIDGET_SLOT(EB_CORE_INFO("Image Button Clicked");));
+            EB_WIDGET_IMMEDIATE(ImageButton, texture->rendererId(), Vec2f(30.f, 30.f), EB_WIDGET_SLOT(EB_CORE_INFO("Image Button Clicked");));
             EB_WIDGET_IMMEDIATE(RadioButton, "radio button", radioIndex, 1, EB_WIDGET_SLOT(EB_CORE_INFO("Radio Button Clicked");));
             ImGui::Separator();
         }
@@ -130,9 +130,9 @@ namespace EB
 
         {   // interact value input
             static float v = 0.0;
-            static Vec2 v2;
-            static Vec3 v3;
-            static Vec4 v4;
+            static Vec2f v2;
+            static Vec3f v3;
+            static Vec4f v4;
 
             EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif", v);
             EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif2", v2);
@@ -201,13 +201,13 @@ namespace EB
             // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
             static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\textures\\game.jpg");
 
-            EB_WIDGET_IMMEDIATE(ImageWidgetWithMagnifier, texture->rendererId(), Vec2(640.f, 400.f), 4.0f);
+            EB_WIDGET_IMMEDIATE(ImageWidgetWithMagnifier, texture->rendererId(), Vec2f(640.f, 400.f), 4.0f);
             ImGui::Separator();
         }
 
         {   // drag and drop
-            static Vec3 v1;
-            static Vec3 v2;
+            static Vec3f v1;
+            static Vec3f v2;
 
             EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif3_1", v1);
             EB_WIDGET_IMMEDIATE(DragSource, "drag vec3", [&](Filer* filer) {

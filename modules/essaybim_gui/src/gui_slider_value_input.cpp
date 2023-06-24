@@ -11,19 +11,19 @@ namespace EB
 
     }
 
-    SliderValueInputF::SliderValueInputF(const std::string& name, Vec2& value, const ValueInputWidget::ValueBoundary& boundary, const WidgetSlot& slot /*= nullptr*/)
+    SliderValueInputF::SliderValueInputF(const std::string& name, Vec2f& value, const ValueInputWidget::ValueBoundary& boundary, const WidgetSlot& slot /*= nullptr*/)
         : ValueInputWidget(name, &value, 2, boundary, slot)
     {
 
     }
 
-    SliderValueInputF::SliderValueInputF(const std::string& name, Vec3& value, const ValueInputWidget::ValueBoundary& boundary, const WidgetSlot& slot /*= nullptr*/)
+    SliderValueInputF::SliderValueInputF(const std::string& name, Vec3f& value, const ValueInputWidget::ValueBoundary& boundary, const WidgetSlot& slot /*= nullptr*/)
         : ValueInputWidget(name, &value, 3, boundary, slot)
     {
 
     }
 
-    SliderValueInputF::SliderValueInputF(const std::string& name, Vec4& value, const ValueInputWidget::ValueBoundary& boundary, const WidgetSlot& slot /*= nullptr*/)
+    SliderValueInputF::SliderValueInputF(const std::string& name, Vec4f& value, const ValueInputWidget::ValueBoundary& boundary, const WidgetSlot& slot /*= nullptr*/)
         : ValueInputWidget(name, &value, 4, boundary, slot)
     {
 

@@ -9,7 +9,7 @@
 namespace EB
 {
 
-    ImageButton::ImageButton(unsigned int textureId, const Vec2& size, const WidgetSlot& slot /*= nullptr*/)
+    ImageButton::ImageButton(unsigned int textureId, const Vec2f& size, const WidgetSlot& slot /*= nullptr*/)
         : Button("", size,  slot), m_TextureId(textureId)
     {
 
@@ -17,7 +17,7 @@ namespace EB
 
     bool ImageButton::subOnImguiRender()
     {
-        return ImGui::ImageButton(reinterpret_cast<void*>(m_TextureId), m_Size, Vec2(0.f, 1.0f), Vec2(1.0f, 0.0f));
+        return ImGui::ImageButton(reinterpret_cast<void*>(m_TextureId), m_Size, Vec2f(0.f, 1.0f), Vec2f(1.0f, 0.0f));
     }
 
 }

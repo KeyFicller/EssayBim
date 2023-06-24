@@ -147,42 +147,42 @@ namespace EB
          * @param[in]   key    yaml map key.
          * @param[in]   value  vec2 value.
          */
-        void yamlIn(const std::string& key, Vec2& value);
+        void yamlIn(const std::string& key, Vec2f& value);
 
         /**
          * @brief  write a vec2 value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  vec2 value.
          */
-        void yamlOut(const std::string& key, const Vec2& value);
+        void yamlOut(const std::string& key, const Vec2f& value);
 
         /**
          * @brief   read a vec3 value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  vec3 value.
          */
-        void yamlIn(const std::string& key, Vec3& value);
+        void yamlIn(const std::string& key, Vec3f& value);
 
         /**
          * @brief  write a vec3 value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  vec3 value.
          */
-        void yamlOut(const std::string& key, const Vec3& value);
+        void yamlOut(const std::string& key, const Vec3f& value);
 
         /**
          * @brief   read a vec4 value with key from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   value  vec4 value.
          */
-        void yamlIn(const std::string& key, Vec4& value);
+        void yamlIn(const std::string& key, Vec4f& value);
 
         /**
          * @brief  write a vec4 value of key to yaml cache.
          * @param[in]   key    yaml map key.
          * @param[out]  value  vec4 value.
          */
-        void yamlOut(const std::string& key, const Vec4& value);
+        void yamlOut(const std::string& key, const Vec4f& value);
 
         /**
          * @brief  read a sequence from yaml cache.
