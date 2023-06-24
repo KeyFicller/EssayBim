@@ -21,6 +21,15 @@ namespace EB
             float UpperBound = 1.0;           /** < value input upper boundary > */
         };
 
+        /** < value boundary from 0.0 to 1.0 > */
+        static ValueBoundary vb_0_to_1;
+
+        /** < value boundary from 0.0 to 100.0 > */
+        static ValueBoundary vb_0_to_100;
+
+        /** < value boundary from -1e6 to 1e6 > */
+        static ValueBoundary vb_negInf_to_posInf;
+
     protected:
         /**
          * @brief  constructor for value input widget.

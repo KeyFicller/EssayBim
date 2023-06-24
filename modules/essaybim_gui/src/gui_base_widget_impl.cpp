@@ -1,6 +1,6 @@
 #include "gui_base_widget_impl.h"
 
-#include "imgui.h"
+#include <imgui.h>
 
 namespace EB
 {
@@ -30,13 +30,14 @@ namespace EB
     void BaseWidgetImpl::onGuiRender()
     {
         if (m_Enabled) {
-            m_pFacade->pushStyle();
-            if (m_pFacade->subOnImguiRender()) {
+            EB_FACADE()->pushStyle();
+            if (EB_FACADE()->subOnImguiRender()) {
                 if (m_Slot) {
                     m_Slot();
                 }
+                EB_FACADE()->postAction();
             }
-            m_pFacade->popStyle();
+            EB_FACADE()->popStyle();
             if (m_TipSlot && ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
                 ImGui::BeginTooltip();
                 m_TipSlot();

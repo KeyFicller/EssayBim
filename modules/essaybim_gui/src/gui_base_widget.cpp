@@ -65,4 +65,9 @@ namespace EB
 
     }
 
+    void BaseWidget::postAction()
+    {
+
+    }
+
 }

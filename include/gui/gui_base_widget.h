@@ -95,6 +95,11 @@ namespace EB
          * @brief   pop custom style for widget.
          */
         virtual void popStyle();
+
+        /**
+         * @brief   restore stack data after rendering.
+         */
+        virtual void postAction();
     };
 }
 

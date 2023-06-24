@@ -16,6 +16,10 @@
 #include "gui_radio_button_group.h"
 #include "gui_drag_value_input.h"
 #include "gui_slider_value_input.h"
+#include "gui_color_edit.h"
+#include "gui_collapsing_header.h"
+#include "gui_tree_node.h"
+#include "gui_range_edit.h"
 
 #include "basic_assert.h"
 #include "basic_color_defines.h"
@@ -134,7 +138,37 @@ namespace EB
             EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif2", v2);
             EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif3", v3);
             EB_WIDGET_IMMEDIATE(SliderValueInputF, "svif4", v4);
+            EB_WIDGET_IMMEDIATE(ColorEdit, "ce3", v3);
+            EB_WIDGET_IMMEDIATE(ColorEdit, "ce4", v4);
             ImGui::Separator();
+        }
+
+        {   // collapsing header
+            static bool visible = true;
+
+            EB_WIDGET_IMMEDIATE(CollapsingHeader, "collapsing header", visible,
+                EB_WIDGET_SLOT(EB_WIDGET_IMMEDIATE(Button, "sub button");)
+            );
+        }
+
+        {   // tree node
+        
+            Shared<TreeNode> t1 = createShared<TreeNode>("tree A");
+            Shared<TreeNode> t2 = createShared<TreeNode>("tree B");
+            Shared<TreeNode> t3 = createShared<TreeNode>("tree C");
+            t1->addChild(t2);
+            t2->addChild(t3);
+
+            t1->onGuiRender();
+            ImGui::Separator();
+        }
+
+        {   // range edit.
+            static int mini, maxi;
+            static float minf, maxf;
+            
+            EB_WIDGET_IMMEDIATE(RangeEditI, "range edit int", mini, maxi, EB_WIDGET_SLOT(EB_CORE_INFO("range edit int interacted");));
+            EB_WIDGET_IMMEDIATE(RangeEditF, "range edit float", minf, maxf, EB_WIDGET_SLOT(EB_CORE_INFO("range edit float interacted");));
         }
 
 
