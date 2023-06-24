@@ -19,3 +19,6 @@
 [submodule "third/imgui"]
 	path = third/imgui
 	url = git@git.zhlh6.cn:KeyFicller/imgui.git
+[submodule "third/libigl"]
+	path = third/libigl
+	url = git@git.zhlh6.cn:KeyFicller/libigl.git
