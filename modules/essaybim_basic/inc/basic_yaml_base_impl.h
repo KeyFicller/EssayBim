@@ -12,9 +12,9 @@
 namespace YAML
 {
     template <>
-    struct convert<EB::Vec2>
+    struct convert<EB::Vec2f>
     {
-        static Node encode(const EB::Vec2& rhs)
+        static Node encode(const EB::Vec2f& rhs)
         {
             Node node;
             for (int i = 0; i < 2; i++) {
@@ -23,7 +23,7 @@ namespace YAML
             return node;
         }
 
-        static bool decode(const Node& node, EB::Vec2& rhs)
+        static bool decode(const Node& node, EB::Vec2f& rhs)
         {
             if (!node.IsSequence() || node.size() != 2) {
                 return false;
@@ -37,9 +37,9 @@ namespace YAML
     };
 
     template <>
-    struct convert<EB::Vec3>
+    struct convert<EB::Vec3f>
     {
-        static Node encode(const EB::Vec3& rhs)
+        static Node encode(const EB::Vec3f& rhs)
         {
             Node node;
             for (int i = 0; i < 3; i++) {
@@ -48,7 +48,7 @@ namespace YAML
             return node;
         }
 
-        static bool decode(const Node& node, EB::Vec3& rhs)
+        static bool decode(const Node& node, EB::Vec3f& rhs)
         {
             if (!node.IsSequence() || node.size() != 3) {
                 return false;
@@ -62,9 +62,9 @@ namespace YAML
     };
 
     template <>
-    struct convert<EB::Vec4>
+    struct convert<EB::Vec4f>
     {
-        static Node encode(const EB::Vec4& rhs)
+        static Node encode(const EB::Vec4f& rhs)
         {
             Node node;
             for (int i = 0; i < 4; i++) {
@@ -73,7 +73,7 @@ namespace YAML
             return node;
         }
 
-        static bool decode(const Node& node, EB::Vec4& rhs)
+        static bool decode(const Node& node, EB::Vec4f& rhs)
         {
             if (!node.IsSequence() || node.size() != 4) {
                 return false;
@@ -89,9 +89,9 @@ namespace YAML
 
 namespace EB
 {
-    YAML::Emitter& operator << (YAML::Emitter& out, const Vec2& v);
-    YAML::Emitter& operator << (YAML::Emitter& out, const Vec3& v);
-    YAML::Emitter& operator << (YAML::Emitter& out, const Vec4& v);
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec2f& v);
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec3f& v);
+    YAML::Emitter& operator << (YAML::Emitter& out, const Vec4f& v);
 
 
     class YamlServerImpl

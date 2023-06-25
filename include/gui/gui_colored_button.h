@@ -17,9 +17,9 @@ namespace EB
          */
         struct ButtonColor
         {
-            Vec4 Normal;           /** < button color normal > */
-            Vec4 Hovered;          /** < button color hovered > */
-            Vec4 Clicked;          /** < button color clicked > */
+            Vec4f Normal;           /** < button color normal > */
+            Vec4f Hovered;          /** < button color hovered > */
+            Vec4f Clicked;          /** < button color clicked > */
 
             /**
              * @brief  constructor for ButtonColor.
@@ -32,7 +32,7 @@ namespace EB
              * @param[in] hoverd    button color hovered
              * @param[in] clicked   button color clicked
              */
-            ButtonColor(const Vec4& normal, const Vec4& hovered, const Vec4& clicked);
+            ButtonColor(const Vec4f& normal, const Vec4f& hovered, const Vec4f& clicked);
         };
 
     public:
@@ -51,7 +51,7 @@ namespace EB
          * @param[in]   color   color of widget.
          * @param[in]   slot    main function on colored button triggered.
          */
-        ColoredButton(const std::string& name, const Vec2& size, const ButtonColor& color, const WidgetSlot& slot = nullptr);
+        ColoredButton(const std::string& name, const Vec2f& size, const ButtonColor& color, const WidgetSlot& slot = nullptr);
 
     protected:
         /**

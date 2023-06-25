@@ -43,39 +43,39 @@ namespace EB
         return read_Impl<float>();
     }
 
-    void FilerImpl::writeVec2(const Vec2& value)
+    void FilerImpl::writeVec2(const Vec2f& value)
     {
-        writeBytes((char*)&value, sizeof(Vec2));
+        writeBytes((char*)&value, sizeof(Vec2f));
     }
 
-    Vec2 FilerImpl::readVec2()
+    Vec2f FilerImpl::readVec2()
     {
-        Vec2 temp;
-        readBytes((char*)&temp, sizeof(Vec2));
+        Vec2f temp;
+        readBytes((char*)&temp, sizeof(Vec2f));
         return temp;
     }
 
-    void FilerImpl::writeVec3(const Vec3& value)
+    void FilerImpl::writeVec3(const Vec3f& value)
     {
-        writeBytes((char*)&value, sizeof(Vec3));
+        writeBytes((char*)&value, sizeof(Vec3f));
     }
 
-    Vec3 FilerImpl::readVec3()
+    Vec3f FilerImpl::readVec3()
     {
-        Vec3 temp;
-        readBytes((char*)&temp, sizeof(Vec3));
+        Vec3f temp;
+        readBytes((char*)&temp, sizeof(Vec3f));
         return temp;
     }
 
-    void FilerImpl::writeVec4(const Vec4& value)
+    void FilerImpl::writeVec4(const Vec4f& value)
     {
-        writeBytes((char*)&value, sizeof(Vec4));
+        writeBytes((char*)&value, sizeof(Vec4f));
     }
 
-    Vec4 FilerImpl::readVec4()
+    Vec4f FilerImpl::readVec4()
     {
-        Vec4 temp;
-        readBytes((char*)&temp, sizeof(Vec4));
+        Vec4f temp;
+        readBytes((char*)&temp, sizeof(Vec4f));
         return temp;
     }
 

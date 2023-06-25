@@ -9,6 +9,7 @@ project "essaybim"
 
     defines {
         "EB_BUILD_DLL",
+        "_CRT_SECURE_NO_WARNINGS"
     }
 
     ignoredefaultlibraries {
@@ -30,6 +31,7 @@ project "essaybim"
         g_includeDir.. "/event",
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
+        g_includeDir.. "/geometry",
         g_includeDir.. "/gui"
     }
 
@@ -43,5 +45,6 @@ project "essaybim"
         "essaybim_event",
         "essaybim_renderer",
         "essaybim_window",
+        "essaybim_geometry",
         "essaybim_gui"
     }

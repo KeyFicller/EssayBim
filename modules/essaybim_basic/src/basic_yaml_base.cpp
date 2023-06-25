@@ -80,19 +80,19 @@ namespace EB
         EB_IMPL()->yamlIn<std::string>(key, value);
     }
 
-    void YamlServer::yamlIn(const std::string& key, Vec2& value)
+    void YamlServer::yamlIn(const std::string& key, Vec2f& value)
     {
-        EB_IMPL()->yamlIn<Vec2>(key, value);
+        EB_IMPL()->yamlIn<Vec2f>(key, value);
     }
 
-    void YamlServer::yamlIn(const std::string& key, Vec3& value)
+    void YamlServer::yamlIn(const std::string& key, Vec3f& value)
     {
-        EB_IMPL()->yamlIn<Vec3>(key, value);
+        EB_IMPL()->yamlIn<Vec3f>(key, value);
     }
 
-    void YamlServer::yamlIn(const std::string& key, Vec4& value)
+    void YamlServer::yamlIn(const std::string& key, Vec4f& value)
     {
-        EB_IMPL()->yamlIn<Vec4>(key, value);
+        EB_IMPL()->yamlIn<Vec4f>(key, value);
     }
 
     void YamlServer::yamlOut(const std::string& key)
@@ -120,19 +120,19 @@ namespace EB
         EB_IMPL()->yamlOut<std::string>(key, value);
     }
 
-    void YamlServer::yamlOut(const std::string& key, const Vec2& value)
+    void YamlServer::yamlOut(const std::string& key, const Vec2f& value)
     {
-        EB_IMPL()->yamlOut<Vec2>(key, value);
+        EB_IMPL()->yamlOut<Vec2f>(key, value);
     }
 
-    void YamlServer::yamlOut(const std::string& key, const Vec3& value)
+    void YamlServer::yamlOut(const std::string& key, const Vec3f& value)
     {
-        EB_IMPL()->yamlOut<Vec3>(key, value);
+        EB_IMPL()->yamlOut<Vec3f>(key, value);
     }
 
-    void YamlServer::yamlOut(const std::string& key, const Vec4& value)
+    void YamlServer::yamlOut(const std::string& key, const Vec4f& value)
     {
-        EB_IMPL()->yamlOut<Vec4>(key, value);
+        EB_IMPL()->yamlOut<Vec4f>(key, value);
     }
 
     void YamlServer::yamlInSequence(const std::string& key, std::function<YamlBase* ()> func)

@@ -69,6 +69,21 @@ namespace EB
         return EB_IMPL()->native();
     }
 
+    bool Window::isKeyPressed(int keyCode)
+    {
+        return EB_IMPL()->isKeyPressed(keyCode);
+    }
+
+    bool Window::isMouseButtonPressed(int mouseButton)
+    {
+        return EB_IMPL()->isMouseButtonPressed(mouseButton);
+    }
+
+    std::pair<float, float> Window::cursorPos()
+    {
+        return EB_IMPL()->cursorPos();
+    }
+
     void Window::onUpdate()
     {
         EB_IMPL()->onUpdate();

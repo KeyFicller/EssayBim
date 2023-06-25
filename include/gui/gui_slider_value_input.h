@@ -25,7 +25,7 @@ namespace EB
          * @param[in]    component    value component count.
          * @param[in]    slot         main function on widget triggered.
          */
-        SliderValueInputF(const std::string& name, Vec2& value, const ValueInputWidget::ValueBoundary& boundary = ValueInputWidget::ValueBoundary(), const WidgetSlot& slot = nullptr);
+        SliderValueInputF(const std::string& name, Vec2f& value, const ValueInputWidget::ValueBoundary& boundary = ValueInputWidget::ValueBoundary(), const WidgetSlot& slot = nullptr);
         
         /**
          * @brief  constructor for slider value input widget.
@@ -34,7 +34,7 @@ namespace EB
          * @param[in]    component    value component count.
          * @param[in]    slot         main function on widget triggered.
          */
-        SliderValueInputF(const std::string& name, Vec3& value, const ValueInputWidget::ValueBoundary& boundary = ValueInputWidget::ValueBoundary(), const WidgetSlot& slot = nullptr);
+        SliderValueInputF(const std::string& name, Vec3f& value, const ValueInputWidget::ValueBoundary& boundary = ValueInputWidget::ValueBoundary(), const WidgetSlot& slot = nullptr);
         
         /**
          * @brief  constructor for slider value input widget.
@@ -43,7 +43,7 @@ namespace EB
          * @param[in]    component    value component count.
          * @param[in]    slot         main function on widget triggered.
          */
-        SliderValueInputF(const std::string& name, Vec4& value, const ValueInputWidget::ValueBoundary& boundary = ValueInputWidget::ValueBoundary(), const WidgetSlot& slot = nullptr);
+        SliderValueInputF(const std::string& name, Vec4f& value, const ValueInputWidget::ValueBoundary& boundary = ValueInputWidget::ValueBoundary(), const WidgetSlot& slot = nullptr);
     
     public:
         /**

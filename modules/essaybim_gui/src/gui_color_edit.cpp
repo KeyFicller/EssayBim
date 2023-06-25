@@ -5,13 +5,13 @@
 namespace EB
 {
 
-    ColorEdit::ColorEdit(const std::string& name, Vec3& value, const WidgetSlot& slot /*= nullptr*/)
+    ColorEdit::ColorEdit(const std::string& name, Vec3f& value, const WidgetSlot& slot /*= nullptr*/)
         : ValueInputWidget(name, &value, 3, ValueInputWidget::vb_0_to_1, slot)
     {
 
     }
 
-    ColorEdit::ColorEdit(const std::string& name, Vec4& value, const WidgetSlot& slot /*= nullptr*/)
+    ColorEdit::ColorEdit(const std::string& name, Vec4f& value, const WidgetSlot& slot /*= nullptr*/)
         : ValueInputWidget(name, &value, 4, ValueInputWidget::vb_0_to_1, slot)
     {
 

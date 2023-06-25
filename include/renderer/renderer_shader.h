@@ -113,21 +113,21 @@ namespace EB
          * @param[in]    key       name of uniform variable.
          * @param[in]    value     float value.
          */
-        void setFloat2(const std::string& key, const Vec2& value);
+        void setFloat2(const std::string& key, const Vec2f& value);
 
         /**
          * @brief   set 3 component float value to uniform variable.
          * @param[in]    key       name of uniform variable.
          * @param[in]    value     float value.
          */
-        void setFloat3(const std::string& key, const Vec3& value);
+        void setFloat3(const std::string& key, const Vec3f& value);
 
         /**
          * @brief   set 4 component float value to uniform variable.
          * @param[in]    key       name of uniform variable.
          * @param[in]    value     float value.
          */
-        void setFloat4(const std::string& key, const Vec4& value);
+        void setFloat4(const std::string& key, const Vec4f& value);
 
         /**
          * @brief   set a 3 x 3 matrix to uniform variable.

@@ -9,16 +9,16 @@ namespace EB
 
     ColoredButton::ButtonColor::ButtonColor()
     {
-        static Vec4 defaultNormal = GuiTheme().m_Colors.Button;
-        static Vec4 defaultHovered = GuiTheme().m_Colors.ButtonHovered;
-        static Vec4 defaultClicked = GuiTheme().m_Colors.ButtonActive;
+        static Vec4f defaultNormal = GuiTheme().m_Colors.Button;
+        static Vec4f defaultHovered = GuiTheme().m_Colors.ButtonHovered;
+        static Vec4f defaultClicked = GuiTheme().m_Colors.ButtonActive;
 
         Normal = defaultNormal;
         Hovered = defaultHovered;
         Clicked = defaultClicked;
     }
 
-    ColoredButton::ButtonColor::ButtonColor(const Vec4& normal, const Vec4& hovered, const Vec4& clicked)
+    ColoredButton::ButtonColor::ButtonColor(const Vec4f& normal, const Vec4f& hovered, const Vec4f& clicked)
         : Normal(normal), Hovered(hovered), Clicked(clicked)
     {
 
@@ -30,7 +30,7 @@ namespace EB
 
     }
 
-    ColoredButton::ColoredButton(const std::string& name, const Vec2& size, const ButtonColor& color, const WidgetSlot& slot /*= nullptr*/)
+    ColoredButton::ColoredButton(const std::string& name, const Vec2f& size, const ButtonColor& color, const WidgetSlot& slot /*= nullptr*/)
         : Button(name, size, slot), m_Color(color)
     {
 

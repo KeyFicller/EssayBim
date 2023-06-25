@@ -24,7 +24,7 @@ namespace EB
          * @param[in]   size    size of widget.
          * @param[in]   slot    main function on button triggered.
          */
-        Button(const std::string& name, const Vec2& size, const WidgetSlot& slot = nullptr);
+        Button(const std::string& name, const Vec2f& size, const WidgetSlot& slot = nullptr);
     public:
         /**
          * @brief   render gui and get triggered status.
@@ -34,6 +34,6 @@ namespace EB
 
     protected:
         /** < button size > */
-        Vec2 m_Size = Vec2(0.f, 0.f);
+        Vec2f m_Size = Vec2f(0.f, 0.f);
     };
 }

@@ -23,9 +23,9 @@ namespace EB
         void setInt(const std::string& key, int value);
         void setIntArray(const std::string& key, unsigned int count, int* pValues);
         void setFloat(const std::string& key, float value);
-        void setFloat2(const std::string& key, const Vec2& value);
-        void setFloat3(const std::string& key, const Vec3& value);
-        void setFloat4(const std::string& key, const Vec4& value);
+        void setFloat2(const std::string& key, const Vec2f& value);
+        void setFloat3(const std::string& key, const Vec3f& value);
+        void setFloat4(const std::string& key, const Vec4f& value);
         void setMat3(const std::string& key, const Mat3& value);
         void setMat4(const std::string& key, const Mat4& value);
 

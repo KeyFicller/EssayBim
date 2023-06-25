@@ -16,7 +16,7 @@ namespace EB
          * @param[in]    size          size of button.
          * @param[in]    slot    main function on image button triggered.
          */
-        ImageButton(unsigned int textureId, const Vec2& size, const WidgetSlot& slot = nullptr);
+        ImageButton(unsigned int textureId, const Vec2f& size, const WidgetSlot& slot = nullptr);
 
     protected:
         /**

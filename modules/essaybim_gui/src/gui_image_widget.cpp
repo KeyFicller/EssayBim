@@ -11,7 +11,7 @@
 namespace EB
 {
 
-    ImageWidget::ImageWidget(unsigned int textureId, const Vec2& size)
+    ImageWidget::ImageWidget(unsigned int textureId, const Vec2f& size)
         : BaseWidget(), m_TextureId(textureId), m_Size(size)
     {
 
@@ -20,11 +20,11 @@ namespace EB
     bool ImageWidget::subOnImguiRender()
     {
         m_CursorPos = ImGui::GetCursorScreenPos();
-        ImGui::Image((void*)m_TextureId, m_Size, Vec2(0.0f, 1.0f), Vec2(1.0f, 0.0f));
+        ImGui::Image((void*)m_TextureId, m_Size, Vec2f(0.0f, 1.0f), Vec2f(1.0f, 0.0f));
         return true;
     }
 
-    ImageWidgetWithMagnifier::ImageWidgetWithMagnifier(unsigned int textureId, const Vec2& size, float zoomScale /*= 4.0f*/)
+    ImageWidgetWithMagnifier::ImageWidgetWithMagnifier(unsigned int textureId, const Vec2f& size, float zoomScale /*= 4.0f*/)
         : ImageWidget(textureId, size), m_ZoomScale(zoomScale)
     {
 
@@ -56,9 +56,9 @@ namespace EB
 
             //Vec2 uv0 = Vec2((subPosX) / m_Size.x(), (subPosY + subSizeY) / m_Size.y());
             //Vec2 uv1 = Vec2((subPosX + subSizeX) / m_Size.x(), subPosY / m_Size.y());
-            Vec2 uv0 = Vec2((subPosX) / m_Size.x(), 1.0f - (subPosY) / m_Size.y());
-            Vec2 uv1 = Vec2((subPosX + subSizeX) / m_Size.x(), 1.0f - (subPosY + subSizeY) / m_Size.y());
-            ImGui::Image((void*)m_TextureId, Vec2(subSizeX * m_ZoomScale, subSizeY * m_ZoomScale), uv0, uv1);
+            Vec2f uv0 = Vec2f((subPosX) / m_Size.x(), 1.0f - (subPosY) / m_Size.y());
+            Vec2f uv1 = Vec2f((subPosX + subSizeX) / m_Size.x(), 1.0f - (subPosY + subSizeY) / m_Size.y());
+            ImGui::Image((void*)m_TextureId, Vec2f(subSizeX * m_ZoomScale, subSizeY * m_ZoomScale), uv0, uv1);
             ImGui::EndTooltip();
         }
     }

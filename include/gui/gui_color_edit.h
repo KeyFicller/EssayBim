@@ -18,7 +18,7 @@ namespace EB
          * @param[in]    value         interacting value.
          * @param[in]    slot         main function on widget triggered.
          */
-        ColorEdit(const std::string& name, Vec3& value, const WidgetSlot& slot = nullptr);
+        ColorEdit(const std::string& name, Vec3f& value, const WidgetSlot& slot = nullptr);
 
         /**
          * @brief  constructor for color edit widget.
@@ -26,7 +26,7 @@ namespace EB
          * @param[in]    value         interacting value.
          * @param[in]    slot         main function on widget triggered.
          */
-        ColorEdit(const std::string& name, Vec4& value, const WidgetSlot& slot = nullptr);
+        ColorEdit(const std::string& name, Vec4f& value, const WidgetSlot& slot = nullptr);
 
     public:
         /**

@@ -24,7 +24,7 @@ namespace EB
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void RendererEntryImpl::setClearColor(const Vec4& color) const
+    void RendererEntryImpl::setClearColor(const Vec4f& color) const
     {
         EB_GL_AUTO_TRACE();
         glClearColor(color.x(), color.y(), color.z(), color.w());

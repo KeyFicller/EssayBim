@@ -53,7 +53,7 @@ namespace EB
          * @param[in]    color     color of text.
          * @param[in]    name      name and display string of widget.
          */
-        ColoredText(const Vec4& color, const std::string& name);
+        ColoredText(const Vec4f& color, const std::string& name);
 
         /**
          * @brief  constructor for colored text.
@@ -61,7 +61,7 @@ namespace EB
          * @param[in]  fmt     format string.
          * @param[in]  ...     format args.
          */
-        ColoredText(const Vec4& color, const char* fmt, ...);
+        ColoredText(const Vec4f& color, const char* fmt, ...);
 
     protected:
         /**
@@ -72,7 +72,7 @@ namespace EB
 
     protected:
         /** < color of text > */
-        Vec4 m_Color;
+        Vec4f m_Color;
     };
 
     /**

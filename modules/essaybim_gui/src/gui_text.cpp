@@ -39,13 +39,13 @@ namespace EB
         return false;
     }
 
-    ColoredText::ColoredText(const Vec4& color, const std::string& name)
+    ColoredText::ColoredText(const Vec4f& color, const std::string& name)
         : Text(name), m_Color(color)
     {
 
     }
 
-    ColoredText::ColoredText(const Vec4& color, const char* fmt, ...)
+    ColoredText::ColoredText(const Vec4f& color, const char* fmt, ...)
         : Text(* new TextImpl(this, "")), m_Color(color)
     {
         va_list _args;

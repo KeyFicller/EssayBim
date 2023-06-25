@@ -17,7 +17,7 @@ namespace EB
          * @param[in]    textureId    texture identifier allocated by OpenGL.
          * @param[in]    size         size of image widget.
          */
-        ImageWidget(unsigned int textureId, const Vec2& size);
+        ImageWidget(unsigned int textureId, const Vec2f& size);
 
     protected:
         /**
@@ -31,10 +31,10 @@ namespace EB
         unsigned int m_TextureId;
 
         /** < size of image widget > */
-        Vec2 m_Size;
+        Vec2f m_Size;
 
         /** < cached tempoaray data > */        // todo: remove this
-        Vec2 m_CursorPos;
+        Vec2f m_CursorPos;
     };
 
     /**
@@ -48,7 +48,7 @@ namespace EB
          * @param[in]    size       size of image widget.
          * @param[in]    zoomScale  zoom scale of magnifier.
          */
-        ImageWidgetWithMagnifier(unsigned int textureId, const Vec2& size, float zoomScale = 4.0f);
+        ImageWidgetWithMagnifier(unsigned int textureId, const Vec2f& size, float zoomScale = 4.0f);
 
     protected:
         /**

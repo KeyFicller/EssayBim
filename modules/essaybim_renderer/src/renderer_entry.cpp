@@ -26,7 +26,7 @@ namespace EB
         EB_IMPL()->clear();
     }
 
-    void RendererEntry::setClearColor(const Vec4& color) const
+    void RendererEntry::setClearColor(const Vec4f& color) const
     {
         EB_IMPL()->setClearColor(color);
     }

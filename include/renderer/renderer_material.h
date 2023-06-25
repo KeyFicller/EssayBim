@@ -18,13 +18,13 @@ namespace EB
         std::string Name;
 
         /** < ambient of material > */
-        Vec3 Ambient;
+        Vec3f Ambient;
 
         /** < diffuse of material > */
-        Vec3 Diffuse;
+        Vec3f Diffuse;
 
         /** < specular of maaterial > */
-        Vec3 Specular;
+        Vec3f Specular;
 
         /** < shiniess of material > */
         float Shininess;

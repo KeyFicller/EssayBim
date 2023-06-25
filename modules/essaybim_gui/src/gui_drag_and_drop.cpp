@@ -31,7 +31,7 @@ namespace EB
 
     bool DragSource::subOnImguiRender()
     {
-        return ImGui::BeginDragDropSource();
+        return ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID);
     }
 
     void DragSource::postAction()
