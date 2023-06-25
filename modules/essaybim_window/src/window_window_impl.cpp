@@ -65,6 +65,25 @@ namespace EB
         return m_pWindow;
     }
 
+    bool WindowImpl::isKeyPressed(int keyCode)
+    {
+        auto state = glfwGetKey(native(), keyCode);
+        return state == GLFW_PRESS || state == GLFW_REPEAT;
+    }
+
+    bool WindowImpl::isMouseButtonPressed(int mouseButton)
+    {
+        auto state = glfwGetMouseButton(native(), mouseButton);
+        return state == GLFW_PRESS;
+    }
+
+    std::pair<float, float> WindowImpl::cursorPos()
+    {
+        double x, y;
+        glfwGetCursorPos(native(), &x, &y);
+        return { (float)x, (float)y };
+    }
+
     void WindowImpl::onUpdate()
     {
         m_GraphicsContext->swapBuffers();

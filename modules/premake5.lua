@@ -8,6 +8,7 @@ include "essaybim_geometry"
 group "modules/essaybim_appcore"
 include "essaybim_event"
 include "essaybim_window"
+include "essaybim_document"
 group ""
 
 group ""

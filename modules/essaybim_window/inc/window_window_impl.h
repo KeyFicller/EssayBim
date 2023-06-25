@@ -21,6 +21,9 @@ namespace EB
         void setVSync(bool enable = true);
         void setEventCallback(const Window::EventCallbackFn& callback);
         GLFWwindow* native() const;
+        bool isKeyPressed(int keyCode);
+        bool isMouseButtonPressed(int mouseButton);
+        std::pair<float, float> cursorPos();
 
     public:
         void onUpdate();

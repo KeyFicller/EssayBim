@@ -106,6 +106,26 @@ namespace EB
          */
         GLFWwindow* native() const;
 
+        /**
+         * @brief   is key pressed for this window.
+         * @param[in]    keyCode    key identifier.
+         * @return    whether key is pressed.
+         */
+        bool isKeyPressed(int keyCode);
+
+        /**
+         * @brief   is mouse button pressed for this window.
+         * @param[in]    mouseButton   mouse button identifer.
+         * @return    whether mouse button is pressed.
+         */
+        bool isMouseButtonPressed(int mouseButton);
+
+        /**
+         * @brief   get cursor pos of this window.
+         * @return   pair of cursor pos x and y.
+         */
+        std::pair<float, float> cursorPos();
+
     public:
         /**
          * @brief   update window data.
