@@ -4,12 +4,6 @@
 
 namespace EB
 {
-    void GeMeshData::clear()
-    {
-        Vertices.clear();
-        Indices.clear();
-    }
-
     GeMesh::GeMesh()
     {
         EB_IMPL() = createScoped<GeMeshImpl>(this);
@@ -30,9 +24,14 @@ namespace EB
         EB_IMPL()->importFromObj(fileName);
     }
 
-    const EB::GeMeshData& GeMesh::data() const
+    const GeMeshData& GeMesh::data() const
     {
         return EB_IMPL()->data();
+    }
+
+    const std::vector<Vec3f>& GeMesh::boundingBox() const
+    {
+        return EB_IMPL()->boundingBox();
     }
 
 }

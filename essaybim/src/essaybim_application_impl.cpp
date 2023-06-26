@@ -67,6 +67,13 @@ namespace EB
         EventDispatcher dispatcher(e);
         dispatcher.dispatch<WindowResizedEvent>(BIND_EVENT_FN(onWindowResized));
         dispatcher.dispatch<WindowClosedEvent>(BIND_EVENT_FN(onWindowClosed));
+
+        for (auto iter = m_LayerStack->layers().rbegin(); iter != m_LayerStack->layers().rend(); iter++) {
+            (*iter)->onEvent(e);
+            if (e.isHandled()) {
+                break;
+            }
+        }
     }
 
     void ApplicationImpl::close()

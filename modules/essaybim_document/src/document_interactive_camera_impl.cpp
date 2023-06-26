@@ -11,6 +11,8 @@
 
 namespace EB
 {
+    EB_YAML_DECLARE_KEYS(VerticalFov, AspectRatio, NearClip, FarClip, Distance, ViewportWidth,
+        ViewportHeight, CameraPos, LookAtPos, Pitch, Yaw, Roll);
 
     InteractiveCameraImpl::InteractiveCameraImpl(Camera* pFacade, Window* pWindow)
         : CameraImpl(pFacade, pWindow, Mat4())
@@ -20,8 +22,9 @@ namespace EB
 
     InteractiveCameraImpl::InteractiveCameraImpl(Camera* pFacade, Window* pWindow, float VFov, float aspectRatio, float nearClip, float farClip)
         : m_VerticalFov(VFov), m_AspectRatio(aspectRatio), m_NearClip(nearClip), m_FarClip(farClip),
-          CameraImpl(pFacade, pWindow, glm::perspective(glm::radians(m_VerticalFov), m_AspectRatio, m_NearClip, m_FarClip))
+          CameraImpl(pFacade, pWindow, Mat4())
     {
+        m_ProjectionMatrix = glm::perspective(glm::radians(m_VerticalFov), m_AspectRatio, m_NearClip, m_FarClip);
         updateViewMatrix();
     }
 
@@ -106,12 +109,40 @@ namespace EB
 
     void InteractiveCameraImpl::subYamlIn(const std::string& key)
     {
-
+        CameraImpl::subYamlIn(key);
+        EB_YAML_IN(s_Key.VerticalFov, m_VerticalFov);
+        EB_YAML_IN(s_Key.AspectRatio, m_AspectRatio);
+        EB_YAML_IN(s_Key.NearClip, m_NearClip);
+        EB_YAML_IN(s_Key.FarClip, m_FarClip);
+        EB_YAML_IN(s_Key.Distance, m_Distance);
+        EB_YAML_IN(s_Key.ViewportWidth, m_ViewportWidth);
+        EB_YAML_IN(s_Key.ViewportHeight, m_ViewportHeight);
+        EB_YAML_IN(s_Key.CameraPos, (Vec3f&)m_CameraPosition);
+        EB_YAML_IN(s_Key.LookAtPos, (Vec3f&)m_LookAtPosition);
+        EB_YAML_IN(s_Key.Pitch, m_Pitch);
+        EB_YAML_IN(s_Key.Yaw, m_Yaw);
+        EB_YAML_IN(s_Key.Roll, m_Roll);
+        updateViewMatrix();
+        updateProjectionMatrix();
     }
 
     void InteractiveCameraImpl::subYamlOut(const std::string& key)
     {
+        CameraImpl::subYamlOut(key);
+        EB_YAML_AUTO_MAP();
 
+        EB_YAML_OUT(s_Key.VerticalFov, m_VerticalFov);
+        EB_YAML_OUT(s_Key.AspectRatio, m_AspectRatio);
+        EB_YAML_OUT(s_Key.NearClip, m_NearClip);
+        EB_YAML_OUT(s_Key.FarClip, m_FarClip);
+        EB_YAML_OUT(s_Key.Distance, m_Distance);
+        EB_YAML_OUT(s_Key.ViewportWidth, m_ViewportWidth);
+        EB_YAML_OUT(s_Key.ViewportHeight, m_ViewportHeight);
+        EB_YAML_OUT(s_Key.CameraPos, (Vec3f&)m_CameraPosition);
+        EB_YAML_OUT(s_Key.LookAtPos, (Vec3f&)m_LookAtPosition);
+        EB_YAML_OUT(s_Key.Pitch, m_Pitch);
+        EB_YAML_OUT(s_Key.Yaw, m_Yaw);
+        EB_YAML_OUT(s_Key.Roll, m_Roll);
     }
 
     void InteractiveCameraImpl::updateProjectionMatrix()

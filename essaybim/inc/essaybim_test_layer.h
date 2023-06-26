@@ -9,6 +9,8 @@ namespace EB
     class IndexBuffer;
     class Shader;
     class Texture2D;
+    class InteractiveCamera;
+    class UniformBuffer;
 
     class TestLayer : public Layer
     {
@@ -28,5 +30,7 @@ namespace EB
         Shared<IndexBuffer> ibo;
         Shared<Shader> shader;
         Shared<Texture2D> texture;
+        Shared<InteractiveCamera> camera;
+        Shared<UniformBuffer> cameraBuffer;
     };
 }
