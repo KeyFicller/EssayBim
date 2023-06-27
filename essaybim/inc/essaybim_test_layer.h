@@ -11,6 +11,7 @@ namespace EB
     class Texture2D;
     class InteractiveCamera;
     class UniformBuffer;
+    class FrameBuffer;
 
     class TestLayer : public Layer
     {
@@ -32,5 +33,7 @@ namespace EB
         Shared<Texture2D> texture;
         Shared<InteractiveCamera> camera;
         Shared<UniformBuffer> cameraBuffer;
+        Shared<FrameBuffer> frameBuffer;
+        bool viewHovered = false;
     };
 }

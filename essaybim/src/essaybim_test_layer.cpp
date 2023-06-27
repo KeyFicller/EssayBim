@@ -15,6 +15,10 @@
 #include "essaybim_application.h"
 #include "window_window.h"
 #include "renderer_uniform_buffer.h"
+#include "gui_dock_space.h"
+#include "renderer_frame_buffer.h"
+#include "gui_window_widget.h"
+#include "gui_image_widget.h"
 
 namespace EB
 {
@@ -58,6 +62,15 @@ namespace EB
 
         camera = createShared<InteractiveCamera>(Window::instance("DemoApp").get(), 45.f, 1.5f, 0.1f, 1000.f);
         cameraBuffer = UniformBuffer::create(sizeof(CameraData), 0);
+
+        FrameBufferSpecification spec;
+        spec.Width = 1500;
+        spec.Height = 1000;
+        spec.Attachments = {
+            eFrameBufferTextureFormat::kRGBA8,
+            eFrameBufferTextureFormat::kDepth
+        };
+        frameBuffer = FrameBuffer::create(spec);
     }
 
     void TestLayer::onDetach()
@@ -68,26 +81,49 @@ namespace EB
         shader.reset();
         texture.reset();
         camera.reset();
+        cameraBuffer.reset();
+        frameBuffer.reset();
     }
 
     void TestLayer::onUpdate(const TimeStep& ts)
     {
-        camera->onUpdate(ts);
+        if (viewHovered) {
+            camera->onUpdate(ts);
+        }
         cameraData.ViewProjectionMatrix = camera->viewProjectionMatrix();
         cameraBuffer->setData(&cameraData, sizeof(CameraData), 0);
-        RendererEntry::instance().clear();
-        shader->bind();
-        RendererEntry::instance().mesh(vao);
     }
 
     void TestLayer::onGuiRender()
     {
+        static bool dockEnabled = true;
+        DockSpace::begin("Main Doc Space", dockEnabled, true);
 
+        auto slot = [&]() {
+            auto& bounds = WindowWidget::viewportBounds();
+            Vec2f size = Vec2f(bounds[1].x() - bounds[0].x(), bounds[1].y() - bounds[0].y());
+            if (size.x() > 0 && size.y() > 0) {
+                frameBuffer->onResize((unsigned int)size.x(), (unsigned int)size.y());
+            }
+            frameBuffer->bind();
+            RendererEntry::instance().clear();
+            shader->bind();
+            RendererEntry::instance().mesh(vao);
+            frameBuffer->unbind();
+            EB_WIDGET_IMMEDIATE(ImageWidget, frameBuffer->colorAttachmentRendererId(), WindowWidget::viewportAvailiable());
+            viewHovered = WindowWidget::isHovered();
+        };
+
+        EB_WIDGET_IMMEDIATE(WindowWidget, "Render Window", slot);
+
+        DockSpace::end();
     }
 
     void TestLayer::onEvent(Event& e)
     {
-        camera->onEvent(e);
+        if (viewHovered) {
+            camera->onEvent(e);
+        }
     }
 
 }
