@@ -2,6 +2,7 @@
 
 #include "geometry_mesh.h"
 
+#pragma warning(disable: 4819)
 #include <Eigen/Core>
 
 namespace EB
