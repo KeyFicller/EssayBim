@@ -1,4 +1,4 @@
-#include "gui_window_widget.h"
+#include "gui_panel.h"
 
 #include "gui_base_widget_impl.h"
 
@@ -7,18 +7,18 @@
 namespace EB
 {
 
-    WindowWidget::WindowWidget(const std::string& name, const WidgetSlot& slot)
+    Panel::Panel(const std::string& name, const WidgetSlot& slot)
         : BaseWidget(name)
     {
         setSlot(slot);
     }
 
-    bool WindowWidget::isHovered()
+    bool Panel::isHovered()
     {
         return ImGui::IsWindowHovered();
     }
 
-    std::vector<Vec2f> WindowWidget::viewportBounds()
+    std::vector<Vec2f> Panel::viewportBounds()
     {
         std::vector<Vec2f> res;
         ImVec2 viewportMinRegion = ImGui::GetWindowContentRegionMin();
@@ -29,18 +29,18 @@ namespace EB
         return res;
     }
 
-    Vec2f WindowWidget::viewportAvailiable()
+    Vec2f Panel::viewportAvailiable()
     {
         return ImGui::GetContentRegionAvail();
     }
 
-    bool WindowWidget::subOnImguiRender()
+    bool Panel::subOnImguiRender()
     {
         ImGui::Begin(EB_IMPL()->name().c_str());
         return true;
     }
 
-    void WindowWidget::postAction()
+    void Panel::postAction()
     {
         ImGui::End();
     }

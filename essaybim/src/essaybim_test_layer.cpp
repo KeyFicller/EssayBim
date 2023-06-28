@@ -10,15 +10,15 @@
 #include "renderer_entry.h"
 #include "renderer_shader_library.h"
 #include "renderer_texture.h"
-#include "geometry_mesh.h"
-#include "document_interactive_camera.h"
+#include "renderer_frame_buffer.h"
+#include "renderer_uniform_buffer.h"
 #include "essaybim_application.h"
 #include "window_window.h"
-#include "renderer_uniform_buffer.h"
+#include "geometry_mesh.h"
 #include "gui_dock_space.h"
-#include "renderer_frame_buffer.h"
-#include "gui_window_widget.h"
+#include "gui_panel.h"
 #include "gui_image_widget.h"
+#include "document_interactive_camera.h"
 
 namespace EB
 {
@@ -39,26 +39,42 @@ namespace EB
 
     void TestLayer::onAttach()
     {
-        static GeMesh mesh;
+        mesh = createShared<GeMesh>();
         static bool init = false;
         if (!init) {
-            mesh.importFromObj(FileServer::instance().resourcesPathRoot() + "\\meshes\\cube.obj");
+            mesh->importFromObj(FileServer::instance().resourcesPathRoot() + "\\meshes\\cube.obj");
             init = true;
         }
-        auto bound = mesh.boundingBox();
 
-        const GeMeshData& meshData = mesh.data();
-        vao = VertexArray::create();
-        vbo = VertexBuffer::create((float*)meshData.Vertices.data(), (unsigned int)(meshData.Vertices.size()) * 3 * sizeof(float));
+        const GeMeshData& meshData = mesh->data();
+        vaoMesh = VertexArray::create();
+        vboMesh = VertexBuffer::create((float*)meshData.Vertices.data(), (unsigned int)(meshData.Vertices.size()) * 3 * sizeof(float));
         BufferLayout layout{
             {"aPos", eShaderDataType::kFloat3, false},
         };
-        vbo->setLayout(layout);
-        vao->addVertexBuffer(vbo);
-        ibo = IndexBuffer::create((unsigned int*)meshData.Indices.data(), (unsigned int)(meshData.Indices.size()) * 3);
-        vao->setIndexBuffer(ibo);
-        shader = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
-        shader->unbind();
+        vboMesh->setLayout(layout);
+        vaoMesh->addVertexBuffer(vboMesh);
+        iboMesh = IndexBuffer::create((unsigned int*)meshData.Indices.data(), (unsigned int)(meshData.Indices.size()) * 3);
+        vaoMesh->setIndexBuffer(iboMesh);
+
+        bound = mesh->boundingBox();
+        for (int i = 0; i < 4; i++) {
+            boundIs.emplace_back(Vec2i(i, (i + 1) % 4));
+            boundIs.emplace_back(Vec2i(i + 4, (i + 1) % 4 + 4));
+            boundIs.emplace_back(Vec2i(i, i + 4));
+        }
+        vaoLine = VertexArray::create();
+        vboLine = VertexBuffer::create((float*)bound.data(), (unsigned int)(bound.size()) * 3 * sizeof(float));
+        vboLine->setLayout(layout);
+        vaoLine->addVertexBuffer(vboLine);
+        iboLine = IndexBuffer::create((unsigned int*)boundIs.data(), (unsigned int)(boundIs.size()) * 2);
+        vaoLine->setIndexBuffer(iboLine);
+
+        shaderMesh = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
+        shaderMesh->unbind();
+
+        shaderLine = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp_2.glsl");
+        shaderLine->unbind();
 
         camera = createShared<InteractiveCamera>(Window::instance("DemoApp").get(), 45.f, 1.5f, 0.1f, 1000.f);
         cameraBuffer = UniformBuffer::create(sizeof(CameraData), 0);
@@ -75,10 +91,10 @@ namespace EB
 
     void TestLayer::onDetach()
     {
-        vao.reset();
-        vbo.reset();
-        ibo.reset();
-        shader.reset();
+        vaoMesh.reset();
+        vboMesh.reset();
+        iboMesh.reset();
+        shaderMesh.reset();
         texture.reset();
         camera.reset();
         cameraBuffer.reset();
@@ -100,21 +116,23 @@ namespace EB
         DockSpace::begin("Main Doc Space", dockEnabled, true);
 
         auto slot = [&]() {
-            auto& bounds = WindowWidget::viewportBounds();
+            auto& bounds = Panel::viewportBounds();
             Vec2f size = Vec2f(bounds[1].x() - bounds[0].x(), bounds[1].y() - bounds[0].y());
             if (size.x() > 0 && size.y() > 0) {
                 frameBuffer->onResize((unsigned int)size.x(), (unsigned int)size.y());
             }
             frameBuffer->bind();
             RendererEntry::instance().clear();
-            shader->bind();
-            RendererEntry::instance().mesh(vao);
+            shaderMesh->bind();
+            RendererEntry::instance().mesh(vaoMesh);
+            shaderLine->bind();
+            RendererEntry::instance().line(vaoLine);
             frameBuffer->unbind();
-            EB_WIDGET_IMMEDIATE(ImageWidget, frameBuffer->colorAttachmentRendererId(), WindowWidget::viewportAvailiable());
-            viewHovered = WindowWidget::isHovered();
+            EB_WIDGET_IMMEDIATE(ImageWidget, frameBuffer->colorAttachmentRendererId(), Panel::viewportAvailiable());
+            viewHovered = Panel::isHovered();
         };
 
-        EB_WIDGET_IMMEDIATE(WindowWidget, "Render Window", slot);
+        EB_WIDGET_IMMEDIATE(Panel, "Render Window", slot);
 
         DockSpace::end();
     }

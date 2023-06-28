@@ -218,6 +218,13 @@ namespace EB
         T w() const { return VecImpl<T, 4>::m_Data[3]; }
     };
 
+    /**
+     * @brief  this struct is used a 2 int component vector.
+     */
+    struct Vec2i : public Vec2<int>
+    {
+        using Vec2<int>::Vec2;
+    };
 
     /**
      * @brief  this struct is used a 2 float component vector.

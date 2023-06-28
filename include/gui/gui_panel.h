@@ -9,22 +9,22 @@
 namespace EB
 {
     /**
-     * @brief   this class defines window widget.
+     * @brief   this class defines panel.
      */
-    class EB_EXPORT WindowWidget : public BaseWidget
+    class EB_EXPORT Panel : public BaseWidget
     {
     public:
         /**
-         * @brief   constructor for window widget.
-         * @param[in]     name      name of window widget.
-         * @param[in]     slot      window render.
+         * @brief   constructor for panel.
+         * @param[in]     name      name of panel.
+         * @param[in]     slot      panel render.
          */
-        WindowWidget(const std::string& name, const WidgetSlot& slot);
+        Panel(const std::string& name, const WidgetSlot& slot);
 
     public:
         /**
-         * @brief   internal usage, whether window widget is hovered.
-         * @return     whether current window widget is hovered
+         * @brief   internal usage, whether panel is hovered.
+         * @return     whether current panel is hovered
          */
         static bool isHovered();
 
