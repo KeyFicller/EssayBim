@@ -3,12 +3,12 @@
 #include "basic_assert.h"
 
 #ifdef USE_GLM_IN_MODULE
-#include "glm/glm.hpp"
-#include "glm/gtc/type_ptr.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #endif
 
 #ifdef USE_IMGUI_IN_MODULE
-#include "imgui.h"
+#include <imgui.h>
 #endif
 
 /**
@@ -19,50 +19,30 @@
 namespace EB
 {
     /**
-     * @brief  this struct is used a 2 component vector.
+     * @brief   this struct defines implement for vector.
      */
-    struct Vec2f
+    template <typename T, int N>
+    struct VecImpl
     {
         /**
-         * @brief  default constructor for Vec2.
+         * @brief   constructor for elements.
+         * @param[in]  elements    first N element of vector.
          */
-        Vec2f() : m_Data{ 0.0, 0.0 } {}
-
-        /**
-         * @brief  constructor for Vec2.
-         */
-        Vec2f(float x, float y) : m_Data{ x, y } {}
-
-        /**
-         * @brief   get first component.
-         * @return  reference of first component.
-         */
-        float& x() { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  reference of second component.
-         */
-        float& y() { return m_Data[1]; }
-
-        /**
-         * @brief   get first component.
-         * @return  first component.
-         */
-        float x() const { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  second component.
-         */
-        float y() const { return m_Data[1]; }
+        VecImpl(const std::initializer_list<T>& elements) {
+            EB_CORE_ASSERT(elements.size() <= N, "Invalid init.");
+            memset(m_Data, 0, sizeof(VecImpl));
+            int i = 0;
+            for (auto& element : elements) {
+                m_Data[i++] = element;
+            }
+        }
 
         /**
          * @brief   get component by index.
          * @return  reference of component at index.
          */
-        float& operator [] (int index) {
-            EB_CORE_ASSERT(index < 2, "Index out of range.");
+        T& operator [] (int index) {
+            EB_CORE_ASSERT(index < N, "Index out of range.");
             return m_Data[index];
         }
 
@@ -71,9 +51,180 @@ namespace EB
          * @return  component at index.
          */
         float operator [] (int index) const {
-            EB_CORE_ASSERT(index < 2, "Index out of range.");
+            EB_CORE_ASSERT(index < N, "Index out of range.");
             return m_Data[index];
         }
+
+        /** < data > */
+        T m_Data[N];
+    };
+
+    /**
+     * @brief  this struct is used a 2 component vector.
+     */
+    template <typename T>
+    struct Vec2 : public VecImpl<T, 2>
+    {
+        /**
+         * @brief  default constructor for Vec2.
+         */
+        Vec2() : VecImpl<T, 2>({}) {}
+
+        /**
+         * @brief  constructor for Vec2.
+         */
+        Vec2(T x, T y) : VecImpl<T, 2>({ x, y }) {}
+
+        /**
+         * @brief   get first component.
+         * @return  reference of first component.
+         */
+        T& x() { return VecImpl<T, 2>::m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  reference of second component.
+         */
+        T& y() { return VecImpl<T, 2>::m_Data[1]; }
+
+        /**
+         * @brief   get first component.
+         * @return  first component.
+         */
+        T x() const { return VecImpl<T, 2>::m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  second component.
+         */
+        T y() const { return VecImpl<T, 2>::m_Data[1]; }
+    };
+
+    /**
+     * @brief  this struct is used a 3 component vector
+     */
+    template <typename T>
+    struct Vec3 : public VecImpl<T, 3>
+    {
+        /**
+         * @brief  default constructor for Vec3.
+         */
+        Vec3() : VecImpl<T, 3>({}) {}
+
+        /**
+         * @brief  constructor for Vec3.
+         */
+        Vec3(T x, T y, T z) : VecImpl<T, 3>({ x, y, z }) {}
+
+        /**
+         * @brief   get first component.
+         * @return  reference of first component.
+         */
+        T& x() { return VecImpl<T, 3>::m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  reference of second component.
+         */
+        T& y() { return VecImpl<T, 3>::m_Data[1]; }
+
+        /**
+         * @brief   get third component.
+         * @return  reference of second component.
+         */
+        T& z() { return VecImpl<T, 3>::m_Data[2]; }
+
+        /**
+         * @brief   get first component.
+         * @return  first component.
+         */
+        T x() const { return VecImpl<T, 3>::m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  second component.
+         */
+        T y() const { return VecImpl<T, 3>::m_Data[1]; }
+
+        /**
+         * @brief   get third component.
+         * @return  second component.
+         */
+        T z() const { return VecImpl<T, 3>::m_Data[2]; }
+    };
+
+    /**
+     * @brief  this struct is used a 4 component vector
+     */
+    template <typename T>
+    struct Vec4 : public VecImpl<T, 4>
+    {
+        /**
+         * @brief  default constructor for Vec4.
+         */
+        Vec4() : VecImpl<T, 4>({}) {}
+
+        /**
+         * @brief  constructor for Vec3.
+         */
+        Vec4(T x, T y, T z, T w) : VecImpl<T, 4>({ x, y, z, w }) {}
+
+        /**
+         * @brief   get first component.
+         * @return  reference of first component.
+         */
+        T& x() { return VecImpl<T, 4>::m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  reference of second component.
+         */
+        T& y() { return VecImpl<T, 4>::m_Data[1]; }
+
+        /**
+         * @brief   get third component.
+         * @return  reference of second component.
+         */
+        T& z() { return VecImpl<T, 4>::m_Data[2]; }
+
+        /**
+         * @brief   get fourth component.
+         * @return  reference of second component.
+         */
+        T& w() { return VecImpl<T, 4>::m_Data[3]; }
+
+        /**
+         * @brief   get first component.
+         * @return  first component.
+         */
+        T x() const { return VecImpl<T, 4>::m_Data[0]; }
+
+        /**
+         * @brief   get second component.
+         * @return  second component.
+         */
+        T y() const { return VecImpl<T, 4>::m_Data[1]; }
+
+        /**
+         * @brief   get third component.
+         * @return  second component.
+         */
+        T z() const { return VecImpl<T, 4>::m_Data[2]; }
+
+        /**
+         * @brief   get fourth component.
+         * @return  second component.
+         */
+        T w() const { return VecImpl<T, 4>::m_Data[3]; }
+    };
+
+
+    /**
+     * @brief  this struct is used a 2 float component vector.
+     */
+    struct Vec2f : public Vec2<float>
+    {
+        using Vec2<float>::Vec2;
 
 #ifdef USE_IMGUI_IN_MODULE
         /**
@@ -110,78 +261,14 @@ namespace EB
         }
 #endif
 
-        /** < data > */
-        float m_Data[2] = { 0.0 };
     };
 
     /**
-     * @brief  this struct is used a 3 component vector.
+     * @brief  this struct is used a 3 float component vector
      */
-    struct Vec3f
+    struct Vec3f : public Vec3<float>
     {
-        /**
-         * @brief  default constructor for Vec2.
-         */
-        Vec3f() : m_Data{ 0.0, 0.0, 0.0 } {}
-
-        /**
-         * @brief  constructor for Vec2.
-         */
-        Vec3f(float x, float y, float z) : m_Data{ x, y, z } {}
-
-        /**
-         * @brief   get first component.
-         * @return  reference of first component.
-         */
-        float& x() { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  reference of second component.
-         */
-        float& y() { return m_Data[1]; }
-
-        /**
-         * @brief   get third component.
-         * @return  reference of third component.
-         */
-        float& z() { return m_Data[2]; }
-
-        /**
-         * @brief   get first component.
-         * @return  first component.
-         */
-        float x() const { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  second component.
-         */
-        float y() const { return m_Data[1]; }
-
-        /**
-         * @brief   get third component.
-         * @return  third component.
-         */
-        float z() const { return m_Data[2]; }
-
-        /**
-         * @brief   get component by index.
-         * @return  reference of component at index.
-         */
-        float& operator [] (int index) {
-            EB_CORE_ASSERT(index < 3, "Index out of range.");
-            return m_Data[index];
-        }
-
-        /**
-         * @brief   get component by index.
-         * @return  component at index.
-         */
-        float operator [] (int index) const {
-            EB_CORE_ASSERT(index < 3, "Index out of range.");
-            return m_Data[index];
-        }
+        using Vec3<float>::Vec3;
 
 #ifdef USE_GLM_IN_MODULE
         /**
@@ -194,7 +281,7 @@ namespace EB
         /**
          * @brief    enable implicit cast to glm::vec3.
          */
-        operator glm::vec3 () const {
+        operator glm::vec3() const {
             return *reinterpret_cast<const glm::vec3*>(this);
         }
 
@@ -220,164 +307,22 @@ namespace EB
         }
 #endif
 
-        /** < data > */
-        float m_Data[3] = { 0.0 };
     };
 
     /**
-     * @brief  this struct is used a 3 component vector.
+     * @brief  this struct is used a 3 int component vector
      */
-    struct Vec3i
+    struct Vec3i : public Vec3<int>
     {
-        /**
-         * @brief  default constructor for Vec2.
-         */
-        Vec3i() : m_Data{ 0, 0, 0 } {}
-
-        /**
-         * @brief  constructor for Vec2.
-         */
-        Vec3i(int x, int y, int z) : m_Data{ x, y, z } {}
-
-        /**
-         * @brief   get first component.
-         * @return  reference of first component.
-         */
-        int& x() { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  reference of second component.
-         */
-        int& y() { return m_Data[1]; }
-
-        /**
-         * @brief   get third component.
-         * @return  reference of third component.
-         */
-        int& z() { return m_Data[2]; }
-
-        /**
-         * @brief   get first component.
-         * @return  first component.
-         */
-        int x() const { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  second component.
-         */
-        int y() const { return m_Data[1]; }
-
-        /**
-         * @brief   get third component.
-         * @return  third component.
-         */
-        int z() const { return m_Data[2]; }
-
-        /**
-         * @brief   get component by index.
-         * @return  reference of component at index.
-         */
-        int& operator [] (int index) {
-            EB_CORE_ASSERT(index < 3, "Index out of range.");
-            return m_Data[index];
-        }
-
-        /**
-         * @brief   get component by index.
-         * @return  component at index.
-         */
-        int operator [] (int index) const {
-            EB_CORE_ASSERT(index < 3, "Index out of range.");
-            return m_Data[index];
-        }
-
-        /** < data > */
-        int m_Data[3] = { 0 };
+        using Vec3<int>::Vec3;
     };
 
-
     /**
-     * @brief  this struct is used a 4 component vector.
+     * @brief  this struct is used a 4 float component vector
      */
-    struct Vec4f
+    struct Vec4f : public Vec4<float>
     {
-        /**
-         * @brief  default constructor for Vec4.
-         */
-        Vec4f() : m_Data{ 0.0, 0.0, 0.0, 0.0 } {}
-
-        /**
-         * @brief  constructor for Vec4.
-         */
-        Vec4f(float x, float y, float z, float w) : m_Data{ x, y, z, w } {}
-
-        /**
-         * @brief   get first component.
-         * @return  reference of first component.
-         */
-        float& x() { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  reference of second component.
-         */
-        float& y() { return m_Data[1]; }
-
-        /**
-         * @brief   get third component.
-         * @return  reference of third component.
-         */
-        float& z() { return m_Data[2]; }
-
-        /**
-         * @brief   get fourth component.
-         * @return  reference of fourth component.
-         */
-        float& w() { return m_Data[3]; }
-
-        /**
-         * @brief   get first component.
-         * @return  first component.
-         */
-        float x() const { return m_Data[0]; }
-
-        /**
-         * @brief   get second component.
-         * @return  second component.
-         */
-        float y() const { return m_Data[1]; }
-
-        /**
-         * @brief   get third component.
-         * @return  third component.
-         */
-        float z() const { return m_Data[2]; }
-
-        /**
-         * @brief   get fourth component.
-         * @return  fourth component.
-         */
-        float w() const { return m_Data[3]; }
-
-        /**
-         * @brief   get component by index.
-         * @return  reference of component at index.
-         */
-        float& operator [] (int index) {
-            EB_CORE_ASSERT(index < 4, "Index out of range.");
-            return m_Data[index];
-        }
-
-        /**
-         * @brief   get component by index.
-         * @return  component at index.
-         */
-        float operator [] (int index) const {
-            EB_CORE_ASSERT(index < 4, "Index out of range.");
-            return m_Data[index];
-        }
+        using Vec4<float>::Vec4;
 
 #ifdef USE_GLM_IN_MODULE
         /**
@@ -390,7 +335,7 @@ namespace EB
         /**
          * @brief    enable implicit cast to glm::vec4.
          */
-        operator glm::vec4 () const {
+        operator glm::vec4() const {
             return *reinterpret_cast<const glm::vec4*>(this);
         }
 
@@ -456,8 +401,6 @@ namespace EB
             return *this;
         }
 #endif
-
-        /** < data > */
-        float m_Data[4] = { 0.0 };
     };
+
 }
