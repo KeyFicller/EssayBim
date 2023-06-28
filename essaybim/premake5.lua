@@ -29,6 +29,7 @@ project "essaybim"
 
         g_includeDir.. "/basic",
         g_includeDir.. "/event",
+        g_includeDir.. "/document",
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
         g_includeDir.. "/geometry",
@@ -43,6 +44,7 @@ project "essaybim"
     links {
         "essaybim_basic",
         "essaybim_event",
+        "essaybim_document",
         "essaybim_renderer",
         "essaybim_window",
         "essaybim_geometry",

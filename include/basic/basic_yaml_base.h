@@ -206,7 +206,7 @@ namespace EB
      */
     class EB_EXPORT YamlBase
     {
-    protected:
+    public:
         /**
          * @brief  this class is used to auto insert yaml map key word.
          */
@@ -282,10 +282,20 @@ namespace EB
 #define EB_YAML_DEFINE_KEYS_8(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_7(__VA_ARGS__))
 #define EB_YAML_DEFINE_KEYS_9(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_8(__VA_ARGS__))
 #define EB_YAML_DEFINE_KEYS_10(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_9(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_11(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_10(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_12(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_11(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_13(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_12(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_14(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_13(__VA_ARGS__))
+#define EB_YAML_DEFINE_KEYS_15(_first_key, ...) EB_YAML_DEFINE_KEY(_first_key) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_14(__VA_ARGS__))
 
 #define EB_YAML_DEFINE_KEYS_N(...) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_GET_MACRO(EB_ARGS_AUGMENTER(__VA_ARGS__))(__VA_ARGS__))
 #define EB_YAML_DEFINE_KEYS_GET_MACRO(...) EB_EXPAND_MACRO(EB_YAML_DEFINE_KEYS_GET_MARCO_NAME(             \
     __VA_ARGS__,                                                                                           \
+    EB_YAML_DEFINE_KEYS_15,                                                                                \
+    EB_YAML_DEFINE_KEYS_14,                                                                                \
+    EB_YAML_DEFINE_KEYS_13,                                                                                \
+    EB_YAML_DEFINE_KEYS_12,                                                                                \
+    EB_YAML_DEFINE_KEYS_11,                                                                                \
     EB_YAML_DEFINE_KEYS_10,                                                                                \
     EB_YAML_DEFINE_KEYS_9,                                                                                 \
     EB_YAML_DEFINE_KEYS_8,                                                                                 \
@@ -298,7 +308,7 @@ namespace EB
     EB_YAML_DEFINE_KEYS_1,                                                                                 \
     EB_YAML_DEFINE_KEYS_0                                                                                  \
 ))
-#define EB_YAML_DEFINE_KEYS_GET_MARCO_NAME(_arg1, _arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8, _arg9, _arg10, _arg11, _macro, ...) _macro
+#define EB_YAML_DEFINE_KEYS_GET_MARCO_NAME(_arg1, _arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8, _arg9, _arg10, _arg11, _arg12, _arg13, _arg14, _arg15, _arg16, _macro, ...) _macro
 
 #define EB_YAML_DECLARE_KEYS(...)                                                \
     namespace {                                                                  \

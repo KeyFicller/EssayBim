@@ -44,6 +44,14 @@ namespace EB
         glDrawElements(GL_TRIANGLES, idx, GL_UNSIGNED_INT, nullptr);
     }
 
+    void RendererEntryImpl::line(const Shared<VertexArray>& vao, unsigned int count) const
+    {
+        EB_GL_AUTO_TRACE();
+        vao->bind();
+        unsigned int idx = count ? count : vao->indexBuffer()->count();
+        glDrawElements(GL_LINES, idx, GL_UNSIGNED_INT, nullptr);
+    }
+
     void RendererEntryImpl::init() const
     {
         EB_GL_AUTO_TRACE();
@@ -51,6 +59,7 @@ namespace EB
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_LINE_SMOOTH);
+        glLineWidth(2.0f);
     }
 
 }

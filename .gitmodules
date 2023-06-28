@@ -22,3 +22,6 @@
 [submodule "third/libigl"]
 	path = third/libigl
 	url = git@git.zhlh6.cn:KeyFicller/libigl.git
+[submodule "third/eigen"]
+	path = third/eigen
+	url = git@git.zhlh6.cn:KeyFicller/eigen.git

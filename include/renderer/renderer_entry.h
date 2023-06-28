@@ -59,5 +59,12 @@ namespace EB
          * @param[in]  count  indices count to renderer.
          */
         void mesh(const Shared<VertexArray>& vao, unsigned int count = 0) const;
+
+        /**
+         * @brief  renderer a line.
+         * @param[in]  vao    vertex array object.
+         * @param[in]  count  indices count to renderer.
+         */
+        void line(const Shared<VertexArray>& vao, unsigned int count = 0) const;
     };
 }

@@ -41,4 +41,9 @@ namespace EB
         EB_IMPL()->mesh(vao, count);
     }
 
+    void RendererEntry::line(const Shared<VertexArray>& vao, unsigned int count) const
+    {
+        EB_IMPL()->line(vao, count);
+    }
+
 }

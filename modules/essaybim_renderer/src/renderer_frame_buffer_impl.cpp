@@ -201,7 +201,7 @@ namespace EB
             }
         }
 
-        if (m_ColorAttachments.size() > 1) {
+        if (m_ColorAttachments.size() > 0) {
             EB_CORE_ASSERT(m_ColorAttachments.size() <= 4, "More than 4 attachments.");
             GLenum buffers[4] = {
                 GL_COLOR_ATTACHMENT0,
