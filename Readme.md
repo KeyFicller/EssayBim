@@ -2,7 +2,7 @@
 
 > **<u>Personal Practice Project  - whuzyh1998@163.com</u>**
 >
-> **Current Working Module： **  EssayBim_Geometry
+> **Current Working Module： **   EssayBim_Graphics
 
 ## Modules
 
