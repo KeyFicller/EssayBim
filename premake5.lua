@@ -22,3 +22,5 @@ include "modules"
 include "resources"
 include "essaybim"
 include "demo"
+
+include "premake"
