@@ -31,21 +31,11 @@ namespace EB
         void onEvent(Event& e) override;
 
     protected:
-        Shared<VertexArray> vaoMesh;
-        Shared<VertexBuffer> vboMesh;
-        Shared<IndexBuffer> iboMesh;
-        Shared<VertexArray> vaoLine;
-        Shared<VertexBuffer> vboLine;
-        Shared<IndexBuffer> iboLine;
-        Shared<Shader> shaderMesh;
-        Shared<Shader> shaderLine;
         Shared<Texture2D> texture;
         Shared<InteractiveCamera> camera;
-        Shared<UniformBuffer> cameraBuffer;
         Shared<FrameBuffer> frameBuffer;
         bool viewHovered = false;
         Shared<GeMesh> mesh;
         std::vector<Vec3f> bound;
-        std::vector<Vec2i> boundIs;
     };
 }

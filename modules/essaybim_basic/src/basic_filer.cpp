@@ -45,34 +45,14 @@ namespace EB
         return EB_IMPL()->readFloat();
     }
 
-    void Filer::writeVec2(const Vec2f& value)
+    void Filer::writeBytes(const char* value, int size)
     {
-        EB_IMPL()->writeVec2(value);
+        EB_IMPL()->writeBytes(value, size);
     }
 
-    Vec2f Filer::readVec2() const
+    void Filer::readBytes(char* value, int size) const
     {
-        return EB_IMPL()->readVec2();
-    }
-
-    void Filer::writeVec3(const Vec3f& value)
-    {
-        EB_IMPL()->writeVec3(value);
-    }
-
-    Vec3f Filer::readVec3() const
-    {
-        return EB_IMPL()->readVec3();
-    }
-
-    void Filer::writeVec4(const Vec4f& value)
-    {
-        EB_IMPL()->writeVec4(value);
-    }
-
-    Vec4f Filer::readVec4() const
-    {
-        return EB_IMPL()->readVec4();
+        EB_IMPL()->readBytes(value, size);
     }
 
     void Filer::writeString(const std::string& value)

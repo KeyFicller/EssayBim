@@ -4,6 +4,7 @@
 #include "basic_impl_template.h"
 #include "basic_vector.h"
 
+#include <type_traits>
 #include <string>
 
 namespace EB
@@ -63,40 +64,32 @@ namespace EB
         float readFloat() const;
 
         /**
-         * @brief   write a vec2 value to stream.
-         * @param[in]   value   vec2 value.
+         * @brief  write bytes to stream
+         * @param[in]   value      byte data.
+         * @param[in]   size       char size of byte data.
          */
-        void writeVec2(const Vec2f& value);
+        void writeBytes(const char* value, int size);
 
         /**
-         * @brief   read a vec2 value from stream
-         * @return    vec2 value.
+         * @brief   read bytes from stream
+         * @param[in]   value      byte cache for export;
+         * @param[in]    size      char size of byte data.
          */
-        Vec2f readVec2() const;
+        void readBytes(char* value, int size) const;
 
         /**
-         * @brief   write a vec3 value to stream.
-         * @param[in]   value   vec3 value.
+         * @brief   write a vector to stream.
+         * @param[in]    value     vector value.
          */
-        void writeVec3(const Vec3f& value);
+        template <typename Vec_t>
+        void writeVec(const Vec_t& value);
 
         /**
-         * @brief   read a vec3 value from stream
-         * @return    vec3 value.
+         * @brief   read a vector from stream.
+         * @return        vector value.
          */
-        Vec3f readVec3() const;
-
-        /**
-         * @brief   write a vec4 value to stream.
-         * @param[in]   value   vec4 value.
-         */
-        void writeVec4(const Vec4f& value);
-
-        /**
-         * @brief   read a vec4 value from stream
-         * @return    vec4 value.
-         */
-        Vec4f readVec4() const;
+        template <typename Vec_t>
+        Vec_t readVec() const;
 
         /**
          * @brief  write a string value to stream.
@@ -144,4 +137,21 @@ namespace EB
          */
         void clear();
     };
+
+    template <typename Vec_t>
+    Vec_t Filer::readVec() const
+    {
+        static_assert(isVec<Vec_t>());
+        Vec_t tmp;
+        readBytes((char*)&tmp, sizeof(Vec_t));
+        return tmp;
+    }
+
+    template <typename Vec_t>
+    void Filer::writeVec(const Vec_t& value)
+    {
+        static_assert(isVec<Vec_t>());
+        writeBytes((const char*)&value, sizeof(Vec_t));
+    }
+
 }

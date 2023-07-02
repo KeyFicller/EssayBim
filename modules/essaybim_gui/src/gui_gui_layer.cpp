@@ -211,11 +211,11 @@ namespace EB
 
             EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif3_1", v1);
             EB_WIDGET_IMMEDIATE(DragSource, "drag vec3", [&](Filer* filer) {
-                filer->writeVec3(v1);
+                filer->writeVec(v1);
             });
             EB_WIDGET_IMMEDIATE(DragValueInputF, "dvif3_2", v2);
             EB_WIDGET_IMMEDIATE(DropTarget, "drag vec3", [&](const Filer* filer) {
-                v2 = filer->readVec3();
+                v2 = filer->readVec<Vec3f>();
             });
             ImGui::Separator();
         }

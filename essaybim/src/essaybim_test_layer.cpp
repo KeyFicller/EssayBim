@@ -1,6 +1,13 @@
 #include "essaybim_test_layer.h"
 
 #include "basic_file_server.h"
+#include "essaybim_application.h"
+#include "document_interactive_camera.h"
+#include "geometry_mesh.h"
+#include "gui_dock_space.h"
+#include "gui_image_widget.h"
+#include "gui_panel.h"
+#include "gui_text.h"
 #include "renderer_vertex_array.h"
 #include "renderer_vertex_buffer.h"
 #include "renderer_index_buffer.h"
@@ -12,14 +19,8 @@
 #include "renderer_texture.h"
 #include "renderer_frame_buffer.h"
 #include "renderer_uniform_buffer.h"
-#include "essaybim_application.h"
-#include "window_window.h"
-#include "geometry_mesh.h"
-#include "gui_dock_space.h"
-#include "gui_panel.h"
-#include "gui_image_widget.h"
-#include "document_interactive_camera.h"
 #include "renderer_batch_render.h"
+#include "window_window.h"
 
 namespace EB
 {
@@ -48,37 +49,9 @@ namespace EB
         }
 
         const GeMeshData& meshData = mesh->data();
-        vaoMesh = VertexArray::create();
-        vboMesh = VertexBuffer::create((float*)meshData.Vertices.data(), (unsigned int)(meshData.Vertices.size()) * 3 * sizeof(float));
-        BufferLayout layout{
-            {"aPos", eShaderDataType::kFloat3, false},
-        };
-        vboMesh->setLayout(layout);
-        vaoMesh->addVertexBuffer(vboMesh);
-        iboMesh = IndexBuffer::create((unsigned int*)meshData.Indices.data(), (unsigned int)(meshData.Indices.size()) * 3);
-        vaoMesh->setIndexBuffer(iboMesh);
-
         bound = mesh->boundingBox();
-        for (int i = 0; i < 4; i++) {
-            boundIs.emplace_back(Vec2i(i, (i + 1) % 4));
-            boundIs.emplace_back(Vec2i(i + 4, (i + 1) % 4 + 4));
-            boundIs.emplace_back(Vec2i(i, i + 4));
-        }
-        vaoLine = VertexArray::create();
-        vboLine = VertexBuffer::create((float*)bound.data(), (unsigned int)(bound.size()) * 3 * sizeof(float));
-        vboLine->setLayout(layout);
-        vaoLine->addVertexBuffer(vboLine);
-        iboLine = IndexBuffer::create((unsigned int*)boundIs.data(), (unsigned int)(boundIs.size()) * 2);
-        vaoLine->setIndexBuffer(iboLine);
-
-        shaderMesh = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
-        shaderMesh->unbind();
-
-        shaderLine = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp_2.glsl");
-        shaderLine->unbind();
 
         camera = createShared<InteractiveCamera>(Window::instance("DemoApp").get(), 45.f, 1.5f, 0.1f, 1000.f);
-        cameraBuffer = UniformBuffer::create(sizeof(CameraData), 0);
 
         FrameBufferSpecification spec;
         spec.Width = 1500;
@@ -88,18 +61,17 @@ namespace EB
             eFrameBufferTextureFormat::kDepth
         };
         frameBuffer = FrameBuffer::create(spec);
+
+        BatchRender::initialize();
     }
 
     void TestLayer::onDetach()
     {
-        vaoMesh.reset();
-        vboMesh.reset();
-        iboMesh.reset();
-        shaderMesh.reset();
         texture.reset();
         camera.reset();
-        cameraBuffer.reset();
         frameBuffer.reset();
+
+        BatchRender::terminate();
     }
 
     void TestLayer::onUpdate(const TimeStep& ts)
@@ -107,8 +79,6 @@ namespace EB
         if (viewHovered) {
             camera->onUpdate(ts);
         }
-        cameraData.ViewProjectionMatrix = camera->viewProjectionMatrix();
-        cameraBuffer->setData(&cameraData, sizeof(CameraData), 0);
     }
 
     void TestLayer::onGuiRender()
@@ -124,19 +94,28 @@ namespace EB
             }
             frameBuffer->bind();
             RendererEntry::instance().clear();
-            //shaderMesh->bind();
-            //RendererEntry::instance().mesh(vaoMesh);
-            BatchRender::instance().start(camera->viewProjectionMatrix());
-            BatchRender::instance().mesh(mesh->data().Vertices, mesh->data().Indices, mesh->data().Vertices);
-            BatchRender::instance().end();
-            shaderLine->bind();
-            RendererEntry::instance().line(vaoLine);
+            BatchRender::start(camera->viewProjectionMatrix());
+            BatchRender::mesh(mesh->data().Vertices, mesh->data().Indices, mesh->data().Vertices);
+            for (int i = 0; i < 4; i++) {
+                BatchRender::line(bound[i], bound[(i + 1) % 4]);
+                BatchRender::line(bound[i + 4], bound[(i + 1) % 4 + 4]);
+                BatchRender::line(bound[i], bound[i + 4]);
+            }
+            BatchRender::end();
             frameBuffer->unbind();
             EB_WIDGET_IMMEDIATE(ImageWidget, frameBuffer->colorAttachmentRendererId(), Panel::viewportAvailiable());
             viewHovered = Panel::isHovered();
         };
 
+        auto slot_2 = [&]() {
+            auto statistic = BatchRender::statistic();
+            EB_WIDGET_IMMEDIATE(Text, "Batch Call:  [%d]", statistic.RenderCall);
+            EB_WIDGET_IMMEDIATE(Text, "Vertex Count:  [%d]", statistic.VertexCount);
+            EB_WIDGET_IMMEDIATE(Text, "Element Count:  [%d]", statistic.ElementCount);
+        };
+
         EB_WIDGET_IMMEDIATE(Panel, "Render Window", slot);
+        EB_WIDGET_IMMEDIATE(Panel, "Render Statistic", slot_2);
 
         DockSpace::end();
     }

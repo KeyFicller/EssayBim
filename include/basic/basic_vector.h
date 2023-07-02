@@ -2,6 +2,8 @@
 
 #include "basic_assert.h"
 
+#include <type_traits>
+
 #ifdef USE_GLM_IN_MODULE
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -18,6 +20,7 @@
 
 namespace EB
 {
+
     /**
      * @brief   this struct defines implement for vector.
      */
@@ -410,4 +413,18 @@ namespace EB
 #endif
     };
 
+    /**
+     * @brief  test if template T is defined vector.
+     * @return     whether T is defined vector.
+     */
+    template <typename T>
+    constexpr bool isVec()
+    {
+        return std::is_base_of<Vec2<int>, T>() ||
+               std::is_base_of<Vec2<float>, T>() ||
+               std::is_base_of<Vec3<int>, T>() ||
+               std::is_base_of<Vec3<float>, T>() ||
+               std::is_base_of<Vec4<int>, T>() ||
+               std::is_base_of<Vec4<float>, T>();
+    }
 }

@@ -24,7 +24,7 @@ namespace EB
 
     BatchRenderImpl::~BatchRenderImpl()
     {
-        delete[] m_MeshData.pBase;
+
     }
 
     void BatchRenderImpl::start(const Mat4& viewprojectionMatrix)
@@ -36,18 +36,34 @@ namespace EB
 
     void BatchRenderImpl::end()
     {
-        auto bufferSize = reinterpret_cast<uint8_t*>(m_MeshData.pCurrent) - reinterpret_cast<uint8_t*>(m_MeshData.pBase);
-        m_MeshData.VBOPerBatch->setData(m_MeshData.pBase, (unsigned int)bufferSize);
+        {
+            auto bufferSize = reinterpret_cast<uint8_t*>(m_MeshDataPatches.pCurrent) - reinterpret_cast<uint8_t*>(m_MeshDataPatches.pBase);
+            m_MeshDataPatches.VBOPerBatch->setData(m_MeshDataPatches.pBase, (unsigned int)bufferSize);
+        }
+        {
+            auto bufferSize = reinterpret_cast<uint8_t*>(m_MeshDataWireFrames.pCurrent) - reinterpret_cast<uint8_t*>(m_MeshDataWireFrames.pBase);
+            m_MeshDataWireFrames.VBOPerBatch->setData(m_MeshDataWireFrames.pBase, (unsigned int)bufferSize);
+        }
+
         flush();
     }
 
     void BatchRenderImpl::flush()
     {
-        if (unsigned int indexCount = m_MeshData.IndicesPerBatch.size()) {
-            Shared<IndexBuffer> indexBuffer = IndexBuffer::create(m_MeshData.IndicesPerBatch.data(), m_MeshData.IndicesPerBatch.size());
-            m_MeshData.VAOPerBatch->setIndexBuffer(indexBuffer);
-            m_MeshData.ShaderPerBatch->bind();
-            RendererEntry::instance().mesh(m_MeshData.VAOPerBatch);
+        if (unsigned int indexCount = m_MeshDataPatches.IndicesPerBatch.size()) {
+            Shared<IndexBuffer> indexBuffer = IndexBuffer::create(m_MeshDataPatches.IndicesPerBatch.data(), m_MeshDataPatches.IndicesPerBatch.size());
+            m_MeshDataPatches.VAOPerBatch->setIndexBuffer(indexBuffer);
+            m_MeshDataPatches.ShaderPerBatch->bind();
+            RendererEntry::instance().mesh(m_MeshDataPatches.VAOPerBatch.get());
+            m_Statistic.RenderCall += 1;
+        }
+
+        if (unsigned int indexCount = m_MeshDataWireFrames.IndicesPerBatch.size()) {
+            Shared<IndexBuffer> indexBuffer = IndexBuffer::create(m_MeshDataWireFrames.IndicesPerBatch.data(), m_MeshDataWireFrames.IndicesPerBatch.size());
+            m_MeshDataWireFrames.VAOPerBatch->setIndexBuffer(indexBuffer);
+            m_MeshDataWireFrames.ShaderPerBatch->bind();
+            RendererEntry::instance().line(m_MeshDataWireFrames.VAOPerBatch.get());
+            m_Statistic.RenderCall += 1;
         }
     }
 
@@ -59,63 +75,118 @@ namespace EB
 
     void BatchRenderImpl::init()
     {
-        m_MeshData.VAOPerBatch = createShared<VertexArray>();
-        m_MeshData.VBOPerBatch = createShared<VertexBuffer>(
-            MeshBatchData::MaxVerticesPerBatch * sizeof(MeshVertexInfo)
+        m_MeshDataPatches.VAOPerBatch = VertexArray::create();
+        m_MeshDataPatches.VBOPerBatch = VertexBuffer::create(
+            MeshBatchData_Patches::MaxVerticesPerBatch * sizeof(MeshVertexInfo_Patches)
         );
-        BufferLayout layout = {
+        BufferLayout layoutPatches = {
             {"aPos", eShaderDataType::kFloat3}
         };
-        m_MeshData.VBOPerBatch->setLayout(layout);
-        m_MeshData.VAOPerBatch->addVertexBuffer(std::shared_ptr<VertexBuffer>(m_MeshData.VBOPerBatch.get()));
-        m_MeshData.pBase = new MeshVertexInfo[MeshBatchData::MaxVerticesPerBatch];
-        m_MeshData.pCurrent = m_MeshData.pBase;
-        m_MeshData.ShaderPerBatch = createShared<Shader>(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
-        m_MeshData.ShaderPerBatch->unbind();
+        m_MeshDataPatches.VBOPerBatch->setLayout(layoutPatches);
+        m_MeshDataPatches.VAOPerBatch->addVertexBuffer(m_MeshDataPatches.VBOPerBatch);
+        m_MeshDataPatches.pBase = new MeshVertexInfo_Patches[MeshBatchData_Patches::MaxVerticesPerBatch];
+        m_MeshDataPatches.pCurrent = m_MeshDataPatches.pBase;
+        m_MeshDataPatches.ShaderPerBatch = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
+        m_MeshDataPatches.ShaderPerBatch->unbind();
 
-        m_CameraBuffer = new UniformBuffer(sizeof(CameraData), 0);
+        m_MeshDataWireFrames.VAOPerBatch = VertexArray::create();
+        m_MeshDataWireFrames.VBOPerBatch = VertexBuffer::create(
+            MeshBatchData_WireFrames::MaxVerticesPerBatch * sizeof(MeshVertexInfo_WireFrames)
+        );
+        BufferLayout layoutWireFrames = {
+            {"aPos", eShaderDataType::kFloat3}
+        };
+        m_MeshDataWireFrames.VBOPerBatch->setLayout(layoutWireFrames);
+        m_MeshDataWireFrames.VAOPerBatch->addVertexBuffer(std::shared_ptr<VertexBuffer>(m_MeshDataWireFrames.VBOPerBatch));
+        m_MeshDataWireFrames.pBase = new MeshVertexInfo_WireFrames[MeshBatchData_WireFrames::MaxVerticesPerBatch];
+        m_MeshDataWireFrames.pCurrent = m_MeshDataWireFrames.pBase;
+        m_MeshDataWireFrames.ShaderPerBatch = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp_2.glsl");
+        m_MeshDataWireFrames.ShaderPerBatch->unbind();
+
+        m_CameraBuffer = UniformBuffer::create(sizeof(CameraData), 0);
     }
 
     void BatchRenderImpl::reset()
     {
-        m_MeshData.IndicesPerBatch.clear();
-        m_MeshData.pCurrent = m_MeshData.pBase;
-        m_MeshData.VertexCount = 0;
-        m_MeshData.VertexIndexUsed = 0;
+        m_MeshDataPatches.IndicesPerBatch.clear();
+        m_MeshDataPatches.pCurrent = m_MeshDataPatches.pBase;
+        m_MeshDataPatches.VertexCount = 0;
+        m_MeshDataPatches.VertexIndexUsed = 0;
+
+        m_MeshDataWireFrames.IndicesPerBatch.clear();
+        m_MeshDataWireFrames.pCurrent = m_MeshDataWireFrames.pBase;
+        m_MeshDataWireFrames.VertexCount = 0;
+        m_MeshDataWireFrames.VertexIndexUsed = 0;
+
+        m_Statistic = BatchRenderStatistic();
+    }
+
+    const BatchRenderStatistic& BatchRenderImpl::statistic() const
+    {
+        return m_Statistic;
     }
 
     void BatchRenderImpl::line(const Vec3f& start, const Vec3f& end)
     {
-        if (m_MeshData.VertexCount + 2 >= m_MeshData.MaxVerticesPerBatch ||
-            m_MeshData.IndicesPerBatch.size() + 2 >= m_MeshData.MaxIndicesPerBatch) {
+        if (m_MeshDataWireFrames.VertexCount + 2 >= m_MeshDataWireFrames.MaxVerticesPerBatch ||
+            m_MeshDataWireFrames.IndicesPerBatch.size() + 2 >= m_MeshDataWireFrames.MaxIndicesPerBatch) {
             flushAndReset();
         }
 
-        EB_CORE_ASSERT(false, "not implment yet");
+        *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames {
+            start
+        };
+        m_MeshDataWireFrames.pCurrent++;
+        *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
+            end
+        };
+        m_MeshDataWireFrames.pCurrent++;
+
+        m_MeshDataWireFrames.IndicesPerBatch.emplace_back(m_MeshDataWireFrames.VertexIndexUsed + 0);
+        m_MeshDataWireFrames.IndicesPerBatch.emplace_back(m_MeshDataWireFrames.VertexIndexUsed + 1);
+
+        m_MeshDataWireFrames.VertexCount += 2;
+        m_MeshDataWireFrames.VertexIndexUsed += 2;   // for now
+
+        m_Statistic.ElementCount += 1;
+        m_Statistic.VertexCount += 2;
     }
 
     void BatchRenderImpl::mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals)
     {
         EB_CORE_ASSERT(vertices.size() == normals.size());
-        if (m_MeshData.VertexCount + vertices.size() >= m_MeshData.MaxVerticesPerBatch ||
-            m_MeshData.IndicesPerBatch.size() + indices.size() >= m_MeshData.MaxIndicesPerBatch) {
+        if (m_MeshDataPatches.VertexCount + vertices.size() >= m_MeshDataPatches.MaxVerticesPerBatch ||
+            m_MeshDataPatches.IndicesPerBatch.size() + indices.size() >= m_MeshDataPatches.MaxIndicesPerBatch) {
             flushAndReset();
         }
         for (unsigned int i = 0; i < vertices.size(); i++) {
-            *m_MeshData.pCurrent = MeshVertexInfo{
+            *m_MeshDataPatches.pCurrent = MeshVertexInfo_Patches{
                 vertices[i]
             };
-            m_MeshData.pCurrent++;
+            m_MeshDataPatches.pCurrent++;
         }
 
         for (unsigned int i = 0; i < indices.size(); i++) {
             for (unsigned int j = 0; j < 3; j++) {
-                m_MeshData.IndicesPerBatch.emplace_back(indices[i][j] + m_MeshData.VertexIndexUsed);
+                m_MeshDataPatches.IndicesPerBatch.emplace_back(indices[i][j] + m_MeshDataPatches.VertexIndexUsed);
             }
         }
 
-        m_MeshData.VertexCount += vertices.size();
-        m_MeshData.VertexIndexUsed += vertices.size();   // for now
+        m_MeshDataPatches.VertexCount += vertices.size();
+        m_MeshDataPatches.VertexIndexUsed += vertices.size();   // for now
+
+        m_Statistic.ElementCount += indices.size();
+        m_Statistic.VertexCount += vertices.size();
+    }
+
+    MeshBatchData_Patches::~MeshBatchData_Patches()
+    {
+        EB_SAFE_ARRAY_DELETE(pBase);
+    }
+
+    MeshBatchData_WireFrames::~MeshBatchData_WireFrames()
+    {
+        EB_SAFE_ARRAY_DELETE(pBase);
     }
 
 }

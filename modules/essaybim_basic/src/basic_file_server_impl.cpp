@@ -53,6 +53,24 @@ namespace EB
         case EB::eModules::kBasic:
             suffix = "essaybim_basic";
             break;
+        case EB::eModules::kDocument:
+            suffix = "essaybim_document";
+            break;
+        case EB::eModules::kEvent:
+            suffix = "essaybim_event";
+            break;
+        case EB::eModules::kGeometry:
+            suffix = "essaybim_geometry";
+            break;
+        case EB::eModules::kGui:
+            suffix = "essaybim_gui";
+            break;
+        case EB::eModules::kRenderer:
+            suffix = "essaybim_renderer";
+            break;
+        case EB::eModules::kWindow:
+            suffix = "essaybim_window";
+            break;
         default:
             EB_CORE_ASSERT("Invalid module enum input.")
             break;

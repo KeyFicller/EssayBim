@@ -36,7 +36,7 @@ namespace EB
         glViewport(x, y, width, height);
     }
 
-    void RendererEntryImpl::mesh(const Shared<VertexArray>& vao, unsigned int count) const
+    void RendererEntryImpl::mesh(const VertexArray* vao, unsigned int count) const
     {
         EB_GL_AUTO_TRACE();
         vao->bind();
@@ -44,7 +44,7 @@ namespace EB
         glDrawElements(GL_TRIANGLES, idx, GL_UNSIGNED_INT, nullptr);
     }
 
-    void RendererEntryImpl::line(const Shared<VertexArray>& vao, unsigned int count) const
+    void RendererEntryImpl::line(const VertexArray* vao, unsigned int count) const
     {
         EB_GL_AUTO_TRACE();
         vao->bind();

@@ -36,7 +36,7 @@ namespace EB
      */
     class EB_EXPORT FrameBuffer
     {
-        EB_IMPL_DECLARATION_DISABLE_COPY(FrameBuffer);
+        EB_IMPL_DECLARATION_DISABLE_COPY(FrameBuffer)
     public:
         /**
          * @brief   create frame buffer with property specification.

@@ -66,7 +66,7 @@ namespace EB
             EB_CORE_ASSERT(exist(key), "Doesn't have this key.");
             return m_ItemMap.at(key);
         }
-    protected:
+
         /**
          * @brief  check if key exists in library.
          * @param[in]   key   key for search.

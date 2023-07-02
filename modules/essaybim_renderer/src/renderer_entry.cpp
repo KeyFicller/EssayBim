@@ -36,12 +36,12 @@ namespace EB
         EB_IMPL()->setViewport(x, y, width, height);
     }
 
-    void RendererEntry::mesh(const Shared<VertexArray>& vao, unsigned int count) const
+    void RendererEntry::mesh(const VertexArray* vao, unsigned int count) const
     {
         EB_IMPL()->mesh(vao, count);
     }
 
-    void RendererEntry::line(const Shared<VertexArray>& vao, unsigned int count) const
+    void RendererEntry::line(const VertexArray* vao, unsigned int count) const
     {
         EB_IMPL()->line(vao, count);
     }

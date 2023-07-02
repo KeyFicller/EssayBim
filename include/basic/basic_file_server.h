@@ -11,7 +11,26 @@ namespace EB
      * @brief  enum of modules.
      */
     enum class eModules {
-        kBasic
+        /** < basic module > */
+        kBasic,
+
+        /** < document module, manage camera view and data > */
+        kDocument,
+
+        /** < event module, mostly defines > */
+        kEvent,
+
+        /** < geometry module, topological geometry > */
+        kGeometry,
+
+        /** < gui module, wrapper imgui > */
+        kGui,
+
+        /** < renderer module > */
+        kRenderer,
+
+        /** < window module, wrapper glfw window > */
+        kWindow
     };
 
     /**

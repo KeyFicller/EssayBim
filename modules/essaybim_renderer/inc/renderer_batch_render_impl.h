@@ -11,14 +11,14 @@ namespace EB
     class Shader;
     class UniformBuffer;
 
-    struct MeshVertexInfo
+    struct MeshVertexInfo_Patches
     {
         Vec3f Position;
         //Vec4f FlatColor;
         //Vec3f Normal;
     };
 
-    struct MeshBatchData
+    struct MeshBatchData_Patches
     {
         static const unsigned int MaxVerticesPerBatch = 4000;
         static const unsigned int MaxIndicesPerBatch = 2000;
@@ -30,8 +30,33 @@ namespace EB
         unsigned int VertexCount;
         unsigned int VertexIndexUsed;
 
-        MeshVertexInfo* pBase = nullptr;
-        MeshVertexInfo* pCurrent = nullptr;
+        MeshVertexInfo_Patches* pBase = nullptr;
+        MeshVertexInfo_Patches* pCurrent = nullptr;
+
+        ~MeshBatchData_Patches();
+    };
+
+    struct MeshVertexInfo_WireFrames
+    {
+        Vec3f Position;
+    };
+
+    struct MeshBatchData_WireFrames
+    {
+        static const unsigned int MaxVerticesPerBatch = 4000;
+        static const unsigned int MaxIndicesPerBatch = 2000;
+
+        Shared<VertexArray> VAOPerBatch;
+        Shared<VertexBuffer> VBOPerBatch;
+        Shared<Shader> ShaderPerBatch;
+        std::vector<unsigned int> IndicesPerBatch;
+        unsigned int VertexCount;
+        unsigned int VertexIndexUsed;
+
+        MeshVertexInfo_WireFrames* pBase = nullptr;
+        MeshVertexInfo_WireFrames* pCurrent = nullptr;
+
+        ~MeshBatchData_WireFrames();
     };
 
     struct CameraData
@@ -55,14 +80,17 @@ namespace EB
         void flushAndReset();
         void init();
         void reset();
+        const BatchRenderStatistic& statistic() const;
 
     protected:
         void line(const Vec3f& start, const Vec3f& end);
         void mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals);
 
     protected:
-        MeshBatchData m_MeshData;
+        MeshBatchData_Patches m_MeshDataPatches;
+        MeshBatchData_WireFrames m_MeshDataWireFrames;
         CameraData m_CameraData;
-        UniformBuffer* m_CameraBuffer = nullptr;
+        Shared<UniformBuffer> m_CameraBuffer;
+        BatchRenderStatistic m_Statistic;
     };
 }

@@ -5,6 +5,7 @@
 
 namespace EB
 {
+    static BatchRender* pIns = nullptr;
 
     BatchRender::BatchRender()
     {
@@ -16,30 +17,41 @@ namespace EB
         EB_IMPL().reset();
     }
 
-    BatchRender& BatchRender::instance()
+    void BatchRender::initialize()
     {
-        static BatchRender ins;
-        return ins;
+        EB_CORE_ASSERT(!pIns);
+        pIns = new BatchRender();
+    }
+
+    const BatchRenderStatistic& BatchRender::statistic()
+    {
+        return pIns->m_pImpl->statistic();
+    }
+
+    void BatchRender::terminate()
+    {
+        EB_CORE_ASSERT(pIns);
+        EB_SAFE_DELETE(pIns);
     }
 
     void BatchRender::start(const Mat4& viewprojectionMatrix)
     {
-        instance().m_pImpl->start(viewprojectionMatrix);
+        pIns->m_pImpl->start(viewprojectionMatrix);
     }
 
     void BatchRender::end()
     {
-        instance().m_pImpl->end();
+        pIns->m_pImpl->end();
     }
 
     void BatchRender::line(const Vec3f& start, const Vec3f& end)
     {
-
+        pIns->m_pImpl->line(start, end);
     }
 
     void BatchRender::mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals)
     {
-        instance().m_pImpl->mesh(vertices, indices, normals);
+        pIns->m_pImpl->mesh(vertices, indices, normals);
     }
 
 }
