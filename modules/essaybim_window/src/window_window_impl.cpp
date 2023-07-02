@@ -217,7 +217,7 @@ namespace EB
     {
         glfwDestroyWindow(m_pWindow);
         if (--s_GLFWWindowCount == 0) {
-            glfwTerminate();
+            // glfwTerminate();
         }
     }
 

@@ -19,6 +19,7 @@
 #include "gui_panel.h"
 #include "gui_image_widget.h"
 #include "document_interactive_camera.h"
+#include "renderer_batch_render.h"
 
 namespace EB
 {
@@ -123,8 +124,11 @@ namespace EB
             }
             frameBuffer->bind();
             RendererEntry::instance().clear();
-            shaderMesh->bind();
-            RendererEntry::instance().mesh(vaoMesh);
+            //shaderMesh->bind();
+            //RendererEntry::instance().mesh(vaoMesh);
+            BatchRender::instance().start(camera->viewProjectionMatrix());
+            BatchRender::instance().mesh(mesh->data().Vertices, mesh->data().Indices, mesh->data().Vertices);
+            BatchRender::instance().end();
             shaderLine->bind();
             RendererEntry::instance().line(vaoLine);
             frameBuffer->unbind();
