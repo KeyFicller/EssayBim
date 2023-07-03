@@ -21,7 +21,7 @@ namespace
         lpszStr = new char[dwMinSize];
         WideCharToMultiByte(CP_OEMCP, NULL, path, -1, lpszStr, dwMinSize, NULL, FALSE);
         str = lpszStr;
-        delete lpszStr;
+        delete[] lpszStr;
         return str;
     }
 

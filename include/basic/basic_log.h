@@ -17,7 +17,7 @@ namespace EB
         /**
          * @biref     destructor for logger.
          */
-        virtual ~Log();
+        ~Log();
 
     private:
         /**
