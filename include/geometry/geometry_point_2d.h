@@ -4,8 +4,12 @@
 
 namespace EB
 {
+    class GeMatrix2d;
+
     class EB_EXPORT GePoint2d : public Geometry2d
     {
+    public:
+        static const GePoint2d kOrigin;
     public:
         GePoint2d();
         GePoint2d(float x, float y);
@@ -31,6 +35,9 @@ namespace EB
         float& y();
         float x() const;
         float y() const;
+        float distanceTo(const GePoint2d& ptOther) const;
+        GePoint2d& transformBy(const GeMatrix2d& mat);
+        GePoint2d transformedBy(const GeMatrix2d& mat) const;
 
     protected:
         float m_X = 0.0;

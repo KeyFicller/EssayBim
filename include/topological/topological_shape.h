@@ -6,7 +6,7 @@ namespace EB
 {
     class TopoShapeImpl;
 
-    class GeGeomtry;
+    class Geometry;
 
     class EB_EXPORT TopoShape : public Topological
     {
@@ -32,8 +32,8 @@ namespace EB
 
     public:
         virtual eTopoShapeType shapeType() const = 0;
-        GeGeomtry* geometry() const;
-        void setGeometry(GeGeomtry* pGeom);
+        Geometry* geometry() const;
+        void setGeometry(Geometry* pGeom);
 
     public:
         void setBit(int bit, bool isOn = true);

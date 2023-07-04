@@ -1,8 +1,13 @@
 #include "geometry_point_2d.h"
 
+#include "geometry_vector_2d.h"
+#include "geometry_arithmetic.h"
+
 namespace EB
 {
     EB_YAML_DECLARE_KEYS(X, Y);
+
+    const GePoint2d GePoint2d::kOrigin = GePoint2d();
 
     GePoint2d::GePoint2d()
     {
@@ -60,6 +65,22 @@ namespace EB
     float GePoint2d::y() const
     {
         return m_Y;
+    }
+
+    float GePoint2d::distanceTo(const GePoint2d& ptOther) const
+    {
+        return (ptOther - (*this)).length();
+    }
+
+    GePoint2d& GePoint2d::transformBy(const GeMatrix2d& mat)
+    {
+        (*this) = transformedBy(mat);
+        return *this;
+    }
+
+    GePoint2d GePoint2d::transformedBy(const GeMatrix2d& mat) const
+    {
+        return (mat * ((*this) - kOrigin)).asGePoint2d();
     }
 
 }

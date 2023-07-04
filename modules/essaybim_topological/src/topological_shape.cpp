@@ -17,6 +17,16 @@ namespace EB
 
     }
 
+    Geometry* TopoShape::geometry() const
+    {
+        return EB_IMPL(TopoShape)->geometry();
+    }
+
+    void TopoShape::setGeometry(Geometry* pGeom)
+    {
+        EB_IMPL(TopoShape)->setGeometry(pGeom);
+    }
+
     void TopoShape::setBit(int bit, bool isOn /*= true*/)
     {
         return EB_IMPL(TopoShape)->setBit(bit, isOn);

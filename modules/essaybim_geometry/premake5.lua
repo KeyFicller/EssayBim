@@ -9,7 +9,8 @@ project "essaybim_geometry"
 
     defines {
         "EB_BUILD_DLL",
-        "_CRT_SECURE_NO_WARNINGS"
+        "_CRT_SECURE_NO_WARNINGS",
+        "USE_GLM_IN_MODULE"
     }
 
     ignoredefaultlibraries {
@@ -35,6 +36,7 @@ project "essaybim_geometry"
 
         g_thirdDir.. "/libigl/include",
         g_thirdDir.. "/eigen",
+        g_thirdDir.. "/glm"
     }
 
     postbuildcommands

@@ -20,4 +20,14 @@ namespace EB
         return (m_BitFlags & bit) == bit;
     }
 
+    Geometry* TopoShapeImpl::geometry() const
+    {
+        return m_pGeometry;
+    }
+
+    void TopoShapeImpl::setGeometry(Geometry* pGeom)
+    {
+        m_pGeometry = pGeom;
+    }
+
 }
