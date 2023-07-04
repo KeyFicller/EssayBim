@@ -1,3 +1,5 @@
+#pragma once
+
 #include "geometry_base.h"
 
 namespace EB

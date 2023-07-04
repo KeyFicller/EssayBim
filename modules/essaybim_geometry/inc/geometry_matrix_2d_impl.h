@@ -23,6 +23,7 @@ namespace EB
     public:
         GeVector2d mult(const GeVector2d& vec) const;
         GeMatrix2d mult(const GeMatrix2d& other) const;
+        GeMatrix2d inverse() const;
 
     protected:
         GeMatrix2d* m_pFacade = nullptr;

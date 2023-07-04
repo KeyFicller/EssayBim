@@ -70,4 +70,11 @@ namespace EB
         return GeVector2d(tmp.x, tmp.y);
     }
 
+    GeMatrix2d GeMatrix2dImpl::inverse() const
+    {
+        GeMatrix2d mat;
+        mat.m_pImpl->m_Data = glm::inverse(m_Data);
+        return mat;
+    }
+
 }
