@@ -10,7 +10,7 @@ namespace EB
     /**
      * @brief    this class is used to define logging system.
      */
-    class EB_EXPORT Log final
+    class EB_BASIC_EXPORT Log final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Log)
     public:

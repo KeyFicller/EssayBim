@@ -2,7 +2,7 @@
 
 #include "renderer_shader.h"
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_library.h"
 
 namespace EB
@@ -10,7 +10,7 @@ namespace EB
     /**
      * @brief  this class define library for shader.
      */
-    class EB_EXPORT ShaderLibrary : public BaseLibrary<Shader>
+    class EB_RENDERER_EXPORT ShaderLibrary : public BaseLibrary<Shader>
     {
     public:
         /**

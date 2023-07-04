@@ -4,7 +4,7 @@
 
 namespace EB
 {
-    class EB_EXPORT GeCurve2d : public Geometry2d
+    class EB_GEOMETRY_EXPORT GeCurve2d : public Geometry2d
     {
     public:
         using Geometry2d::Geometry2d;

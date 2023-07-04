@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines image widget.
      */
-    class EB_EXPORT ImageWidget : public BaseWidget
+    class EB_GUI_EXPORT ImageWidget : public BaseWidget
     {
     public:
         /**
@@ -40,7 +40,7 @@ namespace EB
     /**
      * @brief  this class defines image widget with magnifier.
      */
-    class EB_EXPORT ImageWidgetWithMagnifier : public ImageWidget
+    class EB_GUI_EXPORT ImageWidgetWithMagnifier : public ImageWidget
     {
     public:
         /**

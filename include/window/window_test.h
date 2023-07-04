@@ -4,12 +4,12 @@
  * test file, remove latter.
  */
 
-#include "basic_export.h"
+#include "window_export.h"
 
 namespace EB
 {
 
-    class EB_EXPORT TestWindow
+    class EB_WINDOW_EXPORT TestWindow
     {
     public:
         static int showDemoWindow();

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 #include "basic_matrix.h"
 
@@ -11,7 +11,7 @@ namespace EB
     /**
      * @brief   this class is used to define basic shader class.
      */
-    class EB_EXPORT Shader
+    class EB_RENDERER_EXPORT Shader
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Shader)
     public:

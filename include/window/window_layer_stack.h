@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "window_export.h"
 #include "basic_impl_template.h"
 
 #include "window_layer.h"
@@ -12,7 +12,7 @@ namespace EB
     /**
      * @brief   this class defines layer stack.
      */
-    class EB_EXPORT LayerStack final
+    class EB_WINDOW_EXPORT LayerStack final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(LayerStack)
     public:

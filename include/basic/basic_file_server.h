@@ -36,7 +36,7 @@ namespace EB
     /**
      * @brief  this class is to help file system.
      */
-    class EB_EXPORT FileServer
+    class EB_BASIC_EXPORT FileServer
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(FileServer)
     public:

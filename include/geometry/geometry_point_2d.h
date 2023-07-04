@@ -6,7 +6,7 @@ namespace EB
 {
     class GeMatrix2d;
 
-    class EB_EXPORT GePoint2d : public Geometry2d
+    class EB_GEOMETRY_EXPORT GePoint2d : public Geometry2d
     {
     public:
         static const GePoint2d kOrigin;

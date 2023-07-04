@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "event_export.h"
 #include "basic_impl_template.h"
 
 #include <string>
@@ -87,7 +87,7 @@ namespace EB
     /**
      * @brief  this class define Event base class.
      */
-    class EB_EXPORT Event
+    class EB_EVENT_EXPORT Event
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Event);
     public:

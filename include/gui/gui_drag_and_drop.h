@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines drag and drop base.
      */
-    class EB_EXPORT DragAndDropBase : public BaseWidget
+    class EB_GUI_EXPORT DragAndDropBase : public BaseWidget
     {
     public:
         /** < encode function with filer > */
@@ -33,7 +33,7 @@ namespace EB
     /**
      * @brief   this class defines drag source.
      */
-    class EB_EXPORT DragSource : public DragAndDropBase
+    class EB_GUI_EXPORT DragSource : public DragAndDropBase
     {
     public:
         /**
@@ -63,7 +63,7 @@ namespace EB
     /**
      * @brief  this class defines drop target.
      */
-    class EB_EXPORT DropTarget : public DragAndDropBase
+    class EB_GUI_EXPORT DropTarget : public DragAndDropBase
     {
     public:
         /**

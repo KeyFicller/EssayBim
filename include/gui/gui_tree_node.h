@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines tree node.
      */
-    class EB_EXPORT TreeNode : public BaseWidget
+    class EB_GUI_EXPORT TreeNode : public BaseWidget
     {
         friend class TreeNodeImpl;
     public:

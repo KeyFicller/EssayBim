@@ -8,7 +8,7 @@ namespace EB
     /**
      * @brief  this class defines button widget.
      */
-    class EB_EXPORT Button : public BaseWidget
+    class EB_GUI_EXPORT Button : public BaseWidget
     {
     public:
         /**

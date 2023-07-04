@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "document_export.h"
 #include "basic_matrix.h"
 #include "basic_yaml_base.h"
 #include "basic_impl_template.h"
@@ -13,7 +13,7 @@ namespace EB
     /**
      * @brief  this class defines camera.
      */
-    class EB_EXPORT Camera : public YamlBase
+    class EB_DOCUMENT_EXPORT Camera : public YamlBase
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Camera)
     protected:

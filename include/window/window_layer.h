@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "window_export.h"
 #include "basic_impl_template.h"
 #include "basic_time_step.h"
 
@@ -13,7 +13,7 @@ namespace EB
     /**
      * @brief  this class is used to define renderer layer.
      */
-    class EB_EXPORT Layer
+    class EB_WINDOW_EXPORT Layer
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Layer)
     public:

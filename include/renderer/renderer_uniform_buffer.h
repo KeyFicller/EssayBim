@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 namespace EB
@@ -8,7 +8,7 @@ namespace EB
     /**
      * @brief   this class define uniform buffer.
      */
-    class EB_EXPORT UniformBuffer
+    class EB_RENDERER_EXPORT UniformBuffer
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(UniformBuffer);
     public:

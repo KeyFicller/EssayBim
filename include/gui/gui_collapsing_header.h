@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines collapsing header.
      */
-    class EB_EXPORT CollapsingHeader : public BaseWidget
+    class EB_GUI_EXPORT CollapsingHeader : public BaseWidget
     {
     public:
         /**

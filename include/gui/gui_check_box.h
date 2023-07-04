@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines check box.
      */
-    class EB_EXPORT CheckBox : public BaseWidget
+    class EB_GUI_EXPORT CheckBox : public BaseWidget
     {
     public:
         /**

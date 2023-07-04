@@ -6,7 +6,7 @@
 
 namespace EB
 {
-    class EB_EXPORT DragValueInputF : public ValueInputWidget
+    class EB_GUI_EXPORT DragValueInputF : public ValueInputWidget
     {
     public:
         /**

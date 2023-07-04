@@ -11,7 +11,7 @@ namespace EB
     /**
      * @brief   this class defines panel.
      */
-    class EB_EXPORT Panel : public BaseWidget
+    class EB_GUI_EXPORT Panel : public BaseWidget
     {
     public:
         /**

@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines text input widget class.
      */
-    class EB_EXPORT TextInputWidget : public BaseWidget
+    class EB_GUI_EXPORT TextInputWidget : public BaseWidget
     {
     protected:
         /**

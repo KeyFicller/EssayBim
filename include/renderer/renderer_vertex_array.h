@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 #include <vector>
@@ -13,7 +13,7 @@ namespace EB
     /**
      * @brief   this class is used to define vertex array.
      */
-    class EB_EXPORT VertexArray
+    class EB_RENDERER_EXPORT VertexArray
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(VertexArray)
     public:

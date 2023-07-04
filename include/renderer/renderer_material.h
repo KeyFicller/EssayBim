@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 #include "basic_yaml_base.h"
 #include "basic_vector.h"
@@ -12,7 +12,7 @@ namespace EB
     /**
      * @biref  this struct define material property.
      */
-    struct EB_EXPORT Material : public YamlBase
+    struct EB_RENDERER_EXPORT Material : public YamlBase
     {
         /** < name of material > */
         std::string Name;

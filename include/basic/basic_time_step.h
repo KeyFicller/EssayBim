@@ -8,7 +8,7 @@ namespace EB
     /**
      * @brief    this class is used to define delta time.
      */
-    class EB_EXPORT TimeStep final
+    class EB_BASIC_EXPORT TimeStep final
     {
         EB_IMPL_DECLARATION_ENABLE_COPY(TimeStep)
     public:

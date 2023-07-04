@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 namespace EB
@@ -8,7 +8,7 @@ namespace EB
     /**
      * @brief   this class is used to define index buffer data.
      */
-    class EB_EXPORT IndexBuffer final
+    class EB_RENDERER_EXPORT IndexBuffer final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(IndexBuffer)
     public:

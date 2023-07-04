@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class define key event.
      */
-    class EB_EXPORT KeyEvent : public Event
+    class EB_EVENT_EXPORT KeyEvent : public Event
     {
     public:
         /**
@@ -35,7 +35,7 @@ namespace EB
     /**
      * @brief   this class define key released event
      */
-    class EB_EXPORT KeyReleasedEvent : public KeyEvent
+    class EB_EVENT_EXPORT KeyReleasedEvent : public KeyEvent
     {
         EB_EVENT_DECLARE_TYPE(kKeyReleased)
     public:
@@ -49,7 +49,7 @@ namespace EB
     /**
      * @brief   this class defines key pressed event.
      */
-    class EB_EXPORT KeyPressedEvent : public KeyEvent
+    class EB_EVENT_EXPORT KeyPressedEvent : public KeyEvent
     {
         EB_EVENT_DECLARE_TYPE(kKeyPressed)
     public:
@@ -70,7 +70,7 @@ namespace EB
     /**
      * @brief   this class defines key typed event.
      */
-    class EB_EXPORT KeyTypedEvent : public KeyEvent
+    class EB_EVENT_EXPORT KeyTypedEvent : public KeyEvent
     {
         EB_EVENT_DECLARE_TYPE(kKeyTyped)
     public:

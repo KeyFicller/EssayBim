@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines colored button.
      */
-    class EB_EXPORT ColoredButton : public Button
+    class EB_GUI_EXPORT ColoredButton : public Button
     {
     public:
         /**

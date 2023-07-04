@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief   this class is used for material management
      */
-    class EB_EXPORT MaterialLibrary : public BaseLibrary<Material>
+    class EB_RENDERER_EXPORT MaterialLibrary : public BaseLibrary<Material>
     {
     public:
         /**

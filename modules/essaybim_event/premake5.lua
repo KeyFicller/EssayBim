@@ -8,7 +8,7 @@ project "essaybim_event"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL",
+        "EB_BUILD_DLL_EVENT",
         "USE_GLM_IN_MODULE"
     }
 

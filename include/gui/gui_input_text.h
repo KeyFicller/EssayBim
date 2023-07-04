@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines input text class.
      */
-    class EB_EXPORT InputText : public TextInputWidget
+    class EB_GUI_EXPORT InputText : public TextInputWidget
     {
     public:
         /**

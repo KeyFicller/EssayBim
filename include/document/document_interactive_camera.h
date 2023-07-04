@@ -10,7 +10,7 @@ namespace EB
     /**
      * @brief  this class defines interactive camera.
      */
-    class EB_EXPORT InteractiveCamera : public Camera
+    class EB_DOCUMENT_EXPORT InteractiveCamera : public Camera
     {
     public:
         /**

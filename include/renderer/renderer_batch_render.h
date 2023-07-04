@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 #include "basic_matrix.h"
@@ -25,7 +25,7 @@ namespace EB
     /**
      * @brief   this class defines Batch render class.
      */
-    class EB_EXPORT BatchRender final
+    class EB_RENDERER_EXPORT BatchRender final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(BatchRender)
     public:

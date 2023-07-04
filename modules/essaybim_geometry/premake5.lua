@@ -8,7 +8,7 @@ project "essaybim_geometry"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL",
+        "EB_BUILD_DLL_GEOMETRY",
         "_CRT_SECURE_NO_WARNINGS",
         "USE_GLM_IN_MODULE"
     }

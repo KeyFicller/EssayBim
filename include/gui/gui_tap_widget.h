@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief   this class defines tab widget item.
      */
-    class EB_EXPORT TabWidgetItem : public BaseWidget
+    class EB_GUI_EXPORT TabWidgetItem : public BaseWidget
     {
     public:
         /**
@@ -33,7 +33,7 @@ namespace EB
     /**
      * @brief   this class defines tab widget.
      */
-    class EB_EXPORT TabWidget : public BaseWidget
+    class EB_GUI_EXPORT TabWidget : public BaseWidget
     {
     public:
         /**

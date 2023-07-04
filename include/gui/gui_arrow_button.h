@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines arrow button class.
      */
-    class EB_EXPORT ArrowButton : public Button
+    class EB_GUI_EXPORT ArrowButton : public Button
     {
     public:
         /**

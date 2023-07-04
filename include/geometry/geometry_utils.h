@@ -1,13 +1,13 @@
 #pragma once
 
-#include "basic_export.h"
+#include "geometry_export.h"
 
 namespace EB
 {
     class GePoint2d;
     class GeCurve2d;
 
-    class EB_EXPORT GeUtils
+    class EB_GEOMETRY_EXPORT GeUtils
     {
     public:
         static bool underTolerance(float value, float tolerance = 1e-6);

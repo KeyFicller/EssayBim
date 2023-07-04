@@ -8,7 +8,7 @@ namespace EB
 
     class Geometry;
 
-    class EB_EXPORT TopoShape : public Topological
+    class EB_TOPOLOGICAL_EXPORT TopoShape : public Topological
     {
     public:
         enum class eTopoShapeType

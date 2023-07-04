@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class define enum widget.
      */
-    class EB_EXPORT EnumWidget : public BaseWidget
+    class EB_GUI_EXPORT EnumWidget : public BaseWidget
     {
     protected:
         /**

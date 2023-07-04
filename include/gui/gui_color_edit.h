@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines color edit widget.
      */
-    class EB_EXPORT ColorEdit : public ValueInputWidget
+    class EB_GUI_EXPORT ColorEdit : public ValueInputWidget
     {
     public:
         /**

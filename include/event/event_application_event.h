@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief   this class defines window resized event
      */
-    class EB_EXPORT WindowResizedEvent : public Event
+    class EB_EVENT_EXPORT WindowResizedEvent : public Event
     {
         EB_EVENT_DECLARE_TYPE(kWindowResized)
     public:
@@ -34,7 +34,7 @@ namespace EB
     /**
      * @brief  this class defines window closed event.
      */
-    class EB_EXPORT WindowClosedEvent : public Event
+    class EB_EVENT_EXPORT WindowClosedEvent : public Event
     {
         EB_EVENT_DECLARE_TYPE(kWindowClosed)
     public:

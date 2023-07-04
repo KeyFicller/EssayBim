@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 struct GLFWwindow;
@@ -10,7 +10,7 @@ namespace EB
     /**
      * @brief  this class is used to manage OpenGL graphics context.
      */
-    class EB_EXPORT GraphicsContext final
+    class EB_RENDERER_EXPORT GraphicsContext final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(GraphicsContext)
     public:

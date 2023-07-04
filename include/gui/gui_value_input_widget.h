@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines value input widget base.
      */
-    class EB_EXPORT ValueInputWidget : public BaseWidget
+    class EB_GUI_EXPORT ValueInputWidget : public BaseWidget
     {
     public:
         /**

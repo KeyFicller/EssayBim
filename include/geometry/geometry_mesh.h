@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "geometry_export.h"
 #include "basic_impl_template.h"
 #include "basic_vector.h"
 
@@ -13,7 +13,7 @@ namespace EB
     /**
      * @brief  this struct defines mesh data.
      */
-    struct EB_EXPORT GeMeshData
+    struct EB_GEOMETRY_EXPORT GeMeshData
     {
         /** < vertices coordinate > */
         std::vector<Vec3f> Vertices;
@@ -25,7 +25,7 @@ namespace EB
     /**
      * @brief  this class define mesh
      */
-    class EB_EXPORT GeMesh
+    class EB_GEOMETRY_EXPORT GeMesh
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(GeMesh)
     public:

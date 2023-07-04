@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines modal widget.
      */
-    class EB_EXPORT ModalWidget : public BaseWidget
+    class EB_GUI_EXPORT ModalWidget : public BaseWidget
     {
     public:
         /**

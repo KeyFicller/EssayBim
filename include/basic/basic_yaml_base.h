@@ -12,7 +12,7 @@ namespace EB
     /**
      * @brief  this class is to provide interfaces for export or import yaml data.
      */
-    class EB_EXPORT YamlServer final
+    class EB_BASIC_EXPORT YamlServer final
     {
         friend class YamlBase;
         EB_IMPL_DECLARATION_DISABLE_COPY(YamlServer)
@@ -204,13 +204,13 @@ namespace EB
     /**
      * @brief  this class is used to serialize data into yaml file.
      */
-    class EB_EXPORT YamlBase
+    class EB_BASIC_EXPORT YamlBase
     {
     public:
         /**
          * @brief  this class is used to auto insert yaml map key word.
          */
-        class EB_EXPORT AutoMapWrapper
+        class EB_BASIC_EXPORT AutoMapWrapper
         {
         public:
             /**

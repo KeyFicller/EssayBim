@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 #include <vector>
@@ -34,7 +34,7 @@ namespace EB
     /**
      * @brief  this class is used to define frame buffer.
      */
-    class EB_EXPORT FrameBuffer
+    class EB_RENDERER_EXPORT FrameBuffer
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(FrameBuffer)
     public:

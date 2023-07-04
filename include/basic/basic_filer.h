@@ -12,7 +12,7 @@ namespace EB
     /**
      * @brief  this class is used to record data as stream for communicative.
      */
-    class EB_EXPORT Filer
+    class EB_BASIC_EXPORT Filer
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Filer)
     public:

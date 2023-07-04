@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 #include <string>
@@ -10,7 +10,7 @@ namespace EB
     /**
      * @brief  this class is used to define Texture.
      */
-    class EB_EXPORT Texture2D
+    class EB_RENDERER_EXPORT Texture2D
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Texture2D);
     public:

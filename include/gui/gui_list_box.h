@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines list box.
      */
-    class EB_EXPORT ListBox : public EnumWidget
+    class EB_GUI_EXPORT ListBox : public EnumWidget
     {
     public:
         /**

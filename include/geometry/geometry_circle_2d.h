@@ -4,7 +4,7 @@
 
 namespace EB
 {
-    class EB_EXPORT GeCricle2d : public GeCurve2d
+    class EB_GEOMETRY_EXPORT GeCricle2d : public GeCurve2d
     {
     public:
         GeCricle2d();

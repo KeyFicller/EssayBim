@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines radio button group.
      */
-    class EB_EXPORT RadioButtonGroup : public EnumWidget
+    class EB_GUI_EXPORT RadioButtonGroup : public EnumWidget
     {
     public:
         /**

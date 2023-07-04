@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief   this class defines image button.
      */
-    class EB_EXPORT ImageButton : public Button
+    class EB_GUI_EXPORT ImageButton : public Button
     {
     public:
         /**

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 
 #include <string>
@@ -32,7 +32,7 @@ namespace EB
     /**
      * @brief   this struct is used to define element data structural in layout.
      */
-    struct EB_EXPORT BufferLayoutElement
+    struct EB_RENDERER_EXPORT BufferLayoutElement
     {
         /** < element name identifier > */
         std::string Name = "Unknown";
@@ -70,7 +70,7 @@ namespace EB
     /**
      * @brief   this class is used to specify buffer data structural.
      */
-    class EB_EXPORT BufferLayout
+    class EB_RENDERER_EXPORT BufferLayout
     {
         EB_IMPL_DECLARATION_ENABLE_COPY(BufferLayout)
     public:

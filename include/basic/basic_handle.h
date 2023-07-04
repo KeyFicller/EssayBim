@@ -9,7 +9,7 @@
 
 namespace EB
 {
-    class EB_EXPORT Handle
+    class EB_BASIC_EXPORT Handle
     {
     protected:
         template <typename T>

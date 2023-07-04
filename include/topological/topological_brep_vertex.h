@@ -4,7 +4,7 @@
 
 namespace EB
 {
-    class EB_EXPORT BrepVertex final : public TopoVertex
+    class EB_TOPOLOGICAL_EXPORT BrepVertex final : public TopoVertex
     {
     public:
         BrepVertex();

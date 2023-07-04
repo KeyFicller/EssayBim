@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief   this class defines range edit for float data.
      */
-    class EB_EXPORT RangeEditF : public BaseWidget
+    class EB_GUI_EXPORT RangeEditF : public BaseWidget
     {
     public:
         /**
@@ -36,7 +36,7 @@ namespace EB
     /**
      * @brief   this class defines range edit for int data.
      */
-    class EB_EXPORT RangeEditI : public BaseWidget
+    class EB_GUI_EXPORT RangeEditI : public BaseWidget
     {
     public:
         /**

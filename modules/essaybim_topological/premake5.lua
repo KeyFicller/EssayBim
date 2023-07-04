@@ -8,7 +8,7 @@ project "essaybim_topological"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL",
+        "EB_BUILD_DLL_TOPOLOGICAL",
         "_CRT_SECURE_NO_WARNINGS"
     }
 

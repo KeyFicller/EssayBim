@@ -28,7 +28,7 @@ namespace EB
     /**
      * @brief   this class is used for instrument profile.
      */
-    class EB_EXPORT Instrument final
+    class EB_BASIC_EXPORT Instrument final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Instrument)
     protected:
@@ -68,7 +68,7 @@ namespace EB
     /**
      * @brief      this class is used for profiling timer.
      */
-    class EB_EXPORT InstrumentTimer final
+    class EB_BASIC_EXPORT InstrumentTimer final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(InstrumentTimer)
     public:

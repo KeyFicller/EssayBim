@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines radio button class
      */
-    class EB_EXPORT RadioButton : public BaseWidget
+    class EB_GUI_EXPORT RadioButton : public BaseWidget
     {
     public:
         /**

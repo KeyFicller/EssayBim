@@ -8,7 +8,7 @@ project "essaybim_basic"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL",
+        "EB_BUILD_DLL_BASIC",
         "YAML_CPP_STATIC_DEFINE"
     }
 

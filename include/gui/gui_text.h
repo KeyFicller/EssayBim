@@ -13,7 +13,7 @@ namespace EB
     /**
      * @brief  this class defines text class.
      */
-    class EB_EXPORT Text : public BaseWidget
+    class EB_GUI_EXPORT Text : public BaseWidget
     {
     public:
         /**
@@ -45,7 +45,7 @@ namespace EB
     /**
      * @brief  this class defines colored text.
      */
-    class EB_EXPORT ColoredText : public Text
+    class EB_GUI_EXPORT ColoredText : public Text
     {
     public:
         /**
@@ -78,7 +78,7 @@ namespace EB
     /**
      * @brief  this class defines gray text.
      */
-    class EB_EXPORT GrayText : public Text
+    class EB_GUI_EXPORT GrayText : public Text
     {
     public:
         /**

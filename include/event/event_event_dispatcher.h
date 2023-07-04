@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "event_export.h"
 #include "basic_impl_template.h"
 
 #include "event_event_base.h"
@@ -10,7 +10,7 @@ namespace EB
     /**
      * @brief  this class define event dispatcher.
      */
-    class EB_EXPORT EventDispatcher
+    class EB_EVENT_EXPORT EventDispatcher
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(EventDispatcher)
     public:

@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines combo box.
      */
-    class EB_EXPORT ComboBox : public EnumWidget
+    class EB_GUI_EXPORT ComboBox : public EnumWidget
     {
     public:
         /**

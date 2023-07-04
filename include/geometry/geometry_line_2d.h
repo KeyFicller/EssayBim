@@ -7,7 +7,7 @@ namespace EB
 {
     class GeVector2d;
 
-    class EB_EXPORT GeLine2d : public GeCurve2d
+    class EB_GEOMETRY_EXPORT GeLine2d : public GeCurve2d
     {
     public:
         GeLine2d();

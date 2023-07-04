@@ -9,7 +9,7 @@ namespace EB
     /**
      * @brief  this class defines mouse button event.
      */
-    class EB_EXPORT MouseButtonEvent : public Event
+    class EB_EVENT_EXPORT MouseButtonEvent : public Event
     {
     public:
         /**
@@ -35,7 +35,7 @@ namespace EB
     /**
      * @brief   this class defines mouse button pressed event.
      */
-    class EB_EXPORT MouseButtonPressedEvent : public MouseButtonEvent
+    class EB_EVENT_EXPORT MouseButtonPressedEvent : public MouseButtonEvent
     {
         EB_EVENT_DECLARE_TYPE(kMouseButtonPressed)
     public:
@@ -56,7 +56,7 @@ namespace EB
     /**
      * @brief   this class defines mouse button released event.
      */
-    class EB_EXPORT MouseButtonReleasedEvent : public MouseButtonEvent
+    class EB_EVENT_EXPORT MouseButtonReleasedEvent : public MouseButtonEvent
     {
         EB_EVENT_DECLARE_TYPE(kMouseButtonReleased)
     public:

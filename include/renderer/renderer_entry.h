@@ -2,7 +2,7 @@
 
 #include "renderer_vertex_array.h"
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 #include "basic_vector.h"
 
@@ -11,7 +11,7 @@ namespace EB
     /**
      * @brief   this class define api interface for renderer.
      */
-    class EB_EXPORT RendererEntry final
+    class EB_RENDERER_EXPORT RendererEntry final
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(RendererEntry);
     public:

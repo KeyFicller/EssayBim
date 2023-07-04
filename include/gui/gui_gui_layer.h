@@ -3,6 +3,7 @@
 #include "basic_vector.h"
 #include "basic_file_server.h"
 
+#include "gui_export.h"
 #include "window_window.h"
 #include "window_layer.h"
 
@@ -86,7 +87,7 @@ namespace EB
     /**
      * @brief  this class defines gui layer
      */
-    class EB_EXPORT GuiLayer : public Layer
+    class EB_GUI_EXPORT GuiLayer : public Layer
     {
     public:
         /**

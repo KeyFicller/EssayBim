@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief  this class defines multiline input text.
      */
-    class EB_EXPORT MultilineInputText : public TextInputWidget
+    class EB_GUI_EXPORT MultilineInputText : public TextInputWidget
     {
     public:
         /**

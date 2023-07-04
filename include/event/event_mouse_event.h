@@ -7,7 +7,7 @@ namespace EB
     /**
      * @brief   this class defines mouse move event.
      */
-    class EB_EXPORT MouseMovedEvent : public Event
+    class EB_EVENT_EXPORT MouseMovedEvent : public Event
     {
         EB_EVENT_DECLARE_TYPE(kMouseMoved)
     public:
@@ -31,7 +31,7 @@ namespace EB
         float y() const;
     };
 
-    class EB_EXPORT MouseScrolledEvent : public Event
+    class EB_EVENT_EXPORT MouseScrolledEvent : public Event
     {
         EB_EVENT_DECLARE_TYPE(kMouseScrolled)
     public:

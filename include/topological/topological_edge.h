@@ -6,7 +6,7 @@ namespace EB
 {
     class TopoEdgeImpl;
 
-    class EB_EXPORT TopoEdge : public TopoShape
+    class EB_TOPOLOGICAL_EXPORT TopoEdge : public TopoShape
     {
     public:
         TopoEdge();

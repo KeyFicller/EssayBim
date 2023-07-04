@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "gui_export.h"
 #include "basic_impl_template.h"
 
 #include <string>
@@ -13,7 +13,7 @@ namespace EB
     /**
      * @brief   this class define base widget.
      */
-    class EB_EXPORT BaseWidget
+    class EB_GUI_EXPORT BaseWidget
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(BaseWidget)
     public:

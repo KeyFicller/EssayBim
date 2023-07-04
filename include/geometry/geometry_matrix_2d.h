@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "geometry_export.h"
 #include "basic_impl_template.h"
 #include "geometry_vector_2d.h"
 
@@ -8,7 +8,7 @@ namespace EB
 {
     class GeMatrix2dImpl;
 
-    class EB_EXPORT GeMatrix2d
+    class EB_GEOMETRY_EXPORT GeMatrix2d
     {
         EB_IMPL_DECLARATION_ENABLE_COPY(GeMatrix2d)
     public:

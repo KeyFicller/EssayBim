@@ -1,11 +1,11 @@
 #pragma once
 
-#include "basic_export.h"
+#include "geometry_export.h"
 #include "basic_yaml_base.h"
 
 namespace EB
 {
-    class EB_EXPORT Geometry : public YamlBase
+    class EB_GEOMETRY_EXPORT Geometry : public YamlBase
     {
     public:
         enum class eGeometryType

@@ -2,7 +2,7 @@
 
 #include "renderer_texture.h"
 
-#include "basic_export.h"
+#include "renderer_export.h"
 #include "basic_impl_template.h"
 #include "basic_library.h"
 
@@ -11,7 +11,7 @@ namespace EB
     /**
      * @brief  this class is defined to manage texture.
      */
-    class EB_EXPORT Texture2DLibrary : public BaseLibrary<Texture2D>
+    class EB_RENDERER_EXPORT Texture2DLibrary : public BaseLibrary<Texture2D>
     {
     public:
         /**

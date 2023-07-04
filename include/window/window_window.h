@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_export.h"
+#include "window_export.h"
 #include "basic_impl_template.h"
 
 #include <string>
@@ -15,7 +15,7 @@ namespace EB
     /**
      * @brief  this struct defines basic properties of window.
      */
-    struct EB_EXPORT WindowProperties
+    struct EB_WINDOW_EXPORT WindowProperties
     {
         /** < title of window > */
         std::string Title;
@@ -30,7 +30,7 @@ namespace EB
     /**
      * @brief  this class defines window class
      */
-    class EB_EXPORT Window
+    class EB_WINDOW_EXPORT Window
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(Window);
     public:

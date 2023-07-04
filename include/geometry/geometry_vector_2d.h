@@ -1,13 +1,13 @@
 #pragma once
 
-#include "basic_export.h"
+#include "geometry_export.h"
 #include "basic_yaml_base.h"
 
 #include "geometry_point_2d.h"
 
 namespace EB
 {
-    class EB_EXPORT GeVector2d : public YamlBase
+    class EB_GEOMETRY_EXPORT GeVector2d : public YamlBase
     {
     public:
         static const GeVector2d kXAxis;
