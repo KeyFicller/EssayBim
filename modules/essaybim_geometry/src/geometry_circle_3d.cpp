@@ -41,20 +41,20 @@ namespace EB
     float GeCricle3d::paramAtPoint(const GePoint3d& pt) const
     {
         EB_CORE_ASSERT(isPointOnCurve(pt));
-        return (pt - m_PtCenter).angleTo(m_Ref, m_Normal);
+        return (pt - m_PtCenter).angleTo(m_Ref, m_Normal) * EB_RAD2PARAM;
     }
 
     GePoint3d GeCricle3d::pointAtParam(float param) const
     {
         auto [min, max] = paramRange();
         EB_CORE_ASSERT(param >= min && param <= max);
-        GeVector3d vec = GeMatrix3d().setAsRotation(param, m_Normal) * m_Ref;
+        GeVector3d vec = GeMatrix3d().setAsRotation(param * EB_PARAM2RAD, m_Normal) * m_Ref;
         return m_PtCenter + vec;
     }
 
     std::pair<float, float> GeCricle3d::paramRange() const
     {
-        return { 0.0f, 3.1415926f * 2.0f };
+        return { 0.0f, 1.0f };
     }
 
     bool GeCricle3d::isPointOnCurve(const GePoint3d& pt) const

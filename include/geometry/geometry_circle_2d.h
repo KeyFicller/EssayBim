@@ -2,6 +2,7 @@
 
 #include "geometry_curve_2d.h"
 #include "geometry_point_2d.h"
+#include "geometry_vector_2d.h"
 
 namespace EB
 {
@@ -20,8 +21,9 @@ namespace EB
          * @brief  constructor for GeCircle2d.
          * @param[in]  ptCenter    center point coordinate.
          * @param[in]  radius      radius of circle.
+         * @param[in]  ref         reference vector of circle at param 0.
          */
-        GeCricle2d(const GePoint2d& ptCenter, float radius);
+        GeCricle2d(const GePoint2d& ptCenter, float radius, const GeVector2d& ref = GeVector2d::kXAxis);
 
     public:
         /**
@@ -109,9 +111,12 @@ namespace EB
 
     protected:
         /** < center point coordinate of circle > */
-        GePoint2d m_PtCenter;
+        GePoint2d m_PtCenter = GePoint2d::kOrigin;
 
         /** < radius of circle > */
         float m_Radius = 1.0f;
+
+        /** < reference vector of circle at param 0 > */
+        GeVector2d m_Ref = GeVector2d::kXAxis;
     };
 }

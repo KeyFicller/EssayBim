@@ -13,10 +13,10 @@ namespace EB
 
     }
 
-    GeCricle2d::GeCricle2d(const GePoint2d& ptCenter, float radius)
-        : m_PtCenter(ptCenter), m_Radius(radius)
+    GeCricle2d::GeCricle2d(const GePoint2d& ptCenter, float radius, const GeVector2d& ref)
+        : m_PtCenter(ptCenter), m_Radius(radius), m_Ref(ref)
     {
-
+        m_Ref.normalize().scale(radius);
     }
 
     Geometry::eGeometryType GeCricle2d::geometryType() const
@@ -32,19 +32,19 @@ namespace EB
     float GeCricle2d::paramAtPoint(const GePoint2d& pt) const
     {
         EB_CORE_ASSERT(isPointOnCurve(pt));
-        return (pt - m_PtCenter).angleTo();
+        return (pt - m_PtCenter).angleTo() * EB_RAD2PARAM;
     }
 
     GePoint2d GeCricle2d::pointAtParam(float param) const
     {
         auto [min, max] = paramRange();
         EB_CORE_ASSERT(param >= min && param <= max);
-        return GeVector2d(m_Radius, 0.0f).rotated(param).asGePoint2d();
+        return GeVector2d(m_Radius, 0.0f).rotated(param * EB_PARAM2RAD).asGePoint2d();
     }
 
     std::pair<float, float> GeCricle2d::paramRange() const
     {
-        return { 0.0f, 3.1415926f * 2.0f };
+        return { 0.0f, 1.0f };
     }
 
     bool GeCricle2d::isPointOnCurve(const GePoint2d& pt) const
@@ -55,7 +55,7 @@ namespace EB
     GeCurve3d* GeCricle2d::create3D(const GePlane& plane) const
     {
         GePoint3d pt3dCenter = GePoint3d(m_PtCenter.x(), m_PtCenter.y(), 0.0f).transformedBy(plane.planeToWorldMatrix());
-        GeVector3d vec3dRef = GeVector3d(1.0f, 0.0f, 0.0f);
+        GeVector3d vec3dRef = GeVector3d(m_Ref.x(), m_Ref.y(), 0.0f);
         return new GeCricle3d(pt3dCenter, m_Radius, plane.normal(), plane.planeToWorldMatrix() * vec3dRef);
     }
 
