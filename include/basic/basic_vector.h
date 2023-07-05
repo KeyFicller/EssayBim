@@ -13,11 +13,6 @@
 #include <imgui.h>
 #endif
 
-/**
- * comment by zhangyuhui:  latter i may change this from int[] to individual values.
- * this is a header only file, thus no need to export.
- */
-
 namespace EB
 {
 
@@ -53,7 +48,7 @@ namespace EB
          * @brief   get component by index.
          * @return  component at index.
          */
-        float operator [] (int index) const {
+        T operator [] (int index) const {
             EB_CORE_ASSERT(index < N, "Index out of range.");
             return m_Data[index];
         }
