@@ -1,7 +1,6 @@
 #pragma once
 
 #include "geometry_surface.h"
-
 #include "geometry_point_3d.h"
 #include "geometry_vector_3d.h"
 

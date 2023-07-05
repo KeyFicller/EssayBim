@@ -1,6 +1,7 @@
 #include "geometry_vector_3d.h"
 
 #include "geometry_arithmetic.h"
+#include "geometry_point_3d.h"
 #include "geometry_utils.h"
 
 namespace EB
@@ -118,6 +119,23 @@ namespace EB
             other.m_X * m_Z - other.m_Z * m_X,
             m_X * other.m_Y - other.m_X * m_Y
         );
+    }
+
+    float GeVector3d::angleTo(const GeVector3d& other, const GeVector3d& ref) const
+    {
+        GeVector3d fixedRef;
+        if (ref.isPerpendicularTo(*this) && ref.isPerpendicularTo(other)) {
+            fixedRef = ref;
+        }
+        else {
+            fixedRef = (*this).cross(other);
+        }
+
+        bool invert = (*this).cross(other).x() * fixedRef.x() < 0.f;
+        float cosTheta = dot(other) / length() / other.length();
+        float sinTheta = cross(other).length() / length() / other.length();
+        float rotateRad = sinTheta >= 0.0f ? (float)acos(cosTheta) : (float)(EB_TWOPI - acos(cosTheta));
+        return invert ? (EB_TWOPI - rotateRad) : rotateRad;
     }
 
     bool GeVector3d::isParallelTo(const GeVector3d& other) const

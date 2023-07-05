@@ -1,11 +1,11 @@
 #pragma once
 
-#include "geometry_point_2d.h"
-#include "geometry_vector_2d.h"
 #include "geometry_matrix_2d.h"
-#include "geometry_point_3d.h"
-#include "geometry_vector_3d.h"
 #include "geometry_matrix_3d.h"
+#include "geometry_point_2d.h"
+#include "geometry_point_3d.h"
+#include "geometry_vector_2d.h"
+#include "geometry_vector_3d.h"
 
 namespace EB
 {

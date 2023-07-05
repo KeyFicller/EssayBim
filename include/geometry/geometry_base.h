@@ -1,6 +1,8 @@
 #pragma once
 
 #include "geometry_export.h"
+#include "geometry_defines.h"
+
 #include "basic_yaml_base.h"
 
 namespace EB
@@ -21,6 +23,8 @@ namespace EB
             kCircle2d,                /** < 2d circle > */
 
             kPoint3d,                 /** < 3d point > */
+            kLine3d,                  /** < 3d line segment > */
+            kCircle3d,                /** < 3d circle > */
             kPlane                    /** < 3d plane > */
         };
 

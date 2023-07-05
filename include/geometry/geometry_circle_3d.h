@@ -1,27 +1,31 @@
 #pragma once
 
-#include "geometry_curve_2d.h"
-#include "geometry_point_2d.h"
+#include "geometry_curve_3d.h"
+#include "geometry_point_3d.h"
+#include "geometry_vector_3d.h"
 
 namespace EB
 {
     /**
-     * @brief  this class defines geometry circle 2d.
+     * @brief  this class defines geometry circle 3d.
      */
-    class EB_GEOMETRY_EXPORT GeCricle2d : public GeCurve2d
+    class EB_GEOMETRY_EXPORT GeCricle3d : public GeCurve3d
     {
     public:
         /**
-         * @brief  constructor for GeCircle2d.
+         * @brief  constructor for GeCircle3d.
          */
-        GeCricle2d();
+        GeCricle3d();
 
         /**
-         * @brief  constructor for GeCircle2d.
+         * @brief  constructor for GeCircle3d.
          * @param[in]  ptCenter    center point coordinate.
          * @param[in]  radius      radius of circle.
+         * @param[in]  normal      normal vector of circle 3d.
+         * @param[in]  ref         ref vector of circle at param 0.
          */
-        GeCricle2d(const GePoint2d& ptCenter, float radius);
+        GeCricle3d(const GePoint3d& ptCenter, float radius,
+            const GeVector3d& normal, const GeVector3d& ref = GeVector3d::kXAxis);
 
     public:
         /**
@@ -41,14 +45,14 @@ namespace EB
          * @param[in]   pt       point coordinate.
          * @return  standard parameter.
          */
-        float paramAtPoint(const GePoint2d& pt) const override;
+        float paramAtPoint(const GePoint3d& pt) const override;
 
         /**
          * @brief   get point coordinate at standard parameter.
          * @param[in]   param     standard parameter.
          * @return  point coordinate.
          */
-        GePoint2d pointAtParam(float param) const override;
+        GePoint3d pointAtParam(float param) const override;
 
         /**
          * @brief    get standard parameter range of curve.
@@ -61,14 +65,7 @@ namespace EB
          * @param[in]   pt        point coordinate.
          * @return     whether point is on this curve.
          */
-        bool isPointOnCurve(const GePoint2d& pt) const override;
-
-        /**
-         * @brief    create global 3d curve by local 2d curve on plane.
-         * @param[in]    plane         local plane.
-         * @return    new created 3d curve.
-         */
-        GeCurve3d* create3D(const GePlane& plane) const override;
+        bool isPointOnCurve(const GePoint3d& pt) const override;
 
         /**
          * @brief   interface for override import class data.
@@ -87,7 +84,7 @@ namespace EB
          * @brief     get center point.
          * @return     point coordinate.
          */
-        GePoint2d center() const;
+        GePoint3d center() const;
 
         /**
          * @brief    get radius.
@@ -96,22 +93,40 @@ namespace EB
         float radius() const;
 
         /**
+         * @brief     get normal vector.
+         * @return     normal vector.
+         */
+        GeVector3d normal() const;
+
+        /**
          * @brief   set center point.
          * @param[in]   ptCenter   point coordinate.
          */
-        void setCenter(const GePoint2d& ptCenter);
+        void setCenter(const GePoint3d& ptCenter);
         
         /**
-         * @brief   set radius,
+         * @brief   set radius.
          * @param[in]   radius     radius.
          */
         void setRadius(float fRadius);
 
+        /**
+         * @brief   set normal vector.
+         * @param[in]   vecNorm     normal vector.
+         */
+        void setNormal(const GeVector3d& vecNorm);
+
     protected:
         /** < center point coordinate of circle > */
-        GePoint2d m_PtCenter;
+        GePoint3d m_PtCenter = GePoint3d::kOrigin;
 
         /** < radius of circle > */
         float m_Radius = 1.0f;
+
+        /** < normal vector of circle > */
+        GeVector3d m_Normal = GeVector3d::kZAxis;
+
+        /** < vector of circle at param 0 > */
+        GeVector3d m_Ref = GeVector3d::kXAxis;
     };
 }

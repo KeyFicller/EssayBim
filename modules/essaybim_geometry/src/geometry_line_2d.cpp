@@ -2,6 +2,7 @@
 
 #include "geometry_arithmetic.h"
 #include "geometry_utils.h"
+#include "geometry_line_3d.h"
 
 namespace EB
 {
@@ -56,6 +57,13 @@ namespace EB
         }
         return GeUtils::inRange(pt.x(), m_PtStart.x(), m_PtEnd.x()) &&
                GeUtils::inRange(pt.y(), m_PtStart.y(), m_PtEnd.y());
+    }
+
+    GeCurve3d* GeLine2d::create3D(const GePlane& plane) const
+    {
+        GePoint3d pt3dStart = GePoint3d(m_PtStart.x(), m_PtStart.y(), 0.0f).transformedBy(plane.planeToWorldMatrix());
+        GePoint3d pt3dEnd = GePoint3d(m_PtEnd.x(), m_PtEnd.y(), 0.0f).transformedBy(plane.planeToWorldMatrix());
+        return new GeLine3d(pt3dStart, pt3dEnd);
     }
 
     void GeLine2d::subYamlIn(const std::string& key)

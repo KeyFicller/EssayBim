@@ -1,7 +1,8 @@
 #include "geometry_vector_2d.h"
 
-#include "geometry_matrix_2d.h"
 #include "geometry_arithmetic.h"
+#include "geometry_matrix_2d.h"
+#include "geometry_point_2d.h"
 #include "geometry_utils.h"
 
 namespace EB
@@ -118,7 +119,7 @@ namespace EB
     {
          float cosTheta = dot(other) / length() / other.length();
          float sinTheta = cross(other) / length() / other.length();
-         return sinTheta >= 0.0f ? (float)acos(cosTheta) : (float)(3.1415926f * 2.f - acos(cosTheta));
+         return sinTheta >= 0.0f ? (float)acos(cosTheta) : (float)(EB_TWOPI - acos(cosTheta));
     }
 
     bool GeVector2d::isParallelTo(const GeVector2d& other) const

@@ -3,10 +3,10 @@
 #include "geometry_export.h"
 #include "basic_yaml_base.h"
 
-#include "geometry_point_2d.h"
-
 namespace EB
 {
+    class GePoint2d;
+
     /**
      * @brief  this class defines geometry 2d vector.
      */

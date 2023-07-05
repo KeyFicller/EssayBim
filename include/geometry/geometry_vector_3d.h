@@ -3,12 +3,12 @@
 #include "geometry_export.h"
 #include "basic_yaml_base.h"
 
-#include "geometry_point_3d.h"
-
 namespace EB
 {
+    class GePoint3d;
+
     /**
-     * @brief  this class defines geometry 2d vector.
+     * @brief  this class defines geometry 3d vector.
      */
     class EB_GEOMETRY_EXPORT GeVector3d : public YamlBase
     {
@@ -131,6 +131,14 @@ namespace EB
          * @return    cross product.
          */
         GeVector3d cross(const GeVector3d& other) const;
+
+        /**
+         * @brief   get angle of two vector.
+         * @param[in]   other    another vector.
+         * @param[in]   ref      rotate axis 
+         * @return    angle of two vector.
+         */
+        float angleTo(const GeVector3d& other, const GeVector3d& ref) const;
 
         /**
          * @brief  judge if this vector is parallel to another.

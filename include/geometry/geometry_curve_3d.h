@@ -1,20 +1,18 @@
 #pragma once
 
-#include "geometry_point_2d.h"
-#include "geometry_plane.h"
+#include "geometry_base_3d.h"
 
 namespace EB
 {
-    class GeCurve3d;
-    class GePoint2d;
+    class GePoint3d;
 
     /**
-     * @brief  this class defines base class for geometry curve 2d.
+     * @brief  this class defines base class for geometry curve 3d.
      */
-    class EB_GEOMETRY_EXPORT GeCurve2d : public Geometry2d
+    class EB_GEOMETRY_EXPORT GeCurve3d : public Geometry3d
     {
     public:
-        using Geometry2d::Geometry2d;
+        using Geometry3d::Geometry3d;
 
     public:
         /**
@@ -22,14 +20,14 @@ namespace EB
          * @param[in]   pt       point coordinate.
          * @return  standard parameter.
          */
-        virtual float paramAtPoint(const GePoint2d& pt) const = 0;
+        virtual float paramAtPoint(const GePoint3d& pt) const = 0;
 
         /**
          * @brief   get point coordinate at standard parameter.
          * @param[in]   param     standard parameter.
          * @return  point coordinate.
          */
-        virtual GePoint2d pointAtParam(float param) const = 0;
+        virtual GePoint3d pointAtParam(float param) const = 0;
 
         /**
          * @brief    get standard parameter range of curve.
@@ -42,13 +40,6 @@ namespace EB
          * @param[in]   pt        point coordinate.
          * @return     whether point is on this curve.
          */
-        virtual bool isPointOnCurve(const GePoint2d& pt) const = 0;
-
-        /**
-         * @brief    create global 3d curve by local 2d curve on plane.
-         * @param[in]    plane         local plane.
-         * @return    new created 3d curve.
-         */
-        virtual GeCurve3d* create3D(const GePlane& plane = GePlane::kXY) const = 0;
+        virtual bool isPointOnCurve(const GePoint3d& pt) const = 0;
     };
 }

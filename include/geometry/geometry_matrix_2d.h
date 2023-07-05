@@ -1,8 +1,10 @@
 #pragma once
 
 #include "geometry_export.h"
-#include "basic_impl_template.h"
+#include "geometry_point_2d.h"
 #include "geometry_vector_2d.h"
+
+#include "basic_impl_template.h"
 
 namespace EB
 {

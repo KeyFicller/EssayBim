@@ -2,6 +2,7 @@
 
 #include "geometry_arithmetic.h"
 #include "geometry_utils.h"
+#include "geometry_circle_3d.h"
 
 namespace EB
 {
@@ -49,6 +50,13 @@ namespace EB
     bool GeCricle2d::isPointOnCurve(const GePoint2d& pt) const
     {
         return GeUtils::underTolerance(pt.distanceTo(m_PtCenter) - m_Radius);
+    }
+
+    GeCurve3d* GeCricle2d::create3D(const GePlane& plane) const
+    {
+        GePoint3d pt3dCenter = GePoint3d(m_PtCenter.x(), m_PtCenter.y(), 0.0f).transformedBy(plane.planeToWorldMatrix());
+        GeVector3d vec3dRef = GeVector3d(1.0f, 0.0f, 0.0f);
+        return new GeCricle3d(pt3dCenter, m_Radius, plane.normal(), plane.planeToWorldMatrix() * vec3dRef);
     }
 
     void GeCricle2d::subYamlIn(const std::string& key)
