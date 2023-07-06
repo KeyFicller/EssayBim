@@ -57,5 +57,12 @@ namespace EB
          * @return    sampled point coordinates.
          */
         std::vector<GePoint2d> sampler(float interval = 0.05) const;
+
+        /**
+         * @brief   get closest point on curve to given point.
+         * @param[in]     pt         given point coordinate.
+         * @return     closest point on curve.
+         */
+        virtual GePoint2d closestPointTo(const GePoint2d& pt) const = 0;
     };
 }

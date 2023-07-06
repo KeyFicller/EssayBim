@@ -66,6 +66,11 @@ namespace EB
         m_Radius = m_Ref.length();
     }
 
+    GePoint2d GeCircle2d::closestPointTo(const GePoint2d& pt) const
+    {
+        return m_PtCenter + (pt - m_PtCenter).normalize().scale(m_Radius);
+    }
+
     void GeCircle2d::subYamlIn(const std::string& key)
     {
         GeCurve2d::subYamlIn(key);

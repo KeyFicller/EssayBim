@@ -72,6 +72,18 @@ namespace EB
         m_PtEnd.transformBy(mat);
     }
 
+    GePoint2d GeLine2d::closestPointTo(const GePoint2d& pt) const
+    {
+        GeVector2d vecLine = asGeVector2d().normalize();
+        GeVector2d vecPt = (pt - m_PtStart);
+        GePoint2d ptPrjOnLine = m_PtStart + vecLine.scale(vecPt.dot(vecLine));
+        if (isPointOnCurve(ptPrjOnLine)) {
+            return ptPrjOnLine;
+        }
+        return ptPrjOnLine.distanceTo(m_PtStart) > ptPrjOnLine.distanceTo(m_PtEnd) ?
+            m_PtEnd : m_PtStart;
+    }
+
     void GeLine2d::subYamlIn(const std::string& key)
     {
         GeCurve2d::subYamlIn(key);

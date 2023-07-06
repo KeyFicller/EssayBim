@@ -21,4 +21,14 @@ namespace EB
         EB_IMPL(BrepVertex)->setTolerance(tol);
     }
 
+    GePoint3d BrepVertex::coordinate() const
+    {
+        return EB_IMPL(BrepVertex)->coordinate();
+    }
+
+    void BrepVertex::setCoordinate(const GePoint3d& coord)
+    {
+        EB_IMPL(BrepVertex)->setCoordinate(coord);
+    }
+
 }

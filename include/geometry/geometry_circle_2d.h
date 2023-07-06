@@ -79,6 +79,13 @@ namespace EB
         void transformBy(const GeMatrix2d& mat) override;
 
         /**
+         * @brief   get closest point on curve to given point.
+         * @param[in]     pt         given point coordinate.
+         * @return     closest point on curve.
+         */
+        GePoint2d closestPointTo(const GePoint2d& pt) const override;
+
+        /**
          * @brief   interface for override import class data.
          * @param[in]    key    for yaml map.
          */

@@ -9,6 +9,7 @@
 #include "geometry_plane.h"
 #include "geometry_mesh.h"
 #include "gui_dock_space.h"
+#include "gui_drag_value_input.h"
 #include "gui_image_widget.h"
 #include "gui_panel.h"
 #include "gui_text.h"
@@ -87,6 +88,8 @@ namespace EB
 
     void TestLayer::onGuiRender()
     {
+        static GePoint2d interactPt = GePoint2d(0.f, 0.f);
+
         static bool dockEnabled = true;
         DockSpace::begin("Main Doc Space", dockEnabled, true);
 
@@ -117,6 +120,8 @@ namespace EB
                 BatchRender::polyline(vecPts);
                 EB_SAFE_DELETE(pCurve3d);
             }
+            auto pt = curve.closestPointTo(interactPt);
+            BatchRender::line(Vec3f(pt.x(), pt.y(), 0.0f), Vec3f(interactPt.x(), interactPt.y(), 0.0f));
             // curve.translateBy(GeVector2d(1.0f, 0.0f));
             curve.mirrorBy(GeLine2d(GePoint2d(0.0f, 1.0f), GePoint2d(2.0f, 2.0f)));
             {
@@ -142,6 +147,8 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Text, "Batch Call:  [%d]", statistic.RenderCall);
             EB_WIDGET_IMMEDIATE(Text, "Vertex Count:  [%d]", statistic.VertexCount);
             EB_WIDGET_IMMEDIATE(Text, "Element Count:  [%d]", statistic.ElementCount);
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD X", interactPt.x());
+            EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD Y", interactPt.y());
         };
 
         EB_WIDGET_IMMEDIATE(Panel, "Render Window", slot);

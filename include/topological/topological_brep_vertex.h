@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry_point_3d.h"
+
 #include "topological_vertex.h"
 
 namespace EB
@@ -13,5 +15,7 @@ namespace EB
     public:
         double tolerance() const;
         void setTolerance(double tol);
+        GePoint3d coordinate() const;
+        void setCoordinate(const GePoint3d& coord);
     };
 }
