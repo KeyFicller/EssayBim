@@ -79,6 +79,13 @@ namespace EB
          */
         GeMatrix2d& setAsScaleBy(const GeVector2d& scale, const GePoint2d& ptBase = GePoint2d(0.f, 0.f));
 
+        /**
+         * @brief    set matrix as geometry mirror by line.
+         * @param[in]     line            mirror line.
+         * @return     matrix.
+         */
+        GeMatrix2d& setAsMirrorBy(const GeLine2d& line);
+
     public:
         /**
          * @brief   matrix mult vector.

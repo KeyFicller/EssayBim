@@ -105,6 +105,12 @@ namespace EB
         return mat * (*this);
     }
 
+    GeVector2d& GeVector2d::transformBy(const GeMatrix2d& mat)
+    {
+        (*this) = mat * (*this);
+        return *this;
+    }
+
     float GeVector2d::dot(const GeVector2d& other) const
     {
         return m_X * other.m_X + m_Y * other.m_Y;

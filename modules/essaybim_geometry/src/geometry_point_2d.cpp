@@ -72,15 +72,11 @@ namespace EB
         return (ptOther - (*this)).length();
     }
 
-    GePoint2d& GePoint2d::transformBy(const GeMatrix2d& mat)
+    void GePoint2d::transformBy(const GeMatrix2d& mat)
     {
-        (*this) = transformedBy(mat);
-        return *this;
-    }
-
-    GePoint2d GePoint2d::transformedBy(const GeMatrix2d& mat) const
-    {
-        return (mat * ((*this) - kOrigin)).asGePoint2d();
+        auto tmp = mat * ((*this) - kOrigin);
+        m_X = tmp.x();
+        m_X = tmp.y();
     }
 
 }

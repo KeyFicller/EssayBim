@@ -59,6 +59,12 @@ namespace EB
         return new GeCricle3d(pt3dCenter, m_Radius, plane.normal(), plane.planeToWorldMatrix() * vec3dRef);
     }
 
+    void GeCricle2d::transformBy(const GeMatrix2d& mat)
+    {
+        m_PtCenter.transformBy(mat);
+        m_Ref.transformBy(mat);
+    }
+
     void GeCricle2d::subYamlIn(const std::string& key)
     {
         GeCurve2d::subYamlIn(key);

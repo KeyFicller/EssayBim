@@ -66,6 +66,12 @@ namespace EB
         return new GeLine3d(pt3dStart, pt3dEnd);
     }
 
+    void GeLine2d::transformBy(const GeMatrix2d& mat)
+    {
+        m_PtStart.transformBy(mat);
+        m_PtEnd.transformBy(mat);
+    }
+
     void GeLine2d::subYamlIn(const std::string& key)
     {
         GeCurve2d::subYamlIn(key);

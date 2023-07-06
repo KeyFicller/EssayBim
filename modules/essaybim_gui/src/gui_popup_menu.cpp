@@ -18,12 +18,12 @@ namespace EB
         return true;
     }
 
-    PopupMenu::PopupMenu(const std::string& name, const std::vector<PopupMenuItem>& menuItems /*= {}*/)
-        : BaseWidget(name), m_MenuItems(menuItems)
+    PopupMenu::PopupMenu(const std::string& name)
+        : BaseWidget(name)
     {
         setSlot([&]() {
             for (auto& menuItem : m_MenuItems) {
-                menuItem.onGuiRender();
+                menuItem->onGuiRender();
             }
         });
     }
@@ -38,14 +38,14 @@ namespace EB
         ImGui::EndPopup();
     }
 
-    void PopupMenu::addMenuItem(const PopupMenuItem& item)
+    void PopupMenu::addMenuItem(const Shared<PopupMenuItem>& item)
     {
         m_MenuItems.emplace_back(item);
     }
 
     BaseWidget::WidgetSlot PopupMenu::activateSignal()
     {
-
+        return EB_WIDGET_SLOT(ImGui::OpenPopup(EB_IMPL()->name().c_str()););
     }
 
 }

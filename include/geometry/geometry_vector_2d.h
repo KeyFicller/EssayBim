@@ -6,6 +6,7 @@
 namespace EB
 {
     class GePoint2d;
+    class GeMatrix2d;
 
     /**
      * @brief  this class defines geometry 2d vector.
@@ -115,6 +116,12 @@ namespace EB
          * @return   rotated vector.
          */
         GeVector2d rotated(float rad) const;
+
+        /**
+         * @biref  apply transform matrix on 2d geometry.
+         * @param[in]   mat   transform matrix.
+         */
+        GeVector2d& transformBy(const GeMatrix2d& mat);
 
         /**
          * @brief  get dot product by other vector.

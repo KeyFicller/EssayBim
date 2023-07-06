@@ -73,6 +73,12 @@ namespace EB
         GeCurve3d* create3D(const GePlane& plane) const override;
 
         /**
+         * @biref  apply transform matrix on 2d geometry.
+         * @param[in]   mat   transform matrix.
+         */
+        void transformBy(const GeMatrix2d& mat) override;
+
+        /**
          * @brief   interface for override import class data.
          * @param[in]    key    for yaml map.
          */

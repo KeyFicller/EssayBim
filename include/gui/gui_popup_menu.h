@@ -33,7 +33,7 @@ namespace EB
          * @param[in]    name         name of widget.
          * @param[in]    menuItems    items of pop up menu.
          */
-        PopupMenu(const std::string& name, const std::vector<PopupMenuItem>& menuItems = {});
+        PopupMenu(const std::string& name);
 
     protected:
         /**
@@ -52,7 +52,7 @@ namespace EB
          * @brief   add a menu item to pop up menu.
          * @param[in]   item     menu item.
          */
-        void addMenuItem(const PopupMenuItem& item);
+        void addMenuItem(const Shared<PopupMenuItem>& item);
 
         /**
          * @brief   get signal to active pop-up menu.
@@ -64,6 +64,6 @@ namespace EB
 
     private:
         /** < container of pop-up menu items > */
-        std::vector<PopupMenuItem> m_MenuItems;
+        std::vector<Shared<PopupMenuItem>> m_MenuItems;
     };
 }

@@ -19,6 +19,7 @@ namespace EB
         GeMatrix2d& setAs(const GeVector2d& translate, double radians, const GeVector2d& scale);
         GeMatrix2d& setAsRotateBy(double radians, const GePoint2d& ptBase);
         GeMatrix2d& setAsScaleBy(const GeVector2d& scale, const GePoint2d& ptBase);
+        GeMatrix2d& setAsMirrorBy(const GeLine2d& line);
 
     public:
         GeVector2d mult(const GeVector2d& vec) const;

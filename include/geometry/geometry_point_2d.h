@@ -85,18 +85,10 @@ namespace EB
         float distanceTo(const GePoint2d& ptOther) const;
 
         /**
-         * @brief  transfer this point by matrix.
-         * @param[in]   mat        transform matrix.
-         * @return   reference to this point.
+         * @biref  apply transform matrix on 2d geometry.
+         * @param[in]   mat   transform matrix.
          */
-        GePoint2d& transformBy(const GeMatrix2d& mat);
-
-        /**
-         * @brief   get transfered point by matrix.
-         * @param[in]   mat        transform matrix.
-         * @return    transfered point coordinate.
-         */
-        GePoint2d transformedBy(const GeMatrix2d& mat) const;
+        void transformBy(const GeMatrix2d& mat) override;
 
     protected:
         /** < x coordinate of point > */

@@ -1,5 +1,8 @@
 #include "geometry_matrix_2d_impl.h"
 
+#include "geometry_line_2d.h"
+#include "geometry_arithmetic.h"
+
 namespace EB
 {
 
@@ -54,6 +57,20 @@ namespace EB
         m_Data[0] = glm::vec3(scale.x(), 0.0f, ptBase.x() * (1 - scale.x()));
         m_Data[1] = glm::vec3(0.0f, scale.y(), ptBase.y() * (1 - scale.y()));
         m_Data[2] = glm::vec3(0.0f, 0.0f, 1.0f);
+        return *m_pFacade;
+    }
+
+    GeMatrix2d& GeMatrix2dImpl::setAsMirrorBy(const GeLine2d& line)
+    {
+        GeVector2d ls = line.start() - GePoint2d::kOrigin;
+        GeVector2d ln = line.asGeVector2d().normalize();
+        GeMatrix2d reflectMat;
+        reflectMat.m_pImpl->m_Data[0] = glm::vec3(1 - 2 * ln.x() * ln.x(), -2 * ln.x() * ln.y(), 0.0f);
+        reflectMat.m_pImpl->m_Data[1] = glm::vec3(-2 * ln.x() * ln.y(), 1 - 2 * ln.y() * ln.y(), 0.0f);
+        reflectMat.m_pImpl->m_Data[2] = glm::vec3(0.0f, 0.0f, 1.0f);
+        m_Data = GeMatrix2d().setAsTranslation(ls).m_pImpl->m_Data *
+                 reflectMat.m_pImpl->m_Data *
+                 GeMatrix2d().setAsTranslation(-ls).m_pImpl->m_Data;
         return *m_pFacade;
     }
 

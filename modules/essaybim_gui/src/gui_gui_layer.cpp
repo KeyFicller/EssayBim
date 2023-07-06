@@ -24,6 +24,7 @@
 #include "gui_modal_widget.h"
 #include "gui_image_widget.h"
 #include "gui_drag_and_drop.h"
+#include "gui_popup_menu.h"
 
 #include "basic_assert.h"
 #include "basic_color_defines.h"
@@ -220,6 +221,15 @@ namespace EB
             ImGui::Separator();
         }
 
+        {   // open pop-up
+            Shared<PopupMenuItem> itemA = createShared<PopupMenuItem>(EB_WIDGET_SLOT(EB_WIDGET_IMMEDIATE(Button, "A");));
+            Shared<PopupMenuItem> itemB = createShared<PopupMenuItem>(EB_WIDGET_SLOT(EB_WIDGET_IMMEDIATE(Button, "B");));
+            PopupMenu menu("Pop-up menu");
+            menu.addMenuItem(itemA);
+            menu.addMenuItem(itemB);
+            EB_WIDGET_IMMEDIATE(Button, "Open pop-up menu", menu.activateSignal());
+            menu.onGuiRender();
+        }
 
         ImGui::End();
     }

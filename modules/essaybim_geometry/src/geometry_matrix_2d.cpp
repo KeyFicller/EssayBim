@@ -48,6 +48,11 @@ namespace EB
         return EB_IMPL()->setAsScaleBy(scale, ptBase);
     }
 
+    GeMatrix2d& GeMatrix2d::setAsMirrorBy(const GeLine2d& line)
+    {
+        return EB_IMPL()->setAsMirrorBy(line);
+    }
+
     GeMatrix2d GeMatrix2d::mult(const GeMatrix2d& other) const
     {
         return EB_IMPL()->mult(other);
