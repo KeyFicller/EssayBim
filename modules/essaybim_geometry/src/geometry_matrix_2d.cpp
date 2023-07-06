@@ -63,6 +63,11 @@ namespace EB
         return EB_IMPL()->mult(vec);
     }
 
+    GePoint2d GeMatrix2d::mult(const GePoint2d& pt) const
+    {
+        return EB_IMPL()->mult(pt);
+    }
+
     GeMatrix2d GeMatrix2d::inverse() const
     {
         return EB_IMPL()->inverse();

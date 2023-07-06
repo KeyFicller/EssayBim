@@ -74,9 +74,14 @@ namespace EB
 
     void GePoint2d::transformBy(const GeMatrix2d& mat)
     {
-        auto tmp = mat * ((*this) - kOrigin);
+        auto tmp = mat * (*this);
         m_X = tmp.x();
-        m_X = tmp.y();
+        m_Y = tmp.y();
+    }
+
+    GePoint2d::operator Vec2f() const
+    {
+        return Vec2f(m_X, m_Y);
     }
 
 }

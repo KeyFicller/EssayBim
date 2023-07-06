@@ -95,6 +95,13 @@ namespace EB
         GeVector2d mult(const GeVector2d& vec) const;
 
         /**
+         * @brief   matrix mult point.
+         * @param[in]    pt   point coordinate.
+         * @return    transformed point.
+         */
+        GePoint2d mult(const GePoint2d& pt) const;
+
+        /**
          * @brief   matrix mult matrix.
          * @param[in]     other     matrix right mult.
          * @return   mult matrix.

@@ -35,6 +35,7 @@ namespace EB
         m_Data[1] = glm::vec4(0.0f, scale.y(), 0.0f, ptBase.y() * (1 - scale.y()));
         m_Data[2] = glm::vec4(0.0f, 0.0f, scale.z(), ptBase.z() * (1 - scale.z()));
         m_Data[3] = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+        m_Data = glm::transpose(m_Data);
         return *m_pFacade;
     }
 
@@ -46,14 +47,16 @@ namespace EB
         m_Data[1] = glm::vec4(xAxis.y(), yAxis.y(), zAxis.y(), origin.y());
         m_Data[2] = glm::vec4(xAxis.z(), yAxis.z(), zAxis.z(), origin.z());
         m_Data[3] = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+        m_Data = glm::transpose(m_Data);
         m_Data = glm::inverse(m_Data);
         return *m_pFacade;
     }
 
     GeVector3d GeMatrix3dImpl::mult(const GeVector3d& vec) const
     {
-        glm::vec4 tmp = m_Data * glm::vec4(vec.x(), vec.y(), vec.z(), 1.0f);
-        return GeVector3d(tmp.x, tmp.y, tmp.z);
+        glm::vec4 tmpE = m_Data * glm::vec4(vec.x(), vec.y(), vec.z(), 1.0f);
+        glm::vec4 tmpS = m_Data * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+        return GeVector3d(tmpE.x - tmpS.x, tmpE.y - tmpS.y, tmpE.z - tmpS.z);
     }
 
     GeMatrix3d GeMatrix3dImpl::mult(const GeMatrix3d& other) const
@@ -61,6 +64,12 @@ namespace EB
         GeMatrix3d mat;
         mat.m_pImpl->m_Data = m_Data * other.m_pImpl->m_Data;
         return mat;
+    }
+
+    GePoint3d GeMatrix3dImpl::mult(const GePoint3d& pt) const
+    {
+        glm::vec4 tmp = m_Data * glm::vec4(pt.x(), pt.y(), pt.z(), 1.0f);
+        return GePoint3d(tmp.x, tmp.y, tmp.z);
     }
 
     GeMatrix3d GeMatrix3dImpl::inverse() const

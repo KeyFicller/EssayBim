@@ -3,6 +3,10 @@
 #include "basic_file_server.h"
 #include "essaybim_application.h"
 #include "document_interactive_camera.h"
+#include "geometry_circle_2d.h"
+#include "geometry_circle_3d.h"
+#include "geometry_line_2d.h"
+#include "geometry_plane.h"
 #include "geometry_mesh.h"
 #include "gui_dock_space.h"
 #include "gui_image_widget.h"
@@ -101,6 +105,32 @@ namespace EB
                 BatchRender::line(bound[i + 4], bound[(i + 1) % 4 + 4]);
                 BatchRender::line(bound[i], bound[i + 4]);
             }
+
+            GeCircle2d curve = GeCircle2d(GePoint2d(3.0f, 0.0f), 1);
+            {
+                GeCircle3d* pCurve3d = static_cast<GeCircle3d*>(curve.create3D(GePlane()));
+                auto pts = pCurve3d->sampler(0.02f);
+                std::vector<Vec3f> vecPts;
+                for (unsigned int i = 0; i < pts.size(); i++) {
+                    vecPts.emplace_back(pts[i]);
+                }
+                BatchRender::polyline(vecPts);
+                EB_SAFE_DELETE(pCurve3d);
+            }
+            // curve.translateBy(GeVector2d(1.0f, 0.0f));
+            curve.mirrorBy(GeLine2d(GePoint2d(0.0f, 1.0f), GePoint2d(2.0f, 2.0f)));
+            {
+                GeCircle3d* pCurve3d = static_cast<GeCircle3d*>(curve.create3D(GePlane()));
+                auto pts = pCurve3d->sampler(0.02f);
+                std::vector<Vec3f> vecPts;
+                for (unsigned int i = 0; i < pts.size(); i++) {
+                    vecPts.emplace_back(pts[i]);
+                }
+                BatchRender::polyline(vecPts);
+                EB_SAFE_DELETE(pCurve3d);
+            }
+            
+
             BatchRender::end();
             frameBuffer->unbind();
             EB_WIDGET_IMMEDIATE(ImageWidget, frameBuffer->colorAttachmentRendererId(), Panel::viewportAvailiable());

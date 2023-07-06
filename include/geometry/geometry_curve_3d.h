@@ -41,5 +41,13 @@ namespace EB
          * @return     whether point is on this curve.
          */
         virtual bool isPointOnCurve(const GePoint3d& pt) const = 0;
+
+        /**
+         * @brief   sampler along the curve
+         * @param[in]   interval     parameter sampler intervals
+         * @return    sampled point coordinates.
+         */
+        std::vector<GePoint3d> sampler(float interval = 0.05) const;
     };
+
 }

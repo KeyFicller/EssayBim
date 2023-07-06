@@ -53,6 +53,11 @@ namespace EB
         return EB_IMPL()->mult(other);
     }
 
+    GePoint3d GeMatrix3d::mult(const GePoint3d& pt) const
+    {
+        return EB_IMPL()->mult(pt);
+    }
+
     GeMatrix3d GeMatrix3d::inverse() const
     {
         return EB_IMPL()->inverse();

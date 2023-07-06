@@ -50,5 +50,12 @@ namespace EB
          * @return    new created 3d curve.
          */
         virtual GeCurve3d* create3D(const GePlane& plane = GePlane::kXY) const = 0;
+
+        /**
+         * @brief   sampler along the curve
+         * @param[in]   interval     parameter sampler intervals
+         * @return    sampled point coordinates.
+         */
+        std::vector<GePoint2d> sampler(float interval = 0.05) const;
     };
 }

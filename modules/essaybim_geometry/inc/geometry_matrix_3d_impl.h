@@ -21,6 +21,7 @@ namespace EB
 
     public:
         GeVector3d mult(const GeVector3d& vec) const;
+        GePoint3d mult(const GePoint3d& pt) const;
         GeMatrix3d mult(const GeMatrix3d& other) const;
         GeMatrix3d inverse() const;
 

@@ -77,6 +77,19 @@ namespace EB
         static void line(const Vec3f& start, const Vec3f& end);
 
         /**
+         * @brief  add a polyline to batch.
+         * @param[in]   vertices     positions of vertices.
+         */
+        static void polyline(const std::vector<Vec3f>& vertices);
+
+        /**
+         * @brief   add a frame to batch.
+         * @param[in]   vertices     positions of vertices.
+         * @param[in]   indices      indices of wire frame link.
+         */
+        static void frame(const std::vector<Vec3f>& vertices, const std::vector<Vec2i>& indices);
+
+        /**
          * @brief   add a mesh to batch.
          * @param[in]   vertices     positions of vertices.
          * @param[in]   indices      indices of triangle mesh.

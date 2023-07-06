@@ -19,6 +19,7 @@ namespace EB
     }
 
     GeVector2d::GeVector2d(float x, float y)
+        : m_X(x), m_Y(y)
     {
 
     }

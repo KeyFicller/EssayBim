@@ -49,6 +49,16 @@ namespace EB
         pIns->m_pImpl->line(start, end);
     }
 
+    void BatchRender::polyline(const std::vector<Vec3f>& vertices)
+    {
+        pIns->m_pImpl->polyline(vertices);
+    }
+
+    void BatchRender::frame(const std::vector<Vec3f>& vertices, const std::vector<Vec2i>& indices)
+    {
+        pIns->m_pImpl->frame(vertices, indices);
+    }
+
     void BatchRender::mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals)
     {
         pIns->m_pImpl->mesh(vertices, indices, normals);

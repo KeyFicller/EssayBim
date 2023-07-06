@@ -27,10 +27,11 @@ namespace EB
     public:
         /**
          * @biref  apply transform matrix on 2d geometry.
-         * @param[in]   mat   transform matrix.
+         * @param[in]   mat           transform matrix.
          */
         virtual void transformBy(const GeMatrix2d& mat) = 0;
 
+    public:
         /**
          * @brief  get transformed 2d geometry.
          * @param[in]   mat   transform matrix.

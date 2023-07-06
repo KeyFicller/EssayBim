@@ -9,13 +9,13 @@ namespace EB
     /**
      * @brief  this class defines geometry circle 3d.
      */
-    class EB_GEOMETRY_EXPORT GeCricle3d : public GeCurve3d
+    class EB_GEOMETRY_EXPORT GeCircle3d : public GeCurve3d
     {
     public:
         /**
          * @brief  constructor for GeCircle3d.
          */
-        GeCricle3d();
+        GeCircle3d();
 
         /**
          * @brief  constructor for GeCircle3d.
@@ -24,7 +24,7 @@ namespace EB
          * @param[in]  normal      normal vector of circle 3d.
          * @param[in]  ref         ref vector of circle at param 0.
          */
-        GeCricle3d(const GePoint3d& ptCenter, float radius,
+        GeCircle3d(const GePoint3d& ptCenter, float radius,
             const GeVector3d& normal, const GeVector3d& ref = GeVector3d::kXAxis);
 
     public:

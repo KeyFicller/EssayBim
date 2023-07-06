@@ -84,6 +84,8 @@ namespace EB
 
     protected:
         void line(const Vec3f& start, const Vec3f& end);
+        void polyline(const std::vector<Vec3f>& vertices);
+        void frame(const std::vector<Vec3f>& vertices, const std::vector<Vec2i>& indices);
         void mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals);
 
     protected:

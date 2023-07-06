@@ -100,6 +100,16 @@ namespace EB
         return mat1.mult(mat2);
     }
 
+    GePoint2d operator*(const GeMatrix2d& mat, const GePoint2d& pt)
+    {
+        return mat.mult(pt);
+    }
+
+    GePoint3d operator*(const GeMatrix3d& mat, const GePoint3d& pt)
+    {
+        return mat.mult(pt);
+    }
+
     GeVector2d operator/(const GeVector2d& vec, float scale)
     {
         EB_CORE_ASSERT(!GeUtils::underTolerance(scale));

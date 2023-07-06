@@ -9,13 +9,13 @@ namespace EB
     /**
      * @brief  this class defines geometry circle 2d.
      */
-    class EB_GEOMETRY_EXPORT GeCricle2d : public GeCurve2d
+    class EB_GEOMETRY_EXPORT GeCircle2d : public GeCurve2d
     {
     public:
         /**
          * @brief  constructor for GeCircle2d.
          */
-        GeCricle2d();
+        GeCircle2d();
 
         /**
          * @brief  constructor for GeCircle2d.
@@ -23,7 +23,7 @@ namespace EB
          * @param[in]  radius      radius of circle.
          * @param[in]  ref         reference vector of circle at param 0.
          */
-        GeCricle2d(const GePoint2d& ptCenter, float radius, const GeVector2d& ref = GeVector2d::kXAxis);
+        GeCircle2d(const GePoint2d& ptCenter, float radius, const GeVector2d& ref = GeVector2d::kXAxis);
 
     public:
         /**

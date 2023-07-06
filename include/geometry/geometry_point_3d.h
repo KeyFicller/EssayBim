@@ -111,6 +111,11 @@ namespace EB
          */
         GePoint3d transformedBy(const GeMatrix3d& mat) const;
 
+        /**
+         * @brief   implicit cast to vector float 2.
+         */
+        operator Vec3f() const;
+
     protected:
         /** < x coordinate of point > */
         float m_X = 0.0;

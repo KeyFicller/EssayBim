@@ -152,11 +152,62 @@ namespace EB
         m_Statistic.VertexCount += 2;
     }
 
+    void BatchRenderImpl::polyline(const std::vector<Vec3f>& vertices)
+    {
+        EB_CORE_ASSERT(vertices.size());
+        if (m_MeshDataWireFrames.VertexCount + vertices.size() >= m_MeshDataWireFrames.MaxVerticesPerBatch ||
+            m_MeshDataWireFrames.IndicesPerBatch.size() + (vertices.size() - 1) * 2 >= m_MeshDataWireFrames.MaxIndicesPerBatch) {
+            flushAndReset();
+        }
+        for (unsigned int i = 0; i < vertices.size(); i++) {
+            *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
+                vertices[i]
+            };
+            m_MeshDataWireFrames.pCurrent++;
+        }
+        for (unsigned int i = 0; i < vertices.size() - 1; i++) {
+            m_MeshDataWireFrames.IndicesPerBatch.emplace_back(i + m_MeshDataWireFrames.VertexIndexUsed);
+            m_MeshDataWireFrames.IndicesPerBatch.emplace_back(i + 1 + m_MeshDataWireFrames.VertexIndexUsed);
+        }
+
+        m_MeshDataWireFrames.VertexCount += vertices.size();
+        m_MeshDataWireFrames.VertexIndexUsed += vertices.size();   // for now
+
+        m_Statistic.ElementCount += vertices.size() - 1;
+        m_Statistic.VertexCount += vertices.size() - 1;
+    }
+
+    void BatchRenderImpl::frame(const std::vector<Vec3f>& vertices, const std::vector<Vec2i>& indices)
+    {
+        if (m_MeshDataWireFrames.VertexCount + vertices.size() >= m_MeshDataWireFrames.MaxVerticesPerBatch ||
+            m_MeshDataWireFrames.IndicesPerBatch.size() + indices.size() * 2 >= m_MeshDataWireFrames.MaxIndicesPerBatch) {
+            flushAndReset();
+        }
+        for (unsigned int i = 0; i < vertices.size(); i++) {
+            *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
+                vertices[i]
+            };
+            m_MeshDataWireFrames.pCurrent++;
+        }
+
+        for (unsigned int i = 0; i < indices.size(); i++) {
+            for (unsigned int j = 0; j < 2; j++) {
+                m_MeshDataWireFrames.IndicesPerBatch.emplace_back(indices[i][j] + m_MeshDataWireFrames.VertexIndexUsed);
+            }
+        }
+
+        m_MeshDataWireFrames.VertexCount += vertices.size();
+        m_MeshDataWireFrames.VertexIndexUsed += vertices.size();   // for now
+
+        m_Statistic.ElementCount += indices.size();
+        m_Statistic.VertexCount += vertices.size();
+    }
+
     void BatchRenderImpl::mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals)
     {
         EB_CORE_ASSERT(vertices.size() == normals.size());
         if (m_MeshDataPatches.VertexCount + vertices.size() >= m_MeshDataPatches.MaxVerticesPerBatch ||
-            m_MeshDataPatches.IndicesPerBatch.size() + indices.size() >= m_MeshDataPatches.MaxIndicesPerBatch) {
+            m_MeshDataPatches.IndicesPerBatch.size() + indices.size() * 3 >= m_MeshDataPatches.MaxIndicesPerBatch) {
             flushAndReset();
         }
         for (unsigned int i = 0; i < vertices.size(); i++) {

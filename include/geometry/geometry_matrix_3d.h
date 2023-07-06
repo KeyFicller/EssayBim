@@ -79,6 +79,13 @@ namespace EB
         GeVector3d mult(const GeVector3d& vec) const;
 
         /**
+         * @brief   matrix mult point.
+         * @param[in]    pt   point coordinate.
+         * @return    transformed point.
+         */
+        GePoint3d mult(const GePoint3d& pt) const;
+
+        /**
          * @brief   matrix mult matrix.
          * @param[in]     other     matrix right mult.
          * @return   mult matrix.

@@ -90,6 +90,11 @@ namespace EB
          */
         void transformBy(const GeMatrix2d& mat) override;
 
+        /**
+         * @brief   implicit cast to vector float 2.
+         */
+        operator Vec2f() const;
+
     protected:
         /** < x coordinate of point > */
         float m_X = 0.0;

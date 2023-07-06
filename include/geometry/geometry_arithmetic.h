@@ -21,6 +21,7 @@ namespace EB
     EB_GEOMETRY_STATIC_EXPORT GeVector2d operator / (const GeVector2d& vec, float scale);
     EB_GEOMETRY_STATIC_EXPORT GeVector2d operator * (float scale, const GeVector2d& vec);
     EB_GEOMETRY_STATIC_EXPORT GeVector2d operator * (const GeMatrix2d& mat, const GeVector2d& vec);
+    EB_GEOMETRY_STATIC_EXPORT GePoint2d operator * (const GeMatrix2d& mat, const GePoint2d& pt);
     EB_GEOMETRY_STATIC_EXPORT GeMatrix2d operator * (const GeMatrix2d& mat1, const GeMatrix2d& mat2);
 
     // geometry 3d arithmetic
@@ -35,6 +36,7 @@ namespace EB
     EB_GEOMETRY_STATIC_EXPORT GeVector3d operator / (const GeVector3d& vec, float scale);
     EB_GEOMETRY_STATIC_EXPORT GeVector3d operator * (float scale, const GeVector3d& vec);
     EB_GEOMETRY_STATIC_EXPORT GeVector3d operator * (const GeMatrix3d& mat, const GeVector3d& vec);
+    EB_GEOMETRY_STATIC_EXPORT GePoint3d operator * (const GeMatrix3d& mat, const GePoint3d& pt);
     EB_GEOMETRY_STATIC_EXPORT GeMatrix3d operator * (const GeMatrix3d& mat1, const GeMatrix3d& mat2);
 
 }

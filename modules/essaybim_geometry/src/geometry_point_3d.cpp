@@ -92,7 +92,12 @@ namespace EB
 
     GePoint3d GePoint3d::transformedBy(const GeMatrix3d& mat) const
     {
-        return (mat * ((*this) - kOrigin)).asGePoint3d();
+        return mat * (*this);
+    }
+
+    GePoint3d::operator Vec3f() const
+    {
+        return Vec3f(m_X, m_Y, m_Z);
     }
 
 }
