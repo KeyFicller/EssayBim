@@ -1,4 +1,4 @@
-project "essaybim"
+project "essaybim_editor"
     kind "SharedLib"
     language "C++"
     cppdialect "C++17"
@@ -8,8 +8,7 @@ project "essaybim"
     objdir(g_workspaceDir .. "/bin-int/" .. g_outputDir .. "/%{prj.name}")
 
     defines {
-        "EB_BUILD_DLL",
-        "_CRT_SECURE_NO_WARNINGS"
+        "EB_BUILD_DLL_EDITOR",
     }
 
     ignoredefaultlibraries {
@@ -17,40 +16,36 @@ project "essaybim"
     }
 
     files {
+        g_includeDir.. "/editor/**.h",
         "inc/**.h",
-        "include/**.h",
         "src/**.cpp",
         "premake5.lua"
     }
 
+    vpaths {
+        ["include/*"] = {g_includeDir.. "/editor/**.h"}
+    }
+
     includedirs {
         "inc",
-        "include",
 
         g_includeDir.. "/basic",
         g_includeDir.. "/event",
-        g_includeDir.. "/document",
+        g_includeDir.. "/gui",
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
-        g_includeDir.. "/geometry",
-        g_includeDir.. "/gui",
         g_includeDir.. "/editor",
-        g_includeDir.. "/command",
     }
 
     postbuildcommands
     {
-        ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. g_outputDir .. "/demo/\"")
+        ("{COPY} %{cfg.buildtarget.relpath} \"../../bin/" .. g_outputDir .. "/demo/\"")
     }
 
     links {
         "essaybim_basic",
         "essaybim_event",
-        "essaybim_document",
         "essaybim_renderer",
         "essaybim_window",
-        "essaybim_geometry",
-        "essaybim_gui",
-        "essaybim_editor",
-        "essaybim_command",
+        "essaybim_gui"
     }

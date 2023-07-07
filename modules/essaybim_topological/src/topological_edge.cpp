@@ -5,4 +5,21 @@
 namespace EB
 {
 
+    TopoEdge::TopoEdge()
+        : TopoShape(*new TopoEdgeImpl(this))
+    {
+
+    }
+
+    TopoEdge::TopoEdge(TopoEdgeImpl& impl)
+        : TopoShape(impl)
+    {
+
+    }
+
+    TopoShape::eTopoShapeType TopoEdge::shapeType() const
+    {
+        return eTopoShapeType::kEdge;
+    }
+
 }

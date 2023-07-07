@@ -21,7 +21,7 @@ namespace EB
     class TestLayer : public Layer
     {
     public:
-        TestLayer(const std::string& name);
+        TestLayer();
         ~TestLayer() override = default;
     public:
         void onAttach() override;

@@ -37,8 +37,8 @@
 namespace EB
 {
 
-    GuiLayer::GuiLayer(const std::string& name, const Shared<Window>& window)
-        : Layer(name), m_Window(window)
+    GuiLayer::GuiLayer(const Shared<Window>& window)
+        : Layer(), m_Window(window)
     {
 
     }

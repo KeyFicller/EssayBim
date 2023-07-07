@@ -92,10 +92,9 @@ namespace EB
     public:
         /**
          * @brief  constructor for gui layer.
-         * @param[in]  name    name of layer.
          * @param[in]  window  pointer to window.
          */
-        GuiLayer(const std::string& name, const Shared<Window>& window);
+        GuiLayer(const Shared<Window>& window);
 
         /**
          * @brief  destructor for gui layer.

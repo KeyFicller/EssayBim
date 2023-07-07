@@ -15,18 +15,17 @@ namespace EB
      */
     class EB_WINDOW_EXPORT Layer
     {
-        EB_IMPL_DECLARATION_DISABLE_COPY(Layer)
     public:
         /**
          * @brief   constructor for layer,
-         * @param[in]   name    name of layer.
          */
-        Layer(const std::string& name);
+        Layer();
 
         /**
          * @brief   destructor for layer.
          */
         virtual ~Layer();
+
     public:
         /**
          * @brief  handle layer attach.
@@ -54,12 +53,5 @@ namespace EB
          * @param[in]   e   event.
          */
         virtual void onEvent(Event& e) = 0;
-
-    public:
-        /**
-         * @brief  get layer name.
-         * @return layer name.
-         */
-        const std::string& name() const;
     };
 }

@@ -12,5 +12,8 @@ namespace EB
         TopoEdge();
         TopoEdge(TopoEdgeImpl& impl);
         ~TopoEdge() override = default;
+
+    public:
+        eTopoShapeType shapeType() const override;
     };
 }

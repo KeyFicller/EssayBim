@@ -8,6 +8,8 @@ include "essaybim_renderer"
 group ""
 
 group "modules/essaybim_appcore"
+include "essaybim_command"
+include "essaybim_editor"
 include "essaybim_event"
 include "essaybim_window"
 include "essaybim_document"

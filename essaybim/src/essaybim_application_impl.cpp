@@ -22,8 +22,8 @@ namespace EB
         auto window = Window::create(props);
         window->setEventCallback(BIND_EVENT_FN(onEvent));
         m_LayerStack = createScoped<LayerStack>();
-        m_LayerStack->pushLayer(createShared<TestLayer>("main"));
-        m_GuiLayer = createShared<GuiLayer>("gui", window);
+        m_LayerStack->pushLayer(createShared<TestLayer>());
+        m_GuiLayer = createShared<GuiLayer>(window);
         m_LayerStack->pushOverLayer(m_GuiLayer);
     }
 
@@ -46,6 +46,7 @@ namespace EB
     void ApplicationImpl::run()
     {
         while (m_Running) {
+            // consider how to insert command in this loop.
             TimeStep ts = TimeStep::deltaTime();
             for (auto& layer : m_LayerStack->layers()) {
                 layer->onUpdate(ts);

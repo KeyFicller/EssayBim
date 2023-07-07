@@ -38,8 +38,8 @@ namespace EB
         CameraData cameraData;
     }
 
-    TestLayer::TestLayer(const std::string& name)
-        : Layer(name)
+    TestLayer::TestLayer()
+        : Layer()
     {
 
     }

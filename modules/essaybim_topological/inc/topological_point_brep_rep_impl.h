@@ -8,7 +8,7 @@ namespace EB
     {
     public:
         BrepPointRepImpl(BrepPointRep* pFacade, BrepPointRep::eRepType type);
-        ~BrepPointRepImpl();
+        virtual ~BrepPointRepImpl();
 
     public:
         BrepPointRep::eRepType repType() const;
