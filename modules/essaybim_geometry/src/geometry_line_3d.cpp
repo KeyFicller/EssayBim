@@ -75,6 +75,18 @@ namespace EB
         m_PtStart.yamlOut(s_Key.End);
     }
 
+    void GeLine3d::dump(Filer* pFiler) const
+    {
+        m_PtStart.dump(pFiler);
+        m_PtEnd.dump(pFiler);
+    }
+
+    void GeLine3d::load(Filer* pFiler)
+    {
+        m_PtStart.load(pFiler);
+        m_PtEnd.load(pFiler);
+    }
+
     GePoint3d GeLine3d::start() const
     {
         return m_PtStart;

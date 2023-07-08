@@ -4,6 +4,7 @@
 #include "geometry_defines.h"
 
 #include "basic_yaml_base.h"
+#include "basic_filer.h"
 
 namespace EB
 {
@@ -46,5 +47,17 @@ namespace EB
          * @return    whether is geometry 2d.
          */
         virtual bool is2D() const = 0;
+
+        /**
+         * @brief  dump geometry data to filer.
+         * @param[in]   pFiler     filer to dump in.
+         */
+        virtual void dump(Filer* pFiler) const = 0;
+
+        /**
+         * @brief   load geometry data from filer.
+         * @param[in]   pFiler     filer to read from.
+         */
+        virtual void load(Filer* pFiler) = 0;
     };
 }

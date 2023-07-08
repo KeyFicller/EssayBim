@@ -7,6 +7,7 @@ namespace EB
 {
     class GePoint2d;
     class GeMatrix2d;
+    class Filer;
 
     /**
      * @brief  this class defines geometry 2d vector.
@@ -39,7 +40,7 @@ namespace EB
          */
         GeVector2d(const Vec2f& vec);
 
-    protected:
+    public:
         /**
          * @brief   interface for override import class data.
          * @param[in]    key    for yaml map.
@@ -51,6 +52,18 @@ namespace EB
          * @param[in]    key    for yaml map.
          */
         void subYamlOut(const std::string& key) override;
+
+        /**
+         * @brief  dump geometry data to filer.
+         * @param[in]   pFiler     filer to dump in.
+         */
+        void dump(Filer* pFiler) const;
+
+        /**
+         * @brief   load geometry data from filer.
+         * @param[in]   pFiler     filer to read from.
+         */
+        void load(Filer* pFiler);
 
     public:
         /**
@@ -169,6 +182,16 @@ namespace EB
          * @return    point coordinate converted.
          */
         GePoint2d asGePoint2d() const;
+
+        /**
+         * @brief   implicit cast to vector float 2.
+         */
+        operator Vec2f() const;
+
+        /**
+         * @brief   implicit cast to vector float 2.
+         */
+        operator Vec2f& ();
 
     protected:
         /** < x component of point > */

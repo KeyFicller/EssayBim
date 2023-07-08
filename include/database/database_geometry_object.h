@@ -4,14 +4,36 @@
 
 namespace EB
 {
+    class Geometry;
+
     /**
-     * @
+     * @biref  this class defines geometry data
      */
     class EB_DATABASE_EXPORT DbGeometry : public DbObject
     {
     public:
+        /**
+         * @brief   constructor for DbGeometry.
+         */
         DbGeometry();
+
+        /**
+         * @brief   destructor for DbGeomtry.
+         */
         ~DbGeometry();
+
+    public:
+        /**
+         * @brief   get geometry from database object.
+         * @return     geometry.
+         */
+        Geometry* geometry() const;
+
+        /**
+         * @brief   set geometry to database object.
+         * @param[in]   pGeom      geometry.
+         */
+        void setGeometry(Geometry* pGeom);
 
     public:
         /**
@@ -36,5 +58,6 @@ namespace EB
          * @param[in]      pFiler       filer to give binary data.
          */
         void deSerialize(Filer* pFiler) override;
+
     };
 }

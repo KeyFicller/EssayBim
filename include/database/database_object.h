@@ -10,6 +10,7 @@
 namespace EB
 {
     class DbObjectImpl;
+    class DbDatabase;
 
     /**
      * @brief  this class defines database object base class.
@@ -69,6 +70,12 @@ namespace EB
          */
         Filer* filer() const;
 
+        /**
+         * @breif   get owner database.
+         * @return    owner database of this object.
+         */
+        DbDatabase* owner() const;
+
     protected:
         /**
          * @brief  ensure object is write opened.
@@ -80,6 +87,12 @@ namespace EB
          * @return   handle allocated.
          */
         void setHandle(Handle hdl);
+
+        /**
+         * @brief   set owner database of object.
+         * @param[in]   pDb   owner database.
+         */
+        void setOwner(DbDatabase* pDb);
 
     public:
         /**
@@ -109,5 +122,5 @@ namespace EB
 
 
 #define EB_DB_CHECK_WRITE_ENABLED()                               \
-    if (handle() && !std::is_const<decltype(*this)>::value)       \
+    if (handle() && !std::is_const<decltype(this)>::value)        \
         assertWriteEnabled()

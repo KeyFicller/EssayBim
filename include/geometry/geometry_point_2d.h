@@ -60,6 +60,18 @@ namespace EB
          */
         void subYamlOut(const std::string& key) override;
 
+        /**
+         * @brief  dump geometry data to filer.
+         * @param[in]   pFiler     filer to dump in.
+         */
+        void dump(Filer* pFiler) const override;
+
+        /**
+         * @brief   load geometry data from filer.
+         * @param[in]   pFiler     filer to read from.
+         */
+        void load(Filer* pFiler) override;
+
     public:
         /**
          * @brief  get reference of x coordinate.
@@ -108,6 +120,11 @@ namespace EB
          * @brief   implicit cast to vector float 2.
          */
         operator Vec2f() const;
+
+        /**
+         * @brief   implicit cast to vector float 2.
+         */
+        operator Vec2f&();
 
     protected:
         /** < x coordinate of point > */

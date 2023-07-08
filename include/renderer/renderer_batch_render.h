@@ -77,6 +77,14 @@ namespace EB
         static void line(const Vec3f& start, const Vec3f& end);
 
         /**
+         * @brief   add a circle to batch.
+         * @param[in]   center   center point of circle.
+         * @param[in]   radius   radius of circle.
+         * @param[in]   normal   normal vector of circle.
+         */
+        static void circle(const Vec3f& center, float radius, const Vec3f& normal);
+
+        /**
          * @brief  add a polyline to batch.
          * @param[in]   vertices     positions of vertices.
          */

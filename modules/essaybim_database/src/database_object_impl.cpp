@@ -4,7 +4,7 @@ namespace EB
 {
 
     DbObjectImpl::DbObjectImpl(DbObject* pFacade)
-        : m_pFacade(pFacade)
+        : m_pFacade(pFacade), m_IsOpened(true)
     {
 
     }
@@ -48,13 +48,23 @@ namespace EB
     void DbObjectImpl::assertWriteEnabled()
     {
         if (!m_IsOpened) {
-            __debugbreak();
+            // __debugbreak();
         }
     }
 
     void DbObjectImpl::setHandle(Handle hdl)
     {
         m_Handle = hdl;
+    }
+
+    DbDatabase* DbObjectImpl::owner() const
+    {
+        return m_pDatabase;
+    }
+
+    void DbObjectImpl::setOwner(DbDatabase* pDb)
+    {
+        m_pDatabase = pDb;
     }
 
     void DbObjectImpl::onRender() const

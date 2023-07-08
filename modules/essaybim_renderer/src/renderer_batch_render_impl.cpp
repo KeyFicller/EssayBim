@@ -9,6 +9,7 @@
 #include "renderer_vertex_buffer.h"
 
 #include "basic_file_server.h"
+#include "geometry_circle_3d.h"
 
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4267)
@@ -150,6 +151,17 @@ namespace EB
 
         m_Statistic.ElementCount += 1;
         m_Statistic.VertexCount += 2;
+    }
+
+    void BatchRenderImpl::circle(const Vec3f& center, float radius, const Vec3f& normal)
+    {
+        GeCircle3d circle(center, radius, normal);
+        auto pts = circle.sampler(0.02f);
+        std::vector<Vec3f> vertices;
+        for (auto pt : pts) {
+            vertices.emplace_back(Vec3f(pt));
+        }
+        polyline(vertices);
     }
 
     void BatchRenderImpl::polyline(const std::vector<Vec3f>& vertices)

@@ -17,6 +17,8 @@ namespace EB
         Filer* filer() const;
         void assertWriteEnabled();
         void setHandle(Handle hdl);
+        DbDatabase* owner() const;
+        void setOwner(DbDatabase* pDb);
 
     public:
         virtual void onRender() const;
@@ -26,7 +28,8 @@ namespace EB
 
     protected:
         DbObject* m_pFacade = nullptr;
-        Handle m_Handle = Handle::Null;
+        DbDatabase* m_pDatabase = nullptr;
+        Handle m_Handle = Handle::kNull;
         bool m_IsOpened = false;
         Filer* m_Filer = nullptr;
     };

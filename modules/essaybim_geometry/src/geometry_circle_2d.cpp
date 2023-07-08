@@ -88,6 +88,20 @@ namespace EB
         EB_YAML_OUT(s_Key.Radius, m_Radius);
     }
 
+    void GeCircle2d::dump(Filer* pFiler) const
+    {
+        m_PtCenter.dump(pFiler);
+        pFiler->writeFloat(m_Radius);
+        m_Ref.dump(pFiler);
+    }
+
+    void GeCircle2d::load(Filer* pFiler)
+    {
+        m_PtCenter.load(pFiler);
+        m_Radius = pFiler->readFloat();
+        m_Ref.load(pFiler);
+    }
+
     GePoint2d GeCircle2d::center() const
     {
         return m_PtCenter;

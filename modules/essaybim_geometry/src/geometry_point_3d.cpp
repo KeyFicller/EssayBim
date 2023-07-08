@@ -55,6 +55,16 @@ namespace EB
         EB_YAML_OUT(s_Key.Z, m_Z);
     }
 
+    void GePoint3d::dump(Filer* pFiler) const
+    {
+        pFiler->writeVec<Vec3f>(*this);
+    }
+
+    void GePoint3d::load(Filer* pFiler)
+    {
+        (*this) = pFiler->readVec<Vec3f>();
+    }
+
     float& GePoint3d::x()
     {
         return m_X;
@@ -104,6 +114,11 @@ namespace EB
     GePoint3d::operator Vec3f() const
     {
         return Vec3f(m_X, m_Y, m_Z);
+    }
+
+    GePoint3d::operator Vec3f& ()
+    {
+        return *reinterpret_cast<Vec3f*>(intptr_t(this) + sizeof(nullptr));
     }
 
 }

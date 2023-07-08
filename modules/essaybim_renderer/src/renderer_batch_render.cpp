@@ -49,6 +49,11 @@ namespace EB
         pIns->m_pImpl->line(start, end);
     }
 
+    void BatchRender::circle(const Vec3f& center, float radius, const Vec3f& normal)
+    {
+        pIns->m_pImpl->circle(center, radius, normal);
+    }
+
     void BatchRender::polyline(const std::vector<Vec3f>& vertices)
     {
         pIns->m_pImpl->polyline(vertices);

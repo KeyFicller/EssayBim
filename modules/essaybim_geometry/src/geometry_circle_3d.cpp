@@ -84,6 +84,22 @@ namespace EB
         m_Normal.yamlOut(s_Key.Normal);
     }
 
+    void GeCircle3d::dump(Filer* pFiler) const
+    {
+        m_PtCenter.dump(pFiler);
+        pFiler->writeFloat(m_Radius);
+        m_Ref.dump(pFiler);
+        m_Normal.dump(pFiler);
+    }
+
+    void GeCircle3d::load(Filer* pFiler)
+    {
+        m_PtCenter.load(pFiler);
+        m_Radius = pFiler->readFloat();
+        m_Ref.load(pFiler);
+        m_Normal.load(pFiler);
+    }
+
     GePoint3d GeCircle3d::center() const
     {
         return m_PtCenter;

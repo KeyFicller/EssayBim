@@ -7,7 +7,12 @@ namespace EB
 
     DbObject::DbObject()
     {
-        EB_IMPL() = createScoped<DbObjectImpl>();
+        EB_IMPL() = createScoped<DbObjectImpl>(this);
+    }
+
+    DbObject::DbObject(DbObjectImpl& impl)
+    {
+        EB_IMPL() = Scoped<DbObjectImpl>(&impl);
     }
 
     DbObject::~DbObject()
@@ -17,7 +22,6 @@ namespace EB
 
     Handle DbObject::handle() const
     {
-        EB_DB_CHECK_WRITE_ENABLED();
         return EB_IMPL()->handle();
     }
 
@@ -37,6 +41,12 @@ namespace EB
         return EB_IMPL()->filer();
     }
 
+    DbDatabase* DbObject::owner() const
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        return EB_IMPL()->owner();
+    }
+
     void DbObject::assertWriteEnabled() const
     {
         EB_IMPL()->assertWriteEnabled();
@@ -45,6 +55,12 @@ namespace EB
     void DbObject::setHandle(Handle hdl)
     {
         EB_IMPL()->setHandle(hdl);
+    }
+
+    void DbObject::setOwner(DbDatabase* pDb)
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        EB_IMPL()->setOwner(pDb);
     }
 
     void DbObject::onRender() const

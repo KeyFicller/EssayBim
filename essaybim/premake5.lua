@@ -36,6 +36,7 @@ project "essaybim"
         g_includeDir.. "/gui",
         g_includeDir.. "/editor",
         g_includeDir.. "/command",
+        g_includeDir.. "/database",
     }
 
     postbuildcommands
@@ -53,4 +54,5 @@ project "essaybim"
         "essaybim_gui",
         "essaybim_editor",
         "essaybim_command",
+        "essaybim_database"
     }

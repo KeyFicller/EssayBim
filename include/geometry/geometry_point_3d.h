@@ -59,6 +59,18 @@ namespace EB
          */
         void subYamlOut(const std::string& key) override;
 
+        /**
+         * @brief  dump geometry data to filer.
+         * @param[in]   pFiler     filer to dump in.
+         */
+        void dump(Filer* pFiler) const override;
+
+        /**
+         * @brief   load geometry data from filer.
+         * @param[in]   pFiler     filer to read from.
+         */
+        void load(Filer* pFiler) override;
+
     public:
         /**
          * @brief  get reference of x coordinate.
@@ -118,9 +130,14 @@ namespace EB
         GePoint3d transformedBy(const GeMatrix3d& mat) const;
 
         /**
-         * @brief   implicit cast to vector float 2.
+         * @brief   implicit cast to vector float 3.
          */
         operator Vec3f() const;
+
+        /**
+         * @brief   implicit cast to vector float 3.
+         */
+        operator Vec3f& ();
 
     protected:
         /** < x coordinate of point > */

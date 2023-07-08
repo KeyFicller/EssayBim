@@ -4,6 +4,8 @@
 #include "geometry_point_3d.h"
 #include "geometry_utils.h"
 
+#include "basic_filer.h"
+
 namespace EB
 {
     EB_YAML_DECLARE_KEYS(X, Y, Z);
@@ -48,6 +50,16 @@ namespace EB
         EB_YAML_OUT(s_Key.X, m_X);
         EB_YAML_OUT(s_Key.Y, m_Y);
         EB_YAML_OUT(s_Key.Z, m_Z);
+    }
+
+    void GeVector3d::dump(Filer* pFiler) const
+    {
+        pFiler->writeVec<Vec3f>(*this);
+    }
+
+    void GeVector3d::load(Filer* pFiler)
+    {
+        (*this) = pFiler->readVec<Vec3f>();
     }
 
     float& GeVector3d::x()
@@ -157,6 +169,16 @@ namespace EB
     GePoint3d GeVector3d::asGePoint3d() const
     {
         return GePoint3d(m_X, m_Y, m_Z);
+    }
+
+    GeVector3d::operator Vec3f() const
+    {
+        return Vec3f(m_X, m_Y, m_Z);
+    }
+
+    GeVector3d::operator Vec3f& ()
+    {
+        return *reinterpret_cast<Vec3f*>(intptr_t(this) + sizeof(nullptr));
     }
 
 }

@@ -5,6 +5,7 @@
 #include "essaybim_create_circle_2d_cmd.h"
 
 #include "basic_file_server.h"
+#include "database_object.h"
 #include "document_interactive_camera.h"
 #include "geometry_circle_2d.h"
 #include "geometry_circle_3d.h"
@@ -34,6 +35,7 @@
 #include "renderer_batch_render.h"
 #include "window_window.h"
 #include "command_scheduler.h"
+#include "database_database.h"
 
 namespace EB
 {
@@ -165,6 +167,10 @@ namespace EB
             {
                 m_EmbedCommand->editor().updateDisplay();
             }
+            auto persistObjs = TestLayer::currentDb().allObjects();
+            for (auto obj : persistObjs) {
+                Handle::access<DbObject>(obj)->onRender();
+            }
 
             BatchRender::end();
             frameBuffer->unbind();
@@ -197,10 +203,16 @@ namespace EB
 
             if (m_EmbedCommand)
             {
-                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d()), Handle::create<int>() };
+                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d()), Handle::kNull };
                 m_EmbedCommand->editor().handleInput(e, extend);
             }
         }
+    }
+
+    DbDatabase& TestLayer::currentDb()
+    {
+        static DbDatabase db;
+        return db;
     }
 
 }

@@ -54,6 +54,16 @@ namespace EB
         EB_YAML_OUT(s_Key.Y, m_Y);
     }
 
+    void GePoint2d::dump(Filer* pFiler) const
+    {
+        pFiler->writeVec<Vec2f>(*this);
+    }
+
+    void GePoint2d::load(Filer* pFiler)
+    {
+        (*this) = pFiler->readVec<Vec2f>();
+    }
+
     float& GePoint2d::x()
     {
         return m_X;
@@ -95,6 +105,11 @@ namespace EB
     GePoint2d::operator Vec2f() const
     {
         return Vec2f(m_X, m_Y);
+    }
+
+    GePoint2d::operator Vec2f& ()
+    {
+        return *reinterpret_cast<Vec2f*>(intptr_t(this) + sizeof(nullptr));
     }
 
 }

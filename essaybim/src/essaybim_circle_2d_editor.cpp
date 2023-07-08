@@ -1,6 +1,10 @@
 #include "essaybim_circle_2d_editor.h"
+#include "essaybim_test_layer.h"
 
 #include "event_event_dispatcher.h"
+#include "database_database.h"
+#include "database_geometry_object.h"
+#include "event_mouse_button_defines.h"
 #include "geometry_line_3d.h"
 #include "geometry_circle_3d.h"
 #include "geometry_arithmetic.h"
@@ -63,7 +67,10 @@ namespace EB
 
     void Circle2dEditor::confirm()
     {
-
+        DbGeometry* dbGeom = new DbGeometry;
+        dbGeom->setGeometry(static_cast<GeCircle3d*>(m_Circle.create3D(m_Plane)));
+        Handle hdl;
+        TestLayer::currentDb().add(dbGeom, hdl);
     }
 
     void Circle2dEditor::cancel()
@@ -87,11 +94,16 @@ namespace EB
 
     bool Circle2dEditor::_handleMouseClick(MouseButtonPressedEvent& e, Handle handle)
     {
+        if (e.button() != MOUSE_BUTTON_LEFT)
+        {
+            return false;
+        }
         if (m_InteractIndex == 0) {
             m_Circle.setRadius(0);
         }
         else if (m_InteractIndex == 1) {
             m_Status = EditorBase::EditorStatus::kConfirmed;
+            confirm();
         }
         m_InteractIndex++;
         return false;

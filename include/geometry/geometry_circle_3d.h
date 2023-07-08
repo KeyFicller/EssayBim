@@ -79,6 +79,18 @@ namespace EB
          */
         void subYamlOut(const std::string& key) override;
 
+        /**
+         * @brief  dump geometry data to filer.
+         * @param[in]   pFiler     filer to dump in.
+         */
+        void dump(Filer* pFiler) const override;
+
+        /**
+         * @brief   load geometry data from filer.
+         * @param[in]   pFiler     filer to read from.
+         */
+        void load(Filer* pFiler) override;
+
     public:
         /**
          * @brief     get center point.

@@ -1,12 +1,17 @@
 #include "essaybim_line_2d_editor.h"
 
-#include "event_event_dispatcher.h"
-#include "geometry_line_3d.h"
-#include "geometry_arithmetic.h"
-#include "geometry_matrix_3d.h"
-#include "renderer_batch_render.h"
 #include "essaybim_test_layer.h"
+
+#include "basic_handle.h"
+#include "event_event_dispatcher.h"
+#include "event_mouse_button_defines.h"
+#include "database_geometry_object.h"
+#include "database_database.h"
+#include "geometry_arithmetic.h"
+#include "geometry_line_3d.h"
+#include "geometry_matrix_3d.h"
 #include "geometry_utils.h"
+#include "renderer_batch_render.h"
 
 namespace EB
 {
@@ -57,7 +62,10 @@ namespace EB
 
     void Line2dEditor::confirm()
     {
-
+        DbGeometry* dbGeom = new DbGeometry;
+        dbGeom->setGeometry(static_cast<GeLine3d*>(m_LineSeg.create3D(m_Plane)));
+        Handle hdl;
+        TestLayer::currentDb().add(dbGeom, hdl);
     }
 
     void Line2dEditor::cancel()
@@ -80,11 +88,16 @@ namespace EB
 
     bool Line2dEditor::_handleMouseClick(MouseButtonPressedEvent& e, Handle handle)
     {
+        if (e.button() != MOUSE_BUTTON_LEFT)
+        {
+            return false;
+        }
         if (m_InteractIndex == 0) {
             m_LineSeg.setEnd(m_LineSeg.start());
         }
         else if (m_InteractIndex == 1) {
             m_Status = EditorBase::EditorStatus::kConfirmed;
+            confirm();
         }
         m_InteractIndex++;
         return false;

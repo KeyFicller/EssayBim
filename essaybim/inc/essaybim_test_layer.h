@@ -19,6 +19,7 @@ namespace EB
     class GeMesh;
     class GeLine3d;
     class CommandBase;
+    class DbDatabase;
 
     class TestLayer : public Layer
     {
@@ -31,6 +32,8 @@ namespace EB
         void onUpdate(const TimeStep& ts) override;
         void onGuiRender() override;
         void onEvent(Event& e) override;
+
+        static DbDatabase& currentDb();
 
     protected:
         Shared<Texture2D> texture;

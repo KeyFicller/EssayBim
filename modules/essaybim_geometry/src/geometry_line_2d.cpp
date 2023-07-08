@@ -101,6 +101,18 @@ namespace EB
         m_PtStart.yamlOut(s_Key.End);
     }
 
+    void GeLine2d::dump(Filer* pFiler) const
+    {
+        m_PtStart.dump(pFiler);
+        m_PtEnd.dump(pFiler);
+    }
+
+    void GeLine2d::load(Filer* pFiler)
+    {
+        m_PtStart.load(pFiler);
+        m_PtEnd.load(pFiler);
+    }
+
     GePoint2d GeLine2d::start() const
     {
         return m_PtStart;

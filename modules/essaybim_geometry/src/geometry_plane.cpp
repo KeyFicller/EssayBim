@@ -52,6 +52,20 @@ namespace EB
         m_YAxis.yamlOut(s_Key.YAxis);
     }
 
+    void GePlane::dump(Filer* pFiler) const
+    {
+        m_Origin.dump(pFiler);
+        m_XAxis.dump(pFiler);
+        m_YAxis.dump(pFiler);
+    }
+
+    void GePlane::load(Filer* pFiler)
+    {
+        m_Origin.load(pFiler);
+        m_XAxis.load(pFiler);
+        m_YAxis.load(pFiler);
+    }
+
     void GePlane::set(const GePoint3d& origin, const GeVector3d& xAxis, const GeVector3d& yAxis)
     {
         EB_CORE_ASSERT(xAxis.isPerpendicularTo(yAxis));

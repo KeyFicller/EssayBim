@@ -20,7 +20,8 @@ project "essaybim_database"
     files {
         g_includeDir.. "/database/**.h",
         "inc/**.h",
-        "src/**.cpp"
+        "src/**.cpp",
+        "premake5.lua"
     }
 
     vpaths {
@@ -33,6 +34,7 @@ project "essaybim_database"
         g_includeDir.. "/basic",
         g_includeDir.. "/geometry",
         g_includeDir.. "/database",
+        g_includeDir.. "/renderer",
 
         g_thirdDir.. "/libigl/include",
         g_thirdDir.. "/eigen",
@@ -46,5 +48,6 @@ project "essaybim_database"
 
     links {
         "essaybim_basic",
-        "essaybim_geometry"
+        "essaybim_geometry",
+        "essaybim_renderer",
     }

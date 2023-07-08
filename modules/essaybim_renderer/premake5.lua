@@ -32,6 +32,7 @@ project "essaybim_renderer"
 
         g_includeDir.. "/basic",
         g_includeDir.. "/renderer",
+        g_includeDir.. "/geometry",
 
         g_thirdDir.. "/glm",
         g_thirdDir.. "/glad/include",
@@ -46,6 +47,7 @@ project "essaybim_renderer"
 
     links {
         "essaybim_basic",
+        "essaybim_geometry",
 
         "glad",
         "glfw"

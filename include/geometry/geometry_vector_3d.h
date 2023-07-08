@@ -1,11 +1,13 @@
 #pragma once
 
 #include "geometry_export.h"
+
 #include "basic_yaml_base.h"
 
 namespace EB
 {
     class GePoint3d;
+    class Filer;
 
     /**
      * @brief  this class defines geometry 3d vector.
@@ -42,7 +44,7 @@ namespace EB
          */
         GeVector3d(const Vec3f& vec);
 
-    protected:
+    public:
         /**
          * @brief   interface for override import class data.
          * @param[in]    key    for yaml map.
@@ -54,6 +56,18 @@ namespace EB
          * @param[in]    key    for yaml map.
          */
         void subYamlOut(const std::string& key) override;
+
+        /**
+         * @brief  dump geometry data to filer.
+         * @param[in]   pFiler     filer to dump in.
+         */
+        void dump(Filer* pFiler) const;
+
+        /**
+         * @brief   load geometry data from filer.
+         * @param[in]   pFiler     filer to read from.
+         */
+        void load(Filer* pFiler);
 
     public:
         /**
@@ -165,6 +179,16 @@ namespace EB
          * @return    point coordinate converted.
          */
         GePoint3d asGePoint3d() const;
+
+        /**
+         * @brief   implicit cast to vector float 3.
+         */
+        operator Vec3f() const;
+
+        /**
+         * @brief   implicit cast to vector float 3.
+         */
+        operator Vec3f&();
 
     protected:
         /** < x component of point > */

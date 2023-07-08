@@ -5,6 +5,8 @@
 #include "geometry_point_2d.h"
 #include "geometry_utils.h"
 
+#include "basic_filer.h"
+
 namespace EB
 {
     EB_YAML_DECLARE_KEYS(X, Y);
@@ -45,6 +47,16 @@ namespace EB
 
         EB_YAML_OUT(s_Key.X, m_X);
         EB_YAML_OUT(s_Key.Y, m_Y);
+    }
+
+    void GeVector2d::dump(Filer* pFiler) const
+    {
+        pFiler->writeVec<Vec2f>(*this);
+    }
+
+    void GeVector2d::load(Filer* pFiler)
+    {
+        (*this) = pFiler->readVec<Vec2f>();
     }
 
     float& GeVector2d::x()
@@ -148,6 +160,16 @@ namespace EB
     GePoint2d GeVector2d::asGePoint2d() const
     {
         return GePoint2d(m_X, m_Y);
+    }
+
+    GeVector2d::operator Vec2f() const
+    {
+        return Vec2f(m_X, m_Y);
+    }
+
+    GeVector2d::operator Vec2f& ()
+    {
+        return *reinterpret_cast<Vec2f*>(intptr_t(this) + sizeof(nullptr));
     }
 
 }
