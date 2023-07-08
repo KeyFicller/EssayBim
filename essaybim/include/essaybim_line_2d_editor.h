@@ -20,11 +20,12 @@ namespace EB
         void init() override;
         void handleInput(Event& e) override;
         void update() override;
+        void updateDisplay() override;
         void confirm() override;
         void cancel() override;
 
         bool _handleMouseMove(MouseMovedEvent& e);
-        bool _handleMouseClick(MouseButtonEvent& e);
+        bool _handleMouseClick(MouseButtonPressedEvent& e);
 
     protected:
         GePlane m_Plane;

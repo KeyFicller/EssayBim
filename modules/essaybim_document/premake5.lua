@@ -36,6 +36,7 @@ project "essaybim_document"
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
         g_includeDir.. "/document",
+        g_includeDir.. "/geometry",
 
         g_thirdDir.. "/glm",
     }
@@ -50,5 +51,6 @@ project "essaybim_document"
         "essaybim_event",
         "essaybim_renderer",
         "essaybim_window",
-        "essaybim_gui"
+        "essaybim_gui",
+        "essaybim_geometry"
     }

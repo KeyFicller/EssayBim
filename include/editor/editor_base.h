@@ -60,6 +60,11 @@ namespace EB
         virtual void update() = 0;
 
         /**
+         * @brief    editor update display.
+         */
+        virtual void updateDisplay() = 0;
+
+        /**
          * @brief    editor confirmed.
          */
         virtual void confirm() = 0;

@@ -5,6 +5,8 @@
 namespace EB
 {
     class GeMatrix2d;
+    class GePoint3d;
+    class GePlane;
 
     /**
      * @brief  this class defines geometry 2d point.
@@ -26,6 +28,12 @@ namespace EB
          * @param[in]    y    y coordinate.
          */
         GePoint2d(float x, float y);
+
+        /**
+         * @brief  constructor for GePoint2d.
+         * @param[in]   vec    2 component vector.
+         */
+        GePoint2d(const Vec2f& vec);
         
     public:
         /**
@@ -89,6 +97,12 @@ namespace EB
          * @param[in]   mat   transform matrix.
          */
         void transformBy(const GeMatrix2d& mat) override;
+
+        /**
+         * @brief  get 3d coordinate.
+         * @param[in]   plane  2d point plane
+         */
+        GePoint3d to3D(GePlane plane) const;
 
         /**
          * @brief   implicit cast to vector float 2.

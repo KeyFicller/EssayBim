@@ -36,6 +36,12 @@ namespace EB
          */
         GeVector3d(float x, float y, float z);
 
+        /**
+         * @brief  constructor for GeVector2d.
+         * @param[in]   vec    3 component vector.
+         */
+        GeVector3d(const Vec3f& vec);
+
     protected:
         /**
          * @brief   interface for override import class data.

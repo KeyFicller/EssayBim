@@ -1,10 +1,16 @@
 #include "essaybim_line_2d_editor.h"
 
-#include "renderer_batch_render.h"
+#include "event_event_dispatcher.h"
 #include "geometry_line_3d.h"
+#include "geometry_arithmetic.h"
+#include "geometry_matrix_3d.h"
+#include "renderer_batch_render.h"
+#include "essaybim_test_layer.h"
+#include "geometry_utils.h"
 
 namespace EB
 {
+#define BIND_EVENT_FN(x) std::bind(&Line2dEditor::x, this, std::placeholders::_1)
 
     Line2dEditor::Line2dEditor()
     {
@@ -28,10 +34,17 @@ namespace EB
 
     void Line2dEditor::handleInput(Event& e)
     {
-
+        EventDispatcher dispatcher(e);
+        dispatcher.dispatch<MouseMovedEvent>(BIND_EVENT_FN(_handleMouseMove));
+        dispatcher.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(_handleMouseClick));
     }
 
     void Line2dEditor::update()
+    {
+
+    }
+
+    void Line2dEditor::updateDisplay()
     {
         if (m_InteractIndex == 0)
         {
@@ -54,11 +67,23 @@ namespace EB
 
     bool Line2dEditor::_handleMouseMove(MouseMovedEvent& e)
     {
+        if (m_InteractIndex == 0) {
+            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
+            m_LineSeg.setStart(GePoint2d(pt.x(), pt.y()));
+        }
+        else if (m_InteractIndex == 1) {
+            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
+            m_LineSeg.setEnd(GePoint2d(pt.x(), pt.y()));
+        }
         return false;
     }
 
-    bool Line2dEditor::_handleMouseClick(MouseButtonEvent& e)
+    bool Line2dEditor::_handleMouseClick(MouseButtonPressedEvent& e)
     {
+        if (m_InteractIndex == 1) {
+            m_Status = EditorBase::EditorStatus::kConfirmed;
+        }
+        m_InteractIndex++;
         return false;
     }
 

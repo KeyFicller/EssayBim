@@ -40,4 +40,9 @@ namespace EB
         EB_IMPL()->onEvent(e);
     }
 
+    bool CommandLayer::hasCommandFinished()
+    {
+        return EB_IMPL()->hasCommandFinished();
+    }
+
 }

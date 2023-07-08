@@ -30,6 +30,7 @@ namespace EB
         const Vec3f rightDirection() const;
         const Vec3f forwardDirection() const;
         const Vec3f cameraPosition() const;
+        GeLine3d ray(const GeMatrix2d& windowMatrix) const;
 
     protected:
         void subYamlIn(const std::string& key) override;

@@ -77,7 +77,7 @@ namespace EB
 
     GeVector3d GePlane::normal() const
     {
-        return m_XAxis.cross(m_YAxis);
+        return m_XAxis.cross(m_YAxis).normalized();
     }
 
     GeMatrix3d GePlane::planeToWorldMatrix() const

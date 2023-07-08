@@ -1,6 +1,7 @@
 #include "geometry_point_2d.h"
 
 #include "geometry_vector_2d.h"
+#include "geometry_plane.h"
 #include "geometry_arithmetic.h"
 
 namespace EB
@@ -16,6 +17,12 @@ namespace EB
 
     GePoint2d::GePoint2d(float x, float y)
         : m_X(x), m_Y(y)
+    {
+
+    }
+
+    GePoint2d::GePoint2d(const Vec2f& vec)
+        : m_X(vec.x()), m_Y(vec.y())
     {
 
     }
@@ -77,6 +84,12 @@ namespace EB
         auto tmp = mat * (*this);
         m_X = tmp.x();
         m_Y = tmp.y();
+    }
+
+    GePoint3d GePoint2d::to3D(GePlane plane) const
+    {
+        GePoint3d res = GePoint3d(m_X, m_Y, 0.f);
+        return plane.planeToWorldMatrix() * res;
     }
 
     GePoint2d::operator Vec2f() const

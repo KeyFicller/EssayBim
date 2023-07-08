@@ -1,18 +1,24 @@
 #include "essaybim_test_layer.h"
 
-#include "basic_file_server.h"
 #include "essaybim_application.h"
+#include "essaybim_create_line_2d_cmd.h"
+
+#include "basic_file_server.h"
 #include "document_interactive_camera.h"
 #include "geometry_circle_2d.h"
 #include "geometry_circle_3d.h"
 #include "geometry_line_2d.h"
+#include "geometry_line_3d.h"
 #include "geometry_plane.h"
 #include "geometry_mesh.h"
+#include "geometry_utils.h"
+#include "geometry_matrix_2d.h"
 #include "gui_dock_space.h"
 #include "gui_drag_value_input.h"
 #include "gui_image_widget.h"
 #include "gui_panel.h"
 #include "gui_text.h"
+#include "gui_button.h"
 #include "renderer_vertex_array.h"
 #include "renderer_vertex_buffer.h"
 #include "renderer_index_buffer.h"
@@ -26,6 +32,7 @@
 #include "renderer_uniform_buffer.h"
 #include "renderer_batch_render.h"
 #include "window_window.h"
+#include "command_scheduler.h"
 
 namespace EB
 {
@@ -36,12 +43,14 @@ namespace EB
             Mat4 ViewProjectionMatrix;
         };
         CameraData cameraData;
+        GeLine3d s_RayLine;
     }
 
     TestLayer::TestLayer()
         : Layer()
     {
-
+        // TODO: remove this
+        CommandScheduler::instance().registerCommand("Create Line 2D", []() {return new CreateLine2dCmd(); });
     }
 
     void TestLayer::onAttach()
@@ -83,6 +92,7 @@ namespace EB
     {
         if (viewHovered) {
             camera->onUpdate(ts);
+            s_RayLine = camera->ray(GeMatrix2d());
         }
     }
 
@@ -98,6 +108,7 @@ namespace EB
             Vec2f size = Vec2f(bounds[1].x() - bounds[0].x(), bounds[1].y() - bounds[0].y());
             if (size.x() > 0 && size.y() > 0) {
                 frameBuffer->onResize((unsigned int)size.x(), (unsigned int)size.y());
+                camera->setViewportSize(size.x(), size.y());
             }
             frameBuffer->bind();
             RendererEntry::instance().clear();
@@ -149,6 +160,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Text, "Element Count:  [%d]", statistic.ElementCount);
             EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD X", interactPt.x());
             EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD Y", interactPt.y());
+            EB_WIDGET_IMMEDIATE(Button, "Create Line 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Line 2D");));
         };
 
         EB_WIDGET_IMMEDIATE(Panel, "Render Window", slot);
@@ -162,6 +174,11 @@ namespace EB
         if (viewHovered) {
             camera->onEvent(e);
         }
+    }
+
+    GeLine3d TestLayer::getRayLine()
+    {
+        return s_RayLine;
     }
 
 }

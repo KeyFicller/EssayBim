@@ -6,6 +6,8 @@ namespace EB
 {
     class Event;
     class TimeStep;
+    class GeLine3d;
+    class GeMatrix2d;
 
     /**
      * @brief  this class defines interactive camera.
@@ -95,5 +97,12 @@ namespace EB
          * @return    camera position.
          */
         const Vec3f cameraPosition() const;
+
+        /**
+         * @brief   get ray line of mouse pos.
+         * @param[in]    windowMatrix  current view port to window
+         * @return    ray geometry as line3d.
+         */
+        GeLine3d ray(const GeMatrix2d& windowMatrix) const;
     };
 }

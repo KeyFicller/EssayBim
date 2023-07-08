@@ -33,6 +33,12 @@ namespace EB
          */
         GeVector2d(float x, float y);
 
+        /**
+         * @brief  constructor for GeVector2d.
+         * @param[in]   vec    2 component vector.
+         */
+        GeVector2d(const Vec2f& vec);
+
     protected:
         /**
          * @brief   interface for override import class data.

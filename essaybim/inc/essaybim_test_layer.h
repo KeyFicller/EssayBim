@@ -17,6 +17,7 @@ namespace EB
     class UniformBuffer;
     class FrameBuffer;
     class GeMesh;
+    class GeLine3d;
 
     class TestLayer : public Layer
     {
@@ -29,6 +30,10 @@ namespace EB
         void onUpdate(const TimeStep& ts) override;
         void onGuiRender() override;
         void onEvent(Event& e) override;
+
+    public:
+        // TODO: remove this
+        static GeLine3d getRayLine();
 
     protected:
         Shared<Texture2D> texture;

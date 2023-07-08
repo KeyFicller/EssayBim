@@ -24,6 +24,12 @@ namespace EB
 
     }
 
+    GeVector2d::GeVector2d(const Vec2f& vec)
+        : m_X(vec.x()), m_Y(vec.y())
+    {
+
+    }
+
     void GeVector2d::subYamlIn(const std::string& key)
     {
         YamlBase::subYamlIn(key);
@@ -91,7 +97,7 @@ namespace EB
 
     GeVector2d GeVector2d::scaled(float factor /*= 1.0f*/) const
     {
-        return (*this) * factor;
+        return GeVector2d(m_X * factor, m_Y * factor);
     }
 
     GeVector2d& GeVector2d::rotate(float rad)

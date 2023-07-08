@@ -20,6 +20,12 @@ namespace EB
 
     }
 
+    GePoint3d::GePoint3d(const Vec3f& vec)
+        : m_X(vec.x()), m_Y(vec.y()), m_Z(vec.z())
+    {
+
+    }
+
     Geometry::eGeometryType GePoint3d::geometryType() const
     {
         return eGeometryType::kPoint3d;

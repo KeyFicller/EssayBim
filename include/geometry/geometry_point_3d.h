@@ -16,7 +16,7 @@ namespace EB
         static const GePoint3d kOrigin;
     public:
         /**
-         * @brief  constructor for GePoint2d.
+         * @brief  constructor for GePoint3d.
          */
         GePoint3d();
 
@@ -27,6 +27,12 @@ namespace EB
          * @param[in]    z    z coordinate.
          */
         GePoint3d(float x, float y, float z);
+
+        /**
+         * @brief  constructor for GePoint3d.
+         * @param[in]   vec    3 component vector
+         */
+        GePoint3d(const Vec3f& vec);
 
     public:
         /**

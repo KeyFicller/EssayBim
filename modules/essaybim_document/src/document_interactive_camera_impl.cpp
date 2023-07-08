@@ -5,6 +5,10 @@
 #include "event_event_dispatcher.h"
 #include "event_keycode_defines.h"
 #include "event_mouse_button_defines.h"
+#include "geometry_line_2d.h"
+#include "geometry_line_3d.h"
+#include "geometry_plane.h"
+#include "geometry_arithmetic.h"
 #include "window_window.h"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -105,6 +109,22 @@ namespace EB
     const Vec3f InteractiveCameraImpl::cameraPosition() const
     {
         return m_CameraPosition;
+    }
+
+    GeLine3d InteractiveCameraImpl::ray(const GeMatrix2d& windowMatrix) const
+    {
+        auto [x, y] = window()->cursorPos();
+        // near clip plane
+        float nearHeight = tan(glm::radians(m_VerticalFov) / 2) * m_NearClip * 2;
+        float nearWidth = nearHeight * m_AspectRatio;
+        GePoint2d geCursor = GePoint2d((x - m_ViewportWidth / 2) / m_ViewportWidth * nearWidth, (m_ViewportHeight / 2 - y) / m_ViewportHeight * nearHeight);
+        Vec3f nearClipCenter = m_CameraPosition + glm::vec3(forwardDirection()) * m_NearClip;
+        GePlane nearClip = GePlane(nearClipCenter, rightDirection(), upDirection());
+        GePoint3d start = geCursor.to3D(nearClip);
+        // far clip plane
+        GePoint3d end = (start - GePoint3d(m_CameraPosition)).normalize().scale(m_FarClip) + start;
+
+        return GeLine3d(start, end);
     }
 
     void InteractiveCameraImpl::subYamlIn(const std::string& key)

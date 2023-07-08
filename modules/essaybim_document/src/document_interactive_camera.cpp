@@ -3,6 +3,7 @@
 #include "document_interactive_camera_impl.h"
 
 #include "basic_time_step.h"
+#include "geometry_line_3d.h"
 
 namespace EB
 {
@@ -71,6 +72,11 @@ namespace EB
     const Vec3f InteractiveCamera::cameraPosition() const
     {
         return EB_IMPL(InteractiveCamera)->cameraPosition();
+    }
+
+    GeLine3d InteractiveCamera::ray(const GeMatrix2d& windowMatrix) const
+    {
+        return EB_IMPL(InteractiveCamera)->ray(windowMatrix);
     }
 
 }

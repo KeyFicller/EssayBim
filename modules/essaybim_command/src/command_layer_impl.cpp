@@ -31,7 +31,7 @@ namespace EB
 
     void CommandLayerImpl::onGuiRender()
     {
-
+        m_pCommand->editor().updateDisplay();
     }
 
     void CommandLayerImpl::onEvent(Event& e)

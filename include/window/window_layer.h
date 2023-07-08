@@ -1,9 +1,9 @@
 #pragma once
 
 #include "window_export.h"
+
 #include "basic_impl_template.h"
 #include "basic_time_step.h"
-
 #include "event_event_base.h"
 
 #include <string>
@@ -53,5 +53,6 @@ namespace EB
          * @param[in]   e   event.
          */
         virtual void onEvent(Event& e) = 0;
+
     };
 }

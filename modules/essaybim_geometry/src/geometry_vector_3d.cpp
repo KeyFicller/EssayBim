@@ -25,6 +25,12 @@ namespace EB
 
     }
 
+    GeVector3d::GeVector3d(const Vec3f& vec)
+        : m_X(vec.x()), m_Y(vec.y()), m_Z(vec.z())
+    {
+
+    }
+
     void GeVector3d::subYamlIn(const std::string& key)
     {
         YamlBase::subYamlIn(key);
@@ -104,7 +110,7 @@ namespace EB
 
     GeVector3d GeVector3d::scaled(float factor /*= 1.0f*/) const
     {
-        return (*this) * factor;
+        return GeVector3d(m_X * factor, m_Y * factor, m_Z * factor);
     }
 
     float GeVector3d::dot(const GeVector3d& other) const

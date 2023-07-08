@@ -1,12 +1,16 @@
 #pragma once
 
-#include "command_export.h"
 #include "command_base.h"
+#include "command_export.h"
 
 #include "window_layer.h"
 
 namespace EB
 {
+    /**
+     * @biref  this class defines command layer, embed a command execution
+     * environment to application run loop.
+     */
     class EB_COMMAND_EXPORT CommandLayer : public Layer
     {
         EB_IMPL_DECLARATION_DISABLE_COPY(CommandLayer)
@@ -21,6 +25,7 @@ namespace EB
          * @brief   destructor for layer.
          */
         virtual ~CommandLayer();
+
     public:
         /**
          * @brief  handle layer attach.
