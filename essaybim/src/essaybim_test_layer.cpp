@@ -44,7 +44,6 @@ namespace EB
             Mat4 ViewProjectionMatrix;
         };
         CameraData cameraData;
-        GeLine3d s_RayLine;
     }
 
     TestLayer::TestLayer()
@@ -109,7 +108,6 @@ namespace EB
         }
         if (viewHovered) {
             camera->onUpdate(ts);
-            s_RayLine = camera->ray(GeMatrix2d());
         }
     }
 
@@ -193,19 +191,16 @@ namespace EB
 
     void TestLayer::onEvent(Event& e)
     {
-        if (m_EmbedCommand)
-        {
-            m_EmbedCommand->editor().handleInput(e);
-        }
 
         if (viewHovered) {
             camera->onEvent(e);
-        }
-    }
 
-    GeLine3d TestLayer::getRayLine()
-    {
-        return s_RayLine;
+            if (m_EmbedCommand)
+            {
+                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d()), Handle::create<int>() };
+                m_EmbedCommand->editor().handleInput(e, extend);
+            }
+        }
     }
 
 }

@@ -35,6 +35,7 @@ project "essaybim_editor"
         g_includeDir.. "/renderer",
         g_includeDir.. "/window",
         g_includeDir.. "/editor",
+        g_includeDir.. "/geometry",
     }
 
     postbuildcommands
@@ -47,5 +48,6 @@ project "essaybim_editor"
         "essaybim_event",
         "essaybim_renderer",
         "essaybim_window",
-        "essaybim_gui"
+        "essaybim_gui",
+        "essaybim_geometry"
     }

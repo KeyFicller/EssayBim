@@ -11,17 +11,20 @@ namespace EB
 {
     class EB_BASIC_EXPORT Handle
     {
+    public:
+        Handle() : m_Index(-1) {}
+
+        static Handle Null;
     protected:
-        template <typename T>
         Handle(int index) : m_Index(index) {}
 
     public:
         template <typename T>
         static Handle create()
         {
-            int index = s_Table.size();
-            s_Table.emplace_back(malloc());
-            return Handle<T>(index);
+            int index = static_cast<int>(s_Table.size());
+            s_Table.emplace_back(malloc(sizeof(T)));
+            return Handle(index);
         }
 
         template <typename T>
@@ -38,7 +41,17 @@ namespace EB
             return reinterpret_cast<T*>(ptr);
         }
 
-    public:
+        bool operator = (const Handle& other)
+        {
+            return m_Index == other.m_Index;
+        }
+
+        operator bool() const
+        {
+            return (*this) == Null;
+        }
+
+    private:
         void* memory() const;
 
     protected:

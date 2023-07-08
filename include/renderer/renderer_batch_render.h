@@ -1,8 +1,8 @@
 #pragma once
 
 #include "renderer_export.h"
-#include "basic_impl_template.h"
 
+#include "basic_impl_template.h"
 #include "basic_matrix.h"
 
 namespace EB

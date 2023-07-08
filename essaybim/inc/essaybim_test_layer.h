@@ -32,10 +32,6 @@ namespace EB
         void onGuiRender() override;
         void onEvent(Event& e) override;
 
-    public:
-        // TODO: remove this
-        static GeLine3d getRayLine();
-
     protected:
         Shared<Texture2D> texture;
         Shared<InteractiveCamera> camera;

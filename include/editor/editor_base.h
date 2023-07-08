@@ -3,6 +3,8 @@
 #include "editor_export.h"
 
 #include "event_event_base.h"
+#include "basic_handle.h"
+#include "geometry_line_3d.h"
 
 namespace EB
 {
@@ -25,6 +27,18 @@ namespace EB
 
             /** < editor is about to cancel > */
             kCanceled
+        };
+
+        /**
+         * @brief  this class define extra interact information for editor.
+         */
+        struct EventExtension
+        {
+            /** < ray line from current camera > */
+            GeLine3d MouseRayLine;
+
+            /** < entity handle from current selection > */
+            Handle EntityHandle;
         };
 
     public:
@@ -52,7 +66,7 @@ namespace EB
         /**
          * @brief    handle input event for input.
          */
-        virtual void handleInput(Event& e) = 0;
+        virtual void handleInput(Event& e, const EventExtension& extension) = 0;
 
         /**
          * @brief    editor update.

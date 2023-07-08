@@ -1,6 +1,7 @@
 #pragma once
 
 #include "event_export.h"
+
 #include "basic_impl_template.h"
 
 #include <string>

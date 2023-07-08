@@ -1,11 +1,10 @@
 #include "window_window_impl.h"
 
 #include "basic_assert.h"
-
 #include "event_application_event.h"
 #include "event_key_event.h"
-#include "event_mouse_event.h"
 #include "event_mouse_button_event.h"
+#include "event_mouse_event.h"
 
 #include <GLFW/glfw3.h>
 

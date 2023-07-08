@@ -10,7 +10,7 @@
 
 namespace EB
 {
-#define BIND_EVENT_FN(x) std::bind(&Line2dEditor::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&Line2dEditor::x, this, std::placeholders::_1, std::placeholders::_2)
 
     Line2dEditor::Line2dEditor()
     {
@@ -32,11 +32,11 @@ namespace EB
         m_Plane = GePlane();
     }
 
-    void Line2dEditor::handleInput(Event& e)
+    void Line2dEditor::handleInput(Event& e, const EventExtension& extension)
     {
         EventDispatcher dispatcher(e);
-        dispatcher.dispatch<MouseMovedEvent>(BIND_EVENT_FN(_handleMouseMove));
-        dispatcher.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(_handleMouseClick));
+        dispatcher.dispatch<MouseMovedEvent>(BIND_EVENT_FN(_handleMouseMove), extension.MouseRayLine);
+        dispatcher.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(_handleMouseClick), extension.EntityHandle);
     }
 
     void Line2dEditor::update()
@@ -65,20 +65,20 @@ namespace EB
 
     }
 
-    bool Line2dEditor::_handleMouseMove(MouseMovedEvent& e)
+    bool Line2dEditor::_handleMouseMove(MouseMovedEvent& e, const GeLine3d& rayLine)
     {
         if (m_InteractIndex == 0) {
-            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
+            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(rayLine, m_Plane);
             m_LineSeg.setStart(GePoint2d(pt.x(), pt.y()));
         }
         else if (m_InteractIndex == 1) {
-            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
+            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(rayLine, m_Plane);
             m_LineSeg.setEnd(GePoint2d(pt.x(), pt.y()));
         }
         return false;
     }
 
-    bool Line2dEditor::_handleMouseClick(MouseButtonPressedEvent& e)
+    bool Line2dEditor::_handleMouseClick(MouseButtonPressedEvent& e, Handle handle)
     {
         if (m_InteractIndex == 0) {
             m_LineSeg.setEnd(m_LineSeg.start());

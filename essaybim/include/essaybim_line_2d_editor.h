@@ -18,14 +18,14 @@ namespace EB
     public:
         EditorStatus status() override;
         void init() override;
-        void handleInput(Event& e) override;
+        void handleInput(Event& e, const EventExtension& extension) override;
         void update() override;
         void updateDisplay() override;
         void confirm() override;
         void cancel() override;
 
-        bool _handleMouseMove(MouseMovedEvent& e);
-        bool _handleMouseClick(MouseButtonPressedEvent& e);
+        bool _handleMouseMove(MouseMovedEvent& e, const GeLine3d& rayLine);
+        bool _handleMouseClick(MouseButtonPressedEvent& e, Handle handle);
 
     protected:
         GePlane m_Plane;

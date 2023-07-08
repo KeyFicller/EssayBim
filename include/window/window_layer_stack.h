@@ -1,9 +1,9 @@
 #pragma once
 
 #include "window_export.h"
-#include "basic_impl_template.h"
-
 #include "window_layer.h"
+
+#include "basic_impl_template.h"
 
 #include <vector>
 

@@ -11,7 +11,7 @@
 
 namespace EB
 {
-#define BIND_EVENT_FN(x) std::bind(&Circle2dEditor::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&Circle2dEditor::x, this, std::placeholders::_1, std::placeholders::_2)
 
     Circle2dEditor::Circle2dEditor()
     {
@@ -33,11 +33,11 @@ namespace EB
         m_Plane = GePlane();
     }
 
-    void Circle2dEditor::handleInput(Event& e)
+    void Circle2dEditor::handleInput(Event& e, const EventExtension& extension)
     {
         EventDispatcher dispatcher(e);
-        dispatcher.dispatch<MouseMovedEvent>(BIND_EVENT_FN(_handleMouseMove));
-        dispatcher.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(_handleMouseClick));
+        dispatcher.dispatch<MouseMovedEvent>(BIND_EVENT_FN(_handleMouseMove), extension.MouseRayLine);
+        dispatcher.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(_handleMouseClick), extension.EntityHandle);
     }
 
     void Circle2dEditor::update()
@@ -71,21 +71,21 @@ namespace EB
 
     }
 
-    bool Circle2dEditor::_handleMouseMove(MouseMovedEvent& e)
+    bool Circle2dEditor::_handleMouseMove(MouseMovedEvent& e, const GeLine3d& rayLine)
     {
         if (m_InteractIndex == 0) {
-            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
+            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(rayLine, m_Plane);
             m_Circle.setCenter(GePoint2d(pt.x(), pt.y()));
         }
         else if (m_InteractIndex == 1) {
-            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
+            auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(rayLine, m_Plane);
             auto other = GePoint2d(pt.x(), pt.y());
             m_Circle.setRadius(other.distanceTo(m_Circle.center()));
         }
         return false;
     }
 
-    bool Circle2dEditor::_handleMouseClick(MouseButtonPressedEvent& e)
+    bool Circle2dEditor::_handleMouseClick(MouseButtonPressedEvent& e, Handle handle)
     {
         if (m_InteractIndex == 0) {
             m_Circle.setRadius(0);

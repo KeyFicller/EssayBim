@@ -1,7 +1,7 @@
 #include "renderer_buffer_layout.h"
 
-#include "renderer_utils.h"
 #include "renderer_buffer_layout_impl.h"
+#include "renderer_utils.h"
 
 namespace EB
 {

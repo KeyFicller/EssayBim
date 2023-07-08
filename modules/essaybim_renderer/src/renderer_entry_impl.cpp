@@ -1,7 +1,7 @@
 #include "renderer_entry_impl.h"
 
-#include "renderer_index_buffer.h"
 #include "renderer_gl_debugger.h"
+#include "renderer_index_buffer.h"
 
 #include <glad/glad.h>
 

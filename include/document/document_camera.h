@@ -1,9 +1,10 @@
 #pragma once
 
 #include "document_export.h"
+
+#include "basic_impl_template.h"
 #include "basic_matrix.h"
 #include "basic_yaml_base.h"
-#include "basic_impl_template.h"
 
 namespace EB
 {

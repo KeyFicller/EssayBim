@@ -3,6 +3,8 @@
 namespace EB
 {
 
+    Handle Handle::Null = Handle(-1);
+
     void* Handle::memory() const
     {
         return s_Table[m_Index];

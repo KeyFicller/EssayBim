@@ -18,6 +18,7 @@ group ""
 group "modules/essaybim_modeling"
 include "essaybim_geometry"
 include "essaybim_topological"
+include "essaybim_database"
 group ""
 
 group ""
