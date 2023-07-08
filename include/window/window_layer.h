@@ -53,6 +53,5 @@ namespace EB
          * @param[in]   e   event.
          */
         virtual void onEvent(Event& e) = 0;
-
     };
 }

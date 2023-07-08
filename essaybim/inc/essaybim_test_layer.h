@@ -18,6 +18,7 @@ namespace EB
     class FrameBuffer;
     class GeMesh;
     class GeLine3d;
+    class CommandBase;
 
     class TestLayer : public Layer
     {
@@ -42,5 +43,6 @@ namespace EB
         bool viewHovered = false;
         Shared<GeMesh> mesh;
         std::vector<Vec3f> bound;
+        CommandBase* m_EmbedCommand = nullptr;
     };
 }

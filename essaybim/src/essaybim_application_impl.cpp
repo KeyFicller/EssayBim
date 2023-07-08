@@ -8,7 +8,6 @@
 #include "renderer_entry.h"
 #include "gui_gui_layer.h"
 #include "command_scheduler.h"
-#include "command_layer.h"
 
 #include <functional>
 
@@ -47,15 +46,7 @@ namespace EB
 
     void ApplicationImpl::run()
     {
-        Shared<CommandLayer> commandCtx;
         while (m_Running) {
-            // consider how to insert command in this loop.
-            if (!commandCtx && CommandScheduler::instance().hasCommandToExecute())
-            {
-                commandCtx = createShared<CommandLayer>(CommandScheduler::instance().popCommand());
-                m_LayerStack->pushLayer(commandCtx);
-            }
-
             TimeStep ts = TimeStep::deltaTime();
             for (auto& layer : m_LayerStack->layers()) {
                 layer->onUpdate(ts);
@@ -68,12 +59,6 @@ namespace EB
             m_GuiLayer->end();
 
             window()->onUpdate();
-
-            if (commandCtx && commandCtx->hasCommandFinished())
-            {
-                m_LayerStack->popLayer(commandCtx);
-                commandCtx.reset();
-            }
         }
     }
 

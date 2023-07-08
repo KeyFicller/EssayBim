@@ -2,6 +2,7 @@
 
 #include "essaybim_application.h"
 #include "essaybim_create_line_2d_cmd.h"
+#include "essaybim_create_circle_2d_cmd.h"
 
 #include "basic_file_server.h"
 #include "document_interactive_camera.h"
@@ -51,6 +52,7 @@ namespace EB
     {
         // TODO: remove this
         CommandScheduler::instance().registerCommand("Create Line 2D", []() {return new CreateLine2dCmd(); });
+        CommandScheduler::instance().registerCommand("Create Circle 2D", []() {return new CreateCircle2dCmd(); });
     }
 
     void TestLayer::onAttach()
@@ -90,6 +92,21 @@ namespace EB
 
     void TestLayer::onUpdate(const TimeStep& ts)
     {
+        if (!m_EmbedCommand && CommandScheduler::instance().hasCommandToExecute())
+        {
+            m_EmbedCommand = CommandScheduler::instance().popCommand();
+            m_EmbedCommand->beginInvoke();
+        }
+        if (m_EmbedCommand && m_EmbedCommand->editor().status() != EditorBase::EditorStatus::kInterating)
+        {
+            m_EmbedCommand->endInvoke();
+            EB_SAFE_DELETE(m_EmbedCommand);
+        }
+
+        if (m_EmbedCommand)
+        {
+            m_EmbedCommand->editor().update();
+        }
         if (viewHovered) {
             camera->onUpdate(ts);
             s_RayLine = camera->ray(GeMatrix2d());
@@ -146,6 +163,10 @@ namespace EB
                 EB_SAFE_DELETE(pCurve3d);
             }
             
+            if (m_EmbedCommand)
+            {
+                m_EmbedCommand->editor().updateDisplay();
+            }
 
             BatchRender::end();
             frameBuffer->unbind();
@@ -161,6 +182,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD X", interactPt.x());
             EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD Y", interactPt.y());
             EB_WIDGET_IMMEDIATE(Button, "Create Line 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Line 2D");));
+            EB_WIDGET_IMMEDIATE(Button, "Create Circle 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Circle 2D");));
         };
 
         EB_WIDGET_IMMEDIATE(Panel, "Render Window", slot);
@@ -171,6 +193,11 @@ namespace EB
 
     void TestLayer::onEvent(Event& e)
     {
+        if (m_EmbedCommand)
+        {
+            m_EmbedCommand->editor().handleInput(e);
+        }
+
         if (viewHovered) {
             camera->onEvent(e);
         }

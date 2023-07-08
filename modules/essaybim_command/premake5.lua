@@ -33,7 +33,6 @@ project "essaybim_command"
         g_includeDir.. "/event",
         g_includeDir.. "/gui",
         g_includeDir.. "/renderer",
-        g_includeDir.. "/window",
         g_includeDir.. "/command",
         g_includeDir.. "/editor",
     }
@@ -47,7 +46,6 @@ project "essaybim_command"
         "essaybim_basic",
         "essaybim_event",
         "essaybim_renderer",
-        "essaybim_window",
         "essaybim_gui",
         "essaybim_editor"
     }

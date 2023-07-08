@@ -1,7 +1,8 @@
-#include "essaybim_line_2d_editor.h"
+#include "essaybim_circle_2d_editor.h"
 
 #include "event_event_dispatcher.h"
 #include "geometry_line_3d.h"
+#include "geometry_circle_3d.h"
 #include "geometry_arithmetic.h"
 #include "geometry_matrix_3d.h"
 #include "renderer_batch_render.h"
@@ -10,78 +11,84 @@
 
 namespace EB
 {
-#define BIND_EVENT_FN(x) std::bind(&Line2dEditor::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&Circle2dEditor::x, this, std::placeholders::_1)
 
-    Line2dEditor::Line2dEditor()
+    Circle2dEditor::Circle2dEditor()
     {
 
     }
 
-    Line2dEditor::~Line2dEditor()
+    Circle2dEditor::~Circle2dEditor()
     {
 
     }
 
-    EditorBase::EditorStatus Line2dEditor::status()
+    EditorBase::EditorStatus Circle2dEditor::status()
     {
         return m_Status;
     }
 
-    void Line2dEditor::init()
+    void Circle2dEditor::init()
     {
         m_Plane = GePlane();
     }
 
-    void Line2dEditor::handleInput(Event& e)
+    void Circle2dEditor::handleInput(Event& e)
     {
         EventDispatcher dispatcher(e);
         dispatcher.dispatch<MouseMovedEvent>(BIND_EVENT_FN(_handleMouseMove));
         dispatcher.dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(_handleMouseClick));
     }
 
-    void Line2dEditor::update()
+    void Circle2dEditor::update()
     {
 
     }
 
-    void Line2dEditor::updateDisplay()
+    void Circle2dEditor::updateDisplay()
     {
         if (m_InteractIndex == 0)
         {
             return;
         }
-        GeLine3d* line3d = static_cast<GeLine3d*>(m_LineSeg.create3D(m_Plane));
-        BatchRender::line(line3d->start(), line3d->end());
-        EB_SAFE_DELETE(line3d);
+        GeCircle3d* circle = static_cast<GeCircle3d*>(m_Circle.create3D(m_Plane));
+        auto pts = circle->sampler(0.02f);
+        std::vector<Vec3f> vecPts;
+        for (unsigned int i = 0; i < pts.size(); i++) {
+            vecPts.emplace_back(pts[i]);
+        }
+        BatchRender::polyline(vecPts);
+        EB_SAFE_DELETE(circle);
     }
 
-    void Line2dEditor::confirm()
+    void Circle2dEditor::confirm()
     {
 
     }
 
-    void Line2dEditor::cancel()
+    void Circle2dEditor::cancel()
     {
 
     }
 
-    bool Line2dEditor::_handleMouseMove(MouseMovedEvent& e)
+    bool Circle2dEditor::_handleMouseMove(MouseMovedEvent& e)
     {
         if (m_InteractIndex == 0) {
             auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
-            m_LineSeg.setStart(GePoint2d(pt.x(), pt.y()));
+            m_Circle.setCenter(GePoint2d(pt.x(), pt.y()));
         }
         else if (m_InteractIndex == 1) {
             auto pt = m_Plane.planeToWorldMatrix().inverse() * GeIntersectUtils::intersect(TestLayer::getRayLine(), m_Plane);
-            m_LineSeg.setEnd(GePoint2d(pt.x(), pt.y()));
+            auto other = GePoint2d(pt.x(), pt.y());
+            m_Circle.setRadius(other.distanceTo(m_Circle.center()));
         }
         return false;
     }
 
-    bool Line2dEditor::_handleMouseClick(MouseButtonPressedEvent& e)
+    bool Circle2dEditor::_handleMouseClick(MouseButtonPressedEvent& e)
     {
         if (m_InteractIndex == 0) {
-            m_LineSeg.setEnd(m_LineSeg.start());
+            m_Circle.setRadius(0);
         }
         else if (m_InteractIndex == 1) {
             m_Status = EditorBase::EditorStatus::kConfirmed;
