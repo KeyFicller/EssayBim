@@ -37,6 +37,11 @@ namespace EB
 
     public:
         /**
+         * @brief   extra work by derived class, like commit undo data.
+         */
+        void subClose() override;
+
+        /**
          * @brief   deal with db object render.
          */
         void onRender() const override;

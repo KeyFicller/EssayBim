@@ -20,4 +20,9 @@ namespace EB
         return *m_pEditor;
     }
 
+    CommandAttribute CreateCircle2dCmd::attribute()
+    {
+        return { "Create Circle 2D" , CommandAttribute::CommandType::kNormal };
+    }
+
 }

@@ -4,13 +4,14 @@
 
 namespace EB
 {
-    class CreateLine2dCmd : public CommandBase
+    class UndoCmd : public CommandBase
     {
     public:
-        CreateLine2dCmd();
-        ~CreateLine2dCmd() override;
+        UndoCmd();
+        ~UndoCmd() override;
 
     public:
+        void beginInvoke() override;
         EditorBase& editor() override;
         CommandAttribute attribute() override;
 

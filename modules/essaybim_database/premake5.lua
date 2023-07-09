@@ -32,6 +32,7 @@ project "essaybim_database"
         "inc",
 
         g_includeDir.. "/basic",
+        g_includeDir.. "/command",
         g_includeDir.. "/geometry",
         g_includeDir.. "/database",
         g_includeDir.. "/renderer",
@@ -48,6 +49,7 @@ project "essaybim_database"
 
     links {
         "essaybim_basic",
+        "essaybim_command",
         "essaybim_geometry",
         "essaybim_renderer",
     }

@@ -6,6 +6,7 @@ namespace EB
         : m_Index(0)
     {
         m_Data.clear();
+        m_Data.resize(10);
     }
 
     FilerImpl::~FilerImpl()
@@ -43,6 +44,16 @@ namespace EB
         return read_Impl<float>();
     }
 
+    void FilerImpl::writePointer(void* value)
+    {
+        write_impl<void*>(value);
+    }
+
+    void* FilerImpl::readPointer()
+    {
+        return read_Impl<void*>();
+    }
+
     void FilerImpl::writeString(const std::string& value)
     {
         writeInt(static_cast<int>(value.size()));
@@ -72,6 +83,11 @@ namespace EB
         }
         pFiler = new Filer();
         pFiler->m_pImpl->writeBytes(m_Data.data() + m_Index, size);
+    }
+
+    int FilerImpl::position() const
+    {
+        return m_Index;
     }
 
     bool FilerImpl::seek(int index)

@@ -45,6 +45,16 @@ namespace EB
         return EB_IMPL()->readFloat();
     }
 
+    void Filer::writePointer(void* value)
+    {
+        EB_IMPL()->writePointer(value);
+    }
+
+    void* Filer::readPointer() const
+    {
+        return EB_IMPL()->readPointer();
+    }
+
     void Filer::writeBytes(const char* value, int size)
     {
         EB_IMPL()->writeBytes(value, size);
@@ -78,6 +88,11 @@ namespace EB
     bool Filer::seek(int index)
     {
         return EB_IMPL()->seek(index);
+    }
+
+    int Filer::position() const
+    {
+        return EB_IMPL()->position();
     }
 
     void Filer::clear()

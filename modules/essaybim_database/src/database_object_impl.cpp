@@ -4,7 +4,7 @@ namespace EB
 {
 
     DbObjectImpl::DbObjectImpl(DbObject* pFacade)
-        : m_pFacade(pFacade), m_IsOpened(true)
+        : m_pFacade(pFacade), m_IsOpened(false)
     {
 
     }
@@ -25,7 +25,7 @@ namespace EB
             return false;
         }
         m_IsOpened = true;
-        m_Filer = new Filer();
+        m_pFiler = new DbFiler(m_pFacade);
         return true;
     }
 
@@ -36,13 +36,21 @@ namespace EB
         }
         m_IsOpened = false;
         // commit filer data.
-        EB_SAFE_DELETE(m_Filer);
+        m_pFiler->pushSessionLength();
+        m_pFiler->writeInt(m_pFiler->position());
+        m_pFacade->subClose();
+        EB_SAFE_DELETE(m_pFiler);
         return true;
     }
 
-    Filer* DbObjectImpl::filer() const
+    void DbObjectImpl::subClose()
     {
-        return m_Filer;
+
+    }
+
+    DbFiler* DbObjectImpl::filer() const
+    {
+        return m_pFiler;
     }
 
     void DbObjectImpl::assertWriteEnabled()

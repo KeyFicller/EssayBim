@@ -20,12 +20,12 @@ namespace EB
         virtual ~DbDatabase();
 
     public:
-        virtual void add(DbObject* pDbObj, Handle& hdl);
-        virtual void remove(const Handle& hdl);
+        void add(DbObject* pDbObj, Handle& hdl);
+        void remove(const Handle& hdl);
         std::vector<Handle> allObjects() const;
 
     public:
-        virtual void onDbObjectAdded() {}
-        virtual void onDbObjectRemoved() {}
+        virtual void onDbObjectAdded(DbObject* pDbObj) = 0;
+        virtual void onDbObjectRemoved(DbObject* pDbObj) = 0;
     };
 }

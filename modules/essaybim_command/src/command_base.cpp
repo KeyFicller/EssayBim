@@ -1,5 +1,7 @@
 #include "command_base.h"
 
+#include "command_undo_manager.h"
+
 namespace EB
 {
 
@@ -15,6 +17,7 @@ namespace EB
 
     void CommandBase::beginInvoke()
     {
+        UndoManager::instance().beforeCommand(attribute());
         editor().init();
     }
 
@@ -26,7 +29,7 @@ namespace EB
 
     void CommandBase::endInvoke()
     {
-        
+        UndoManager::instance().afterCommand();
     }
 
 }

@@ -3,8 +3,12 @@
 #include "essaybim_application.h"
 #include "essaybim_create_line_2d_cmd.h"
 #include "essaybim_create_circle_2d_cmd.h"
+#include "essaybim_undo_cmd.h"
 
+#include "command_undo_manager.h"
 #include "basic_file_server.h"
+#include "database_geometry_database.h"
+#include "database_geometry_undo_controller.h"
 #include "database_object.h"
 #include "document_interactive_camera.h"
 #include "geometry_circle_2d.h"
@@ -17,6 +21,7 @@
 #include "geometry_matrix_2d.h"
 #include "gui_dock_space.h"
 #include "gui_drag_value_input.h"
+#include "gui_list_box.h"
 #include "gui_image_widget.h"
 #include "gui_panel.h"
 #include "gui_text.h"
@@ -35,7 +40,7 @@
 #include "renderer_batch_render.h"
 #include "window_window.h"
 #include "command_scheduler.h"
-#include "database_database.h"
+
 
 namespace EB
 {
@@ -54,6 +59,9 @@ namespace EB
         // TODO: remove this
         CommandScheduler::instance().registerCommand("Create Line 2D", []() {return new CreateLine2dCmd(); });
         CommandScheduler::instance().registerCommand("Create Circle 2D", []() {return new CreateCircle2dCmd(); });
+        CommandScheduler::instance().registerCommand("Undo", []() {return new UndoCmd(); });
+
+        UndoManager::instance().addController(&DbGeUndoController::instance());
     }
 
     void TestLayer::onAttach()
@@ -187,10 +195,23 @@ namespace EB
             EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD Y", interactPt.y());
             EB_WIDGET_IMMEDIATE(Button, "Create Line 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Line 2D");));
             EB_WIDGET_IMMEDIATE(Button, "Create Circle 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Circle 2D");));
+            EB_WIDGET_IMMEDIATE(Button, "Undo", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Undo");));
+        };
+
+        auto slot_3 = [&]() {
+            auto undoList = UndoManager::instance().commandsInUndoStack();
+            undoList.push_back("---end---");
+            auto redoList = UndoManager::instance().commandsInRedoStack();
+            redoList.push_back("---end---");
+            static int undoIndex = 0;
+            static int redoIndex = 0;
+            EB_WIDGET_IMMEDIATE(ListBox, "Commands In Undo", undoIndex, undoList);
+            EB_WIDGET_IMMEDIATE(ListBox, "Commands In Redo", redoIndex, redoList);
         };
 
         EB_WIDGET_IMMEDIATE(Panel, "Render Window", slot);
         EB_WIDGET_IMMEDIATE(Panel, "Render Statistic", slot_2);
+        EB_WIDGET_IMMEDIATE(Panel, "Command Stack", slot_3);
 
         DockSpace::end();
     }
@@ -211,7 +232,7 @@ namespace EB
 
     DbDatabase& TestLayer::currentDb()
     {
-        static DbDatabase db;
+        static DbGeometryDatabase db;
         return db;
     }
 

@@ -16,6 +16,7 @@ namespace EB
         void setGeometry(Geometry* pGeom);
 
     public:
+        void subClose();
         void onRender() const override;
         DbObject* clone() const override;
         void serialize(Filer* pFiler) const override;

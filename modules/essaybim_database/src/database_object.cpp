@@ -35,7 +35,7 @@ namespace EB
         return EB_IMPL()->close();
     }
 
-    Filer* DbObject::filer() const
+    DbFiler* DbObject::filer() const
     {
         EB_DB_CHECK_WRITE_ENABLED();
         return EB_IMPL()->filer();
@@ -61,6 +61,11 @@ namespace EB
     {
         EB_DB_CHECK_WRITE_ENABLED();
         EB_IMPL()->setOwner(pDb);
+    }
+
+    void DbObject::subClose()
+    {
+        EB_IMPL()->subClose();
     }
 
     void DbObject::onRender() const

@@ -1,5 +1,7 @@
 #include "database_geometry_object_impl.h"
 
+#include "database_geometry_undo_controller.h"
+
 #include "geometry_base.h"
 #include "geometry_line_3d.h"
 #include "geometry_circle_3d.h"
@@ -27,6 +29,11 @@ namespace EB
     void DbGeometryImpl::setGeometry(Geometry* pGeom)
     {
         m_pGeometry = pGeom;
+    }
+
+    void DbGeometryImpl::subClose()
+    {
+        DbGeUndoController::instance().recallFiler(m_pFiler);
     }
 
     void DbGeometryImpl::onRender() const

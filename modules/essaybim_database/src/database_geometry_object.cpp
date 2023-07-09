@@ -28,6 +28,12 @@ namespace EB
         EB_IMPL(DbGeometry)->setGeometry(pGeom);
     }
 
+    void DbGeometry::subClose()
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        EB_IMPL(DbGeometry)->subClose();
+    }
+
     void DbGeometry::onRender() const
     {
         EB_DB_CHECK_WRITE_ENABLED();

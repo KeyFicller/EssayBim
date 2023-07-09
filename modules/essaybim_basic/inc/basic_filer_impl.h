@@ -6,11 +6,14 @@
 #include <string>
 #include <vector>
 
+#pragma warning(disable: 26451)
+
 namespace EB
 {
     class FilerImpl final
     {
         friend class Filer;
+        friend class Stream;
     public:
         FilerImpl();
         ~FilerImpl();
@@ -22,10 +25,13 @@ namespace EB
         int readInt();
         void writeFloat(float value);
         float readFloat();
+        void writePointer(void* value);
+        void* readPointer();
         void writeString(const std::string& value);
         std::string readString();
         void flushIn(Filer* pFiler);
         void flushOut(Filer*& pFiler, int size);
+        int position() const;
         bool seek(int index);
         void clear();
 
@@ -34,7 +40,9 @@ namespace EB
         {
             int capacity = m_Index + size;
             if (capacity > static_cast<int>(m_Data.size())) {
+                auto copy = m_Data;
                 m_Data.resize(2 * capacity);
+                memcpy_s(m_Data.data(), copy.size(), copy.data(), copy.size());
             }
             memcpy_s(m_Data.data() + m_Index, size, value, size);
             m_Index += size;

@@ -11,7 +11,8 @@ namespace EB
         ~CreateCircle2dCmd() override;
 
     public:
-        virtual EditorBase& editor();
+        EditorBase& editor() override;
+        CommandAttribute attribute() override;
 
     protected:
         EditorBase* m_pEditor = nullptr;

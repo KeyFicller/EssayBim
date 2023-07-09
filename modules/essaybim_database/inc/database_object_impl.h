@@ -14,7 +14,8 @@ namespace EB
         Handle handle();
         bool open();
         bool close();
-        Filer* filer() const;
+        void subClose();
+        DbFiler* filer() const;
         void assertWriteEnabled();
         void setHandle(Handle hdl);
         DbDatabase* owner() const;
@@ -31,6 +32,6 @@ namespace EB
         DbDatabase* m_pDatabase = nullptr;
         Handle m_Handle = Handle::kNull;
         bool m_IsOpened = false;
-        Filer* m_Filer = nullptr;
+        DbFiler* m_pFiler = nullptr;
     };
 }

@@ -4,8 +4,37 @@
 
 #include "editor_base.h"
 
+#include <string>
+
 namespace EB
 {
+    /**
+     * @brief  this class defines command type and name identify.
+     */
+    struct CommandAttribute
+    {
+        /**
+         * @brief  this enum defines command type.
+         */
+        enum class CommandType
+        {
+            /** < normal command > */
+            kNormal,
+
+            /** < undo command > */
+            kUndo,
+
+            /** < redo command > */
+            kRedo
+        };
+
+        /** < name of command > */
+        std::string CommandName;
+
+        /** < type of command > */
+        CommandType Type;
+    };
+
     /**
      * @brief  this class defines command base.
      */
@@ -55,5 +84,11 @@ namespace EB
          * @brief   create editor for logic.
          */
         virtual EditorBase& editor() = 0;
+
+        /**
+         * @brief   get attribute of this command.
+         * @return    attribute of command.
+         */
+        virtual CommandAttribute attribute() = 0;
     };
 }

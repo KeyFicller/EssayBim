@@ -20,4 +20,9 @@ namespace EB
         return *m_pEditor;
     }
 
+    CommandAttribute CreateLine2dCmd::attribute()
+    {
+        return { "Create Line 2D" , CommandAttribute::CommandType::kNormal};
+    }
+
 }

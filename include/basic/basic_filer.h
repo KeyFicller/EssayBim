@@ -14,6 +14,7 @@ namespace EB
      */
     class EB_BASIC_EXPORT Filer
     {
+        friend class Stream;
         EB_IMPL_DECLARATION_DISABLE_COPY(Filer)
     public:
         /**
@@ -62,6 +63,18 @@ namespace EB
          * @return    float value.
          */
         float readFloat() const;
+
+        /**
+         * @brief   read a pointer value from stream.
+         * @param[in]    value   pointer value.
+         */
+        void writePointer(void* value);
+
+        /**
+         * @brief   write a pointer value from stream.
+         * @return    pointer value.
+         */
+        void* readPointer() const;
 
         /**
          * @brief  write bytes to stream
@@ -131,6 +144,12 @@ namespace EB
          * @return   false if seek failed.
          */
         bool seek(int index);
+
+        /**
+         * @brief    get position of filer.
+         * @return     position of filer.
+         */
+        int position() const;
 
         /**
          * @brief    clear filer cache.

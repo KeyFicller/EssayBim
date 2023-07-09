@@ -1,8 +1,8 @@
 #pragma once
 
 #include "database_export.h"
+#include "database_filer.h"
 
-#include "basic_filer.h"
 #include "basic_handle.h"
 #include "basic_impl_template.h"
 #include "basic_yaml_base.h"
@@ -68,7 +68,7 @@ namespace EB
          * filer is created when object is opened, any modified data will be record as binary stream to this filer.
          * @return     undo filer.
          */
-        Filer* filer() const;
+        DbFiler* filer() const;
 
         /**
          * @breif   get owner database.
@@ -95,6 +95,11 @@ namespace EB
         void setOwner(DbDatabase* pDb);
 
     public:
+        /**
+         * @brief   extra work by derived class, like commit undo data.
+         */
+        virtual void subClose();
+
         /**
          * @brief   deal with db object render.
          */
