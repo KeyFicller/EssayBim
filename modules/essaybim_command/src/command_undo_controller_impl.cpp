@@ -29,8 +29,10 @@ namespace EB
         while (pFiler->position() > sizeof(void*)) {
             int curPos = pFiler->position();
             int readLengthPos = curPos - sizeof(int);
+            pFiler->seek(readLengthPos);
             int dataLength = pFiler->readInt();
             int readOpCodePos = readLengthPos - dataLength - sizeof(int);
+            pFiler->seek(readOpCodePos);
             int opCode = pFiler->readInt();
             rollbackOperation(pObject, opCode, pFiler);
             pFiler->seek(readOpCodePos);

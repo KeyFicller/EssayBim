@@ -4,6 +4,7 @@
 #include "essaybim_create_line_2d_cmd.h"
 #include "essaybim_create_circle_2d_cmd.h"
 #include "essaybim_undo_cmd.h"
+#include "essaybim_redo_cmd.h"
 
 #include "command_undo_manager.h"
 #include "basic_file_server.h"
@@ -60,6 +61,7 @@ namespace EB
         CommandScheduler::instance().registerCommand("Create Line 2D", []() {return new CreateLine2dCmd(); });
         CommandScheduler::instance().registerCommand("Create Circle 2D", []() {return new CreateCircle2dCmd(); });
         CommandScheduler::instance().registerCommand("Undo", []() {return new UndoCmd(); });
+        CommandScheduler::instance().registerCommand("Redo", []() {return new RedoCmd(); });
 
         UndoManager::instance().addController(&DbGeUndoController::instance());
     }
@@ -104,7 +106,12 @@ namespace EB
         if (!m_EmbedCommand && CommandScheduler::instance().hasCommandToExecute())
         {
             m_EmbedCommand = CommandScheduler::instance().popCommand();
-            m_EmbedCommand->beginInvoke();
+            if (!m_EmbedCommand->isRunnable()) {
+                EB_SAFE_DELETE(m_EmbedCommand);
+            }
+            else {
+                m_EmbedCommand->beginInvoke();
+            }
         }
         if (m_EmbedCommand && m_EmbedCommand->editor().status() != EditorBase::EditorStatus::kInterating)
         {
@@ -196,6 +203,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Button, "Create Line 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Line 2D");));
             EB_WIDGET_IMMEDIATE(Button, "Create Circle 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Circle 2D");));
             EB_WIDGET_IMMEDIATE(Button, "Undo", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Undo");));
+            EB_WIDGET_IMMEDIATE(Button, "Redo", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Redo");));
         };
 
         auto slot_3 = [&]() {

@@ -90,5 +90,11 @@ namespace EB
          * @return    attribute of command.
          */
         virtual CommandAttribute attribute() = 0;
+
+        /**
+         * @brief   is runnable.
+         * @return    whether command is runnable.
+         */
+        virtual bool isRunnable() const;
     };
 }

@@ -27,7 +27,12 @@ namespace EB
 
     void DbGeometryDatabase::onDbObjectRemoved(DbObject* pDbObj)
     {
-
+        pDbObj->open();
+        pDbObj->filer()->writeInt(static_cast<int>(DbGeUndoOpCode::kObjectDelete));
+        pDbObj->filer()->writePointer(this);
+        pDbObj->filer()->writeInt(pDbObj->handle());
+        pDbObj->serialize(pDbObj->filer());
+        pDbObj->close();
     }
 
 }

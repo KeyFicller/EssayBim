@@ -59,6 +59,11 @@ namespace EB
             return m_Index != -1;
         }
 
+        operator int() const
+        {
+            return m_Index;
+        }
+
     private:
         void* memory() const;
 

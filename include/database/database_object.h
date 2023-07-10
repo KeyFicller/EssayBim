@@ -126,6 +126,6 @@ namespace EB
 }
 
 
-#define EB_DB_CHECK_WRITE_ENABLED()                               \
-    if (handle() && !std::is_const<decltype(this)>::value)        \
+#define EB_DB_CHECK_WRITE_ENABLED()                                                          \
+    if (handle() && !std::is_const<std::remove_pointer<decltype(this)>::type>::value)        \
         assertWriteEnabled()

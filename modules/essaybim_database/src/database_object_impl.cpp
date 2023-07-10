@@ -34,11 +34,13 @@ namespace EB
         if (!m_IsOpened) {
             return false;
         }
-        m_IsOpened = false;
         // commit filer data.
         m_pFiler->pushSessionLength();
-        m_pFiler->writeInt(m_pFiler->position());
-        m_pFacade->subClose();
+        if (m_pFiler->position() > sizeof(void*)) {
+            // m_pFiler->writeInt(m_pFiler->position() - sizeof(void*));
+            m_pFacade->subClose();
+        }
+        m_IsOpened = false;
         EB_SAFE_DELETE(m_pFiler);
         return true;
     }
@@ -56,7 +58,7 @@ namespace EB
     void DbObjectImpl::assertWriteEnabled()
     {
         if (!m_IsOpened) {
-            // __debugbreak();
+            __debugbreak();
         }
     }
 

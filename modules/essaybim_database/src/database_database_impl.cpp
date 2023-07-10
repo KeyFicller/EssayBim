@@ -35,7 +35,7 @@ namespace EB
         EB_CORE_ASSERT(iter != m_Handles.end());
         m_Handles.erase(iter);
         m_pFacade->onDbObjectRemoved(Handle::access<DbObject>(hdl));
-;       Handle::free<DbObject>(hdl);
+        Handle::free<DbObject>(hdl);
     }
 
     std::vector<Handle> DbDatabaseImpl::allObjects() const

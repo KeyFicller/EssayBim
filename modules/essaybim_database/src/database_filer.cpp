@@ -16,7 +16,7 @@ namespace EB
 
     void DbFiler::pushSessionLength()
     {
-        if (position() > m_SessionStart) {
+        if (position() >= m_SessionStart) {
             writeInt(position() - m_SessionStart);
             m_SessionStart = position() + sizeof(int);
         }

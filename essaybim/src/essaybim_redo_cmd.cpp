@@ -1,15 +1,15 @@
-#include "essaybim_undo_cmd.h"
+#include "essaybim_redo_cmd.h"
 
 #include "editor_base.h"
 #include "command_undo_manager.h"
 
 namespace EB
 {
-    class UndoEditor : public EditorBase
+    class RedoEditor : public EditorBase
     {
     public:
-        UndoEditor() = default;
-        ~UndoEditor() override = default;
+        RedoEditor() = default;
+        ~RedoEditor() override = default;
 
     public:
         EditorStatus status() override { return EditorBase::EditorStatus::kConfirmed; }
@@ -22,35 +22,35 @@ namespace EB
     };
 
 
-    UndoCmd::UndoCmd()
+    RedoCmd::RedoCmd()
     {
-        m_pEditor = new UndoEditor();
+        m_pEditor = new RedoEditor();
     }
 
-    UndoCmd::~UndoCmd()
+    RedoCmd::~RedoCmd()
     {
         EB_SAFE_DELETE(m_pEditor);
     }
 
-    void UndoCmd::beginInvoke()
+    void RedoCmd::beginInvoke()
     {
         CommandBase::beginInvoke();
-        UndoManager::instance().undo();
+        UndoManager::instance().redo();
     }
 
-    EditorBase& UndoCmd::editor()
+    EditorBase& RedoCmd::editor()
     {
         return *m_pEditor;
     }
 
-    CommandAttribute UndoCmd::attribute()
+    CommandAttribute RedoCmd::attribute()
     {
-        return { "Undo", CommandAttribute::CommandType::kUndo };
+        return { "Redo", CommandAttribute::CommandType::kRedo };
     }
 
-    bool UndoCmd::isRunnable() const
+    bool RedoCmd::isRunnable() const
     {
-        return UndoManager::instance().commandsInUndoStack().size();
+        return UndoManager::instance().commandsInRedoStack().size();
     }
 
 }

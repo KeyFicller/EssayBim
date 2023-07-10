@@ -32,4 +32,9 @@ namespace EB
         UndoManager::instance().afterCommand();
     }
 
+    bool CommandBase::isRunnable() const
+    {
+        return true;
+    }
+
 }

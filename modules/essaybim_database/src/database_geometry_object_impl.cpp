@@ -3,8 +3,9 @@
 #include "database_geometry_undo_controller.h"
 
 #include "geometry_base.h"
-#include "geometry_line_3d.h"
 #include "geometry_circle_3d.h"
+#include "geometry_factory.h"
+#include "geometry_line_3d.h"
 #include "renderer_batch_render.h"
 
 namespace EB
@@ -56,12 +57,16 @@ namespace EB
     void DbGeometryImpl::serialize(Filer* pFiler) const
     {
         DbObjectImpl::serialize(pFiler);
+        pFiler->writeInt(static_cast<int>(m_pGeometry->geometryType()));
         m_pGeometry->dump(pFiler);
     }
 
     void DbGeometryImpl::deSerialize(Filer* pFiler)
     {
         DbObjectImpl::deSerialize(pFiler);
+        Geometry::eGeometryType type = static_cast<Geometry::eGeometryType>(pFiler->readInt());
+        EB_SAFE_DELETE(m_pGeometry);
+        m_pGeometry = GeFactory::create(type);
         m_pGeometry->load(pFiler);
     }
 

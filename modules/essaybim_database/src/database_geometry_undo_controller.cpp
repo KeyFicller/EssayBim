@@ -2,22 +2,28 @@
 
 #include "database_database.h"
 #include "database_geometry_object.h"
+#include "database_geometry_database.h"
 
 namespace EB
 {
 
     namespace
     {
-        void undo_on_object_added(void* pObject, Filer* pFiler)
+        void undo_on_object_added(void* pObject, Filer* /*pFiler*/)
         {
             DbGeometry* pDbGeom = static_cast<DbGeometry*>(pObject);
             DbDatabase* pDb = pDbGeom->owner();
             pDb->remove(pDbGeom->handle());
         }
 
-        void undo_on_object_deleted(void* pObject, Filer* pFiler)
+        void undo_on_object_deleted(void* /*pObject*/, Filer* pFiler)
         {
-            
+            DbDatabase* pDbGe = static_cast<DbDatabase*>(pFiler->readPointer());
+            (void)pFiler->readInt();
+            DbGeometry* pDbGeom = new DbGeometry();
+            pDbGeom->deSerialize(pFiler);
+            Handle hdl;
+            pDbGe->add(pDbGeom, hdl);
         }
     }
 

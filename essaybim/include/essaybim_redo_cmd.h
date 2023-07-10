@@ -4,11 +4,11 @@
 
 namespace EB
 {
-    class UndoCmd : public CommandBase
+    class RedoCmd : public CommandBase
     {
     public:
-        UndoCmd();
-        ~UndoCmd() override;
+        RedoCmd();
+        ~RedoCmd() override;
 
     public:
         void beginInvoke() override;
