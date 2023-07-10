@@ -4,18 +4,25 @@
 
 #include "basic_vector.h"
 
+#include <stack>
+
 namespace EB
 {
     class VertexArray;
     class VertexBuffer;
     class Shader;
     class UniformBuffer;
+    class Texture2D;
 
     struct MeshVertexInfo_Patches
     {
         Vec3f Position;
-        //Vec4f FlatColor;
-        //Vec3f Normal;
+        Vec3f FlatColor;
+        Vec3f Normal;
+        Vec2f TextureCoord;
+
+        int ObjectId = -1;
+        int TextureId = 0;
     };
 
     struct MeshBatchData_Patches
@@ -39,6 +46,9 @@ namespace EB
     struct MeshVertexInfo_WireFrames
     {
         Vec3f Position;
+        Vec3f FlatColor;
+
+        int ObjectId = -1;
     };
 
     struct MeshBatchData_WireFrames
@@ -74,11 +84,15 @@ namespace EB
     protected:
         void start(const Mat4& viewprojectionMatrix);
         void end();
+        void pushColor(const Vec3f& color);
+        void popColor();
+        Vec3f currentColor();
 
     protected:
         void flush();
         void flushAndReset();
         void init();
+        void terminate();
         void reset();
         const BatchRenderStatistic& statistic() const;
 
@@ -88,6 +102,7 @@ namespace EB
         void polyline(const std::vector<Vec3f>& vertices);
         void frame(const std::vector<Vec3f>& vertices, const std::vector<Vec2i>& indices);
         void mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals);
+        void quad(const Vec3f& center, const Vec3f& xDir, const Vec3f& yDir);
 
     protected:
         MeshBatchData_Patches m_MeshDataPatches;
@@ -95,5 +110,7 @@ namespace EB
         CameraData m_CameraData;
         Shared<UniformBuffer> m_CameraBuffer;
         BatchRenderStatistic m_Statistic;
+        std::stack<Vec3f> m_ColorStack;
+        std::vector<Shared<Texture2D>> m_Textures;
     };
 }

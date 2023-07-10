@@ -70,6 +70,18 @@ namespace EB
 
     public:
         /**
+         * @brief  push a color for latter batch render.
+         * @param[in]    color           used for latter batch.
+         */
+        static void pushColor(const Vec3f& color);
+
+        /**
+         * @brief  pop a color for latter batch render.
+         */
+        static void popColor();
+
+    public:
+        /**
          * @breif   add a line to batch.
          * @param[in]   start    start point of line.
          * @param[in]   end      end point of line.
@@ -104,5 +116,13 @@ namespace EB
          * @param[in]   normals      normal vector.
          */
         static void mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals);
+
+        /**
+         * @brief   add a quad to batch.
+         * @param[in]   center       position of center point.
+         * @param[in]   xDir         direction of quad x axis.
+         * @param[in]   yDir         direction of quad y axis.
+         */
+        static void quad(const Vec3f& center, const Vec3f& xDir, const Vec3f& yDir);
     };
 }

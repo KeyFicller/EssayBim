@@ -6,6 +6,7 @@
 #include "geometry_circle_3d.h"
 #include "geometry_factory.h"
 #include "geometry_line_3d.h"
+#include "geometry_plane.h"
 #include "renderer_batch_render.h"
 
 namespace EB
@@ -44,6 +45,12 @@ namespace EB
         }
         else if (m_pGeometry->geometryType() == Geometry::eGeometryType::kCircle3d) {
             BatchRender::circle(((GeCircle3d*)(m_pGeometry))->center(), ((GeCircle3d*)(m_pGeometry))->radius(), ((GeCircle3d*)(m_pGeometry))->normal());
+        }
+        else if (m_pGeometry->geometryType() == Geometry::eGeometryType::kPlane) {
+            BatchRender::pushColor(Vec3f(0.5f, 0.5f, 0.5f));
+            GePlane* pPlane = (GePlane*)m_pGeometry;
+            BatchRender::quad(pPlane->origin(), pPlane->xAxis(), pPlane->yAxis());
+            BatchRender::popColor();
         }
     }
 

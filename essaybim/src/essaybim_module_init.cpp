@@ -6,6 +6,8 @@
 #include "essaybim_redo_cmd.h"
 
 #include "command_scheduler.h"
+#include "command_undo_manager.h"
+#include "database_geometry_undo_controller.h"
 
 namespace EB
 {
@@ -20,6 +22,8 @@ namespace EB
                 CommandScheduler::instance().registerCommand(EB_CMD_CREATE_CIRCLE_2D, []() {return new CreateCircle2dCmd(); });
                 CommandScheduler::instance().registerCommand(EB_CMD_UNDO, []() {return new UndoCmd(); });
                 CommandScheduler::instance().registerCommand(EB_CMD_REDO, []() {return new RedoCmd(); });
+
+                UndoManager::instance().addController(&DbGeUndoController::instance());
             }
 
             ~ModuleInit()

@@ -44,6 +44,16 @@ namespace EB
         pIns->m_pImpl->end();
     }
 
+    void BatchRender::pushColor(const Vec3f& color)
+    {
+        pIns->m_pImpl->pushColor(color);
+    }
+
+    void BatchRender::popColor()
+    {
+        pIns->m_pImpl->popColor();
+    }
+
     void BatchRender::line(const Vec3f& start, const Vec3f& end)
     {
         pIns->m_pImpl->line(start, end);
@@ -67,6 +77,11 @@ namespace EB
     void BatchRender::mesh(const std::vector<Vec3f>& vertices, const std::vector<Vec3i>& indices, const std::vector<Vec3f>& normals)
     {
         pIns->m_pImpl->mesh(vertices, indices, normals);
+    }
+
+    void BatchRender::quad(const Vec3f& center, const Vec3f& xDir, const Vec3f& yDir)
+    {
+        pIns->m_pImpl->quad(center, xDir, yDir);
     }
 
 }

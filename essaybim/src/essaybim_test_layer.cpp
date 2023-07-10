@@ -1,15 +1,12 @@
 #include "essaybim_test_layer.h"
 
 #include "essaybim_application.h"
-#include "essaybim_create_line_2d_cmd.h"
-#include "essaybim_create_circle_2d_cmd.h"
-#include "essaybim_undo_cmd.h"
-#include "essaybim_redo_cmd.h"
+#include "essaybim_module_init.h"
 
 #include "command_undo_manager.h"
 #include "basic_file_server.h"
+#include "database_geometry_object.h"
 #include "database_geometry_database.h"
-#include "database_geometry_undo_controller.h"
 #include "database_object.h"
 #include "document_interactive_camera.h"
 #include "event_event_dispatcher.h"
@@ -62,27 +59,11 @@ namespace EB
     TestLayer::TestLayer()
         : Layer()
     {
-        // TODO: remove this
-        CommandScheduler::instance().registerCommand("Create Line 2D", []() {return new CreateLine2dCmd(); });
-        CommandScheduler::instance().registerCommand("Create Circle 2D", []() {return new CreateCircle2dCmd(); });
-        CommandScheduler::instance().registerCommand("Undo", []() {return new UndoCmd(); });
-        CommandScheduler::instance().registerCommand("Redo", []() {return new RedoCmd(); });
-
-        UndoManager::instance().addController(&DbGeUndoController::instance());
+        
     }
 
     void TestLayer::onAttach()
     {
-        mesh = createShared<GeMesh>();
-        static bool init = false;
-        if (!init) {
-            mesh->importFromObj(FileServer::instance().resourcesPathRoot() + "\\meshes\\cube.obj");
-            init = true;
-        }
-
-        const GeMeshData& meshData = mesh->data();
-        bound = mesh->boundingBox();
-
         camera = createShared<InteractiveCamera>(Window::instance("DemoApp").get(), 45.f, 1.5f, 0.1f, 1000.f);
 
         FrameBufferSpecification spec;
@@ -90,9 +71,15 @@ namespace EB
         spec.Height = 1000;
         spec.Attachments = {
             eFrameBufferTextureFormat::kRGBA8,
+            eFrameBufferTextureFormat::kRedInteger,
             eFrameBufferTextureFormat::kDepth
         };
         frameBuffer = FrameBuffer::create(spec);
+
+        DbGeometry* pDbObj = new DbGeometry();
+        pDbObj->setGeometry(new GePlane());
+        Handle hdl;
+        TestLayer::currentDb().add(pDbObj, hdl);
 
         BatchRender::initialize();
     }
@@ -135,18 +122,20 @@ namespace EB
 
     void TestLayer::onGuiRender()
     {
-        static GePoint2d interactPt = GePoint2d(0.f, 0.f);
-
         static bool dockEnabled = true;
         DockSpace::begin("Main Doc Space", dockEnabled, true);
 
         static MenuBar menubar;
         static bool menubarInit = false;
         if (!menubarInit) {
-            Shared<MenuBarMenu> menu = createShared<MenuBarMenu>("Undo/Redo");
-            menu->addMenuItem(createShared<MenuBarMenuItem>("Undo", "Ctrl + Z", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Undo");)));
-            menu->addMenuItem(createShared<MenuBarMenuItem>("Undo", "Ctrl + Y", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Redo");)));
-            menubar.addMenu(menu);
+            Shared<MenuBarMenu> menuEdit = createShared<MenuBarMenu>("Edit");
+            menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_UNDO, "Ctrl + Z", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_UNDO);)));
+            menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_REDO, "Ctrl + Y", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_REDO);)));
+            menubar.addMenu(menuEdit);
+            Shared<MenuBarMenu> menuCreate = createShared<MenuBarMenu>("Create");
+            menuCreate->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_CREATE_LINE_2D, "", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_CREATE_LINE_2D);)));
+            menuCreate->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_CREATE_CIRCLE_2D, "", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_CREATE_CIRCLE_2D);)));
+            menubar.addMenu(menuCreate);
             menubarInit = true;
         }
         menubar.onGuiRender();
@@ -162,39 +151,7 @@ namespace EB
             frameBuffer->bind();
             RendererEntry::instance().clear();
             BatchRender::start(camera->viewProjectionMatrix());
-            BatchRender::mesh(mesh->data().Vertices, mesh->data().Indices, mesh->data().Vertices);
-            for (int i = 0; i < 4; i++) {
-                BatchRender::line(bound[i], bound[(i + 1) % 4]);
-                BatchRender::line(bound[i + 4], bound[(i + 1) % 4 + 4]);
-                BatchRender::line(bound[i], bound[i + 4]);
-            }
 
-            GeCircle2d curve = GeCircle2d(GePoint2d(3.0f, 0.0f), 1);
-            {
-                GeCircle3d* pCurve3d = static_cast<GeCircle3d*>(curve.create3D(GePlane()));
-                auto pts = pCurve3d->sampler(0.02f);
-                std::vector<Vec3f> vecPts;
-                for (unsigned int i = 0; i < pts.size(); i++) {
-                    vecPts.emplace_back(pts[i]);
-                }
-                BatchRender::polyline(vecPts);
-                EB_SAFE_DELETE(pCurve3d);
-            }
-            auto pt = curve.closestPointTo(interactPt);
-            BatchRender::line(Vec3f(pt.x(), pt.y(), 0.0f), Vec3f(interactPt.x(), interactPt.y(), 0.0f));
-            // curve.translateBy(GeVector2d(1.0f, 0.0f));
-            curve.mirrorBy(GeLine2d(GePoint2d(0.0f, 1.0f), GePoint2d(2.0f, 2.0f)));
-            {
-                GeCircle3d* pCurve3d = static_cast<GeCircle3d*>(curve.create3D(GePlane()));
-                auto pts = pCurve3d->sampler(0.02f);
-                std::vector<Vec3f> vecPts;
-                for (unsigned int i = 0; i < pts.size(); i++) {
-                    vecPts.emplace_back(pts[i]);
-                }
-                BatchRender::polyline(vecPts);
-                EB_SAFE_DELETE(pCurve3d);
-            }
-            
             if (m_EmbedCommand)
             {
                 m_EmbedCommand->editor().updateDisplay();
@@ -215,12 +172,6 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Text, "Batch Call:  [%d]", statistic.RenderCall);
             EB_WIDGET_IMMEDIATE(Text, "Vertex Count:  [%d]", statistic.VertexCount);
             EB_WIDGET_IMMEDIATE(Text, "Element Count:  [%d]", statistic.ElementCount);
-            EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD X", interactPt.x());
-            EB_WIDGET_IMMEDIATE(DragValueInputF, "COORD Y", interactPt.y());
-            EB_WIDGET_IMMEDIATE(Button, "Create Line 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Line 2D");));
-            EB_WIDGET_IMMEDIATE(Button, "Create Circle 2D", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Create Circle 2D");));
-            EB_WIDGET_IMMEDIATE(Button, "Undo", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Undo");));
-            EB_WIDGET_IMMEDIATE(Button, "Redo", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Redo");));
         };
 
         auto slot_3 = [&]() {
@@ -269,13 +220,13 @@ namespace EB
         switch (event.key()) {
             case KEY_Z:
                 if (ctrlPressed) {
-                    CommandScheduler::instance().enqueueCommand("Undo");
+                    CommandScheduler::instance().enqueueCommand(EB_CMD_UNDO);
                     return true;
                 }
                 break;
             case KEY_Y:
                 if (ctrlPressed) {
-                    CommandScheduler::instance().enqueueCommand("Redo");
+                    CommandScheduler::instance().enqueueCommand(EB_CMD_REDO);
                     return true;
                 }
                 break;

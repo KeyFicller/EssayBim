@@ -43,8 +43,6 @@ namespace EB
         Shared<InteractiveCamera> camera;
         Shared<FrameBuffer> frameBuffer;
         bool viewHovered = false;
-        Shared<GeMesh> mesh;
-        std::vector<Vec3f> bound;
         CommandBase* m_EmbedCommand = nullptr;
         Vec2f viewPortOffset;
     };

@@ -5,6 +5,8 @@
 
 #include "basic_file_server.h"
 
+#include <iostream>
+
 namespace EB
 {
 
@@ -125,11 +127,12 @@ namespace EB
             {
                 GLint infoLogLength = 0;
                 glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
-                std::vector<GLchar> infoLog(infoLogLength);
-                glGetShaderInfoLog(shader, infoLogLength, &infoLogLength, infoLog.data());
+                std::string infoLog(infoLogLength + 1, '\0');
+                glGetShaderInfoLog(shader, infoLogLength, &infoLogLength, &infoLog[0]);
                 glDeleteShader(shader);
 
-                EB_CORE_ERROR("%s", infoLog.data());
+                // EB_CORE_ERROR("%s", infoLog.c_str());
+                std::cout << infoLog << std::endl;   // TODO:  check crash reason fo EB_CORE_ERROR()
                 EB_CORE_ASSERT(false, "Shader source compile failed.");
                 break;
             }

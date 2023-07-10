@@ -25,7 +25,6 @@ namespace EB
         pDbObj->setOwner(m_pFacade);
         pDbObj->setHandle(hdl);
         m_pFacade->onDbObjectAdded(pDbObj);
-        // pDbObj->close();
         m_Handles.emplace_back(hdl);
     }
 

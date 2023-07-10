@@ -73,6 +73,7 @@ namespace EB
 
     void GuiLayer::onGuiRender()
     {
+#if 0
         // ImGui::ShowDemoWindow();
         ImGui::Begin("Test Widgets");
 
@@ -232,6 +233,7 @@ namespace EB
         }
 
         ImGui::End();
+#endif
     }
 
     void GuiLayer::onEvent(Event& e)
