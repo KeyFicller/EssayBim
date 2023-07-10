@@ -5,6 +5,13 @@ namespace EB
 
     Handle Handle::kNull = Handle(-1);
 
+    void Handle::resurrect(void* pObj)
+    {
+        EB_CORE_ASSERT(m_Index != -1);
+        EB_CORE_ASSERT(s_Table[m_Index] == nullptr);
+        s_Table[m_Index] = pObj;
+    }
+
     void* Handle::memory() const
     {
         return s_Table[m_Index];

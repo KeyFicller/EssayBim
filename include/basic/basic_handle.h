@@ -15,10 +15,9 @@ namespace EB
     {
     public:
         Handle() : m_Index(-1) {}
+        Handle(int index) : m_Index(index) {}
 
         static Handle kNull;
-    protected:
-        Handle(int index) : m_Index(index) {}
 
     public:
         Handle(const Handle& other) : m_Index(other.m_Index) {}
@@ -53,6 +52,8 @@ namespace EB
             EB_CORE_ASSERT(ptr);
             return reinterpret_cast<T*>(ptr);
         }
+
+        void resurrect(void* pObj);
 
         operator bool() const
         {

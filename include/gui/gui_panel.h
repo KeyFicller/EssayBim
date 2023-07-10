@@ -40,6 +40,12 @@ namespace EB
          */
         static Vec2f viewportAvailiable();
 
+        /**
+         * @brief  internal usage, get panel position.
+         * @return     panel position.
+         */
+        static Vec2f position();
+
     protected:
         /**
          * @brief   render gui and get triggered status.

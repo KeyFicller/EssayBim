@@ -25,6 +25,11 @@ namespace EB
         EB_IMPL()->add(pDbObj, hdl);
     }
 
+    void DbDatabase::reAdd(DbObject* pDbObj, const Handle& hdl)
+    {
+        EB_IMPL()->reAdd(pDbObj, hdl);
+    }
+
     void DbDatabase::remove(const Handle& hdl)
     {
         EB_IMPL()->remove(hdl);

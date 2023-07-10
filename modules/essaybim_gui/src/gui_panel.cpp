@@ -34,6 +34,11 @@ namespace EB
         return ImGui::GetContentRegionAvail();
     }
 
+    Vec2f Panel::position()
+    {
+        return ImGui::GetWindowPos();
+    }
+
     bool Panel::subOnImguiRender()
     {
         ImGui::Begin(EB_IMPL()->name().c_str());

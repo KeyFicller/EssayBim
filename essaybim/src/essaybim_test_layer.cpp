@@ -12,6 +12,10 @@
 #include "database_geometry_undo_controller.h"
 #include "database_object.h"
 #include "document_interactive_camera.h"
+#include "event_event_dispatcher.h"
+#include "event_key_event.h"
+#include "event_keycode_defines.h"
+#include "geometry_arithmetic.h"
 #include "geometry_circle_2d.h"
 #include "geometry_circle_3d.h"
 #include "geometry_line_2d.h"
@@ -27,6 +31,7 @@
 #include "gui_panel.h"
 #include "gui_text.h"
 #include "gui_button.h"
+#include "gui_menu_bar.h"
 #include "renderer_vertex_array.h"
 #include "renderer_vertex_buffer.h"
 #include "renderer_index_buffer.h"
@@ -135,8 +140,20 @@ namespace EB
         static bool dockEnabled = true;
         DockSpace::begin("Main Doc Space", dockEnabled, true);
 
+        static MenuBar menubar;
+        static bool menubarInit = false;
+        if (!menubarInit) {
+            Shared<MenuBarMenu> menu = createShared<MenuBarMenu>("Undo/Redo");
+            menu->addMenuItem(createShared<MenuBarMenuItem>("Undo", "Ctrl + Z", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Undo");)));
+            menu->addMenuItem(createShared<MenuBarMenuItem>("Undo", "Ctrl + Y", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand("Redo");)));
+            menubar.addMenu(menu);
+            menubarInit = true;
+        }
+        menubar.onGuiRender();
+
         auto slot = [&]() {
             auto& bounds = Panel::viewportBounds();
+            viewPortOffset = Panel::position();
             Vec2f size = Vec2f(bounds[1].x() - bounds[0].x(), bounds[1].y() - bounds[0].y());
             if (size.x() > 0 && size.y() > 0) {
                 frameBuffer->onResize((unsigned int)size.x(), (unsigned int)size.y());
@@ -226,16 +243,45 @@ namespace EB
 
     void TestLayer::onEvent(Event& e)
     {
-
         if (viewHovered) {
             camera->onEvent(e);
 
             if (m_EmbedCommand)
             {
-                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d()), Handle::kNull };
+                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d().setAsTranslation(-viewPortOffset)), Handle::kNull };
                 m_EmbedCommand->editor().handleInput(e, extend);
             }
         }
+
+        EventDispatcher dispatcher(e);
+        dispatcher.dispatch<KeyPressedEvent>(std::bind(&TestLayer::_onKeyPressedEvent, this, std::placeholders::_1));
+    }
+
+    bool TestLayer::_onKeyPressedEvent(KeyPressedEvent& event)
+    {
+        Shared<Window> window = Application::instance().window("DemoApp");
+        bool ctrlPressed = window->isKeyPressed(KEY_LEFT_CONTROL) | window->isKeyPressed(KEY_RIGHT_CONTROL);
+
+        if (event.repeats()) {
+            return false;
+        }
+
+        switch (event.key()) {
+            case KEY_Z:
+                if (ctrlPressed) {
+                    CommandScheduler::instance().enqueueCommand("Undo");
+                    return true;
+                }
+                break;
+            case KEY_Y:
+                if (ctrlPressed) {
+                    CommandScheduler::instance().enqueueCommand("Redo");
+                    return true;
+                }
+                break;
+        }
+
+        return false;
     }
 
     DbDatabase& TestLayer::currentDb()

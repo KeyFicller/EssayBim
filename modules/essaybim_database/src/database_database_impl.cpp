@@ -25,7 +25,16 @@ namespace EB
         pDbObj->setOwner(m_pFacade);
         pDbObj->setHandle(hdl);
         m_pFacade->onDbObjectAdded(pDbObj);
-        pDbObj->close();
+        // pDbObj->close();
+        m_Handles.emplace_back(hdl);
+    }
+
+    void DbDatabaseImpl::reAdd(DbObject* pDbObj, const Handle& hdl)
+    {
+        EB_CORE_ASSERT(!pDbObj->handle());
+        pDbObj->setOwner(m_pFacade);
+        pDbObj->setHandle(hdl);
+        m_pFacade->onDbObjectAdded(pDbObj);
         m_Handles.emplace_back(hdl);
     }
 

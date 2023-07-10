@@ -21,6 +21,7 @@ namespace EB
 
     public:
         void add(DbObject* pDbObj, Handle& hdl);
+        void reAdd(DbObject* pDbObj, const Handle& hdl);
         void remove(const Handle& hdl);
         std::vector<Handle> allObjects() const;
 

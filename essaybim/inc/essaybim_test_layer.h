@@ -20,6 +20,7 @@ namespace EB
     class GeLine3d;
     class CommandBase;
     class DbDatabase;
+    class KeyPressedEvent;
 
     class TestLayer : public Layer
     {
@@ -33,6 +34,8 @@ namespace EB
         void onGuiRender() override;
         void onEvent(Event& e) override;
 
+        bool _onKeyPressedEvent(KeyPressedEvent& event);
+
         static DbDatabase& currentDb();
 
     protected:
@@ -43,5 +46,6 @@ namespace EB
         Shared<GeMesh> mesh;
         std::vector<Vec3f> bound;
         CommandBase* m_EmbedCommand = nullptr;
+        Vec2f viewPortOffset;
     };
 }

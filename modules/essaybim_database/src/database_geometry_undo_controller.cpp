@@ -19,11 +19,11 @@ namespace EB
         void undo_on_object_deleted(void* /*pObject*/, Filer* pFiler)
         {
             DbDatabase* pDbGe = static_cast<DbDatabase*>(pFiler->readPointer());
-            (void)pFiler->readInt();
+            Handle hdl = Handle(pFiler->readInt());
             DbGeometry* pDbGeom = new DbGeometry();
             pDbGeom->deSerialize(pFiler);
-            Handle hdl;
-            pDbGe->add(pDbGeom, hdl);
+            hdl.resurrect(pDbGeom);
+            pDbGe->reAdd(pDbGeom, hdl);
         }
     }
 

@@ -113,7 +113,10 @@ namespace EB
 
     GeLine3d InteractiveCameraImpl::ray(const GeMatrix2d& windowMatrix) const
     {
-        auto [x, y] = window()->cursorPos();
+        auto [_x, _y] = window()->cursorPos();
+        auto vec = windowMatrix * GePoint2d(_x, _y);
+        auto x = vec.x();
+        auto y = vec.y();
         // near clip plane
         float nearHeight = tan(glm::radians(m_VerticalFov) / 2) * m_NearClip * 2;
         float nearWidth = nearHeight * m_AspectRatio;
