@@ -13,11 +13,13 @@ namespace EB
     class Shader;
     class UniformBuffer;
     class Texture2D;
+    class Handle;
 
     struct MeshVertexInfo_Patches
     {
         Vec3f Position;
         Vec3f FlatColor;
+        float Transparency = 1.0f;
         Vec3f Normal;
         Vec2f TextureCoord;
 
@@ -47,6 +49,7 @@ namespace EB
     {
         Vec3f Position;
         Vec3f FlatColor;
+        float Transparency = 1.0f;
 
         int ObjectId = -1;
     };
@@ -84,9 +87,25 @@ namespace EB
     protected:
         void start(const Mat4& viewprojectionMatrix);
         void end();
+
         void pushColor(const Vec3f& color);
         void popColor();
-        Vec3f currentColor();
+        Vec3f currentColor() const;
+
+        void pushTransparency(float alpha);
+        void popTransparency();
+        float currentTransparency() const;
+
+        void pushObjectId(const Handle& hdl);
+        void popObjectId();
+        int currentObjectId() const;
+
+        int addTexture(const Shared<Texture2D>& texture);
+        void removeTexture(int allocatedIdx);
+        void removeAllTextures();
+        void pushTextureId(int texId);
+        void popTextureId();
+        int currentTextureId() const;
 
     protected:
         void flush();
@@ -112,5 +131,8 @@ namespace EB
         BatchRenderStatistic m_Statistic;
         std::stack<Vec3f> m_ColorStack;
         std::vector<Shared<Texture2D>> m_Textures;
+        std::stack<float> m_TransparencyStack;
+        std::stack<int> m_ObjectIdStack;
+        std::stack<int> m_TextureIdStack;
     };
 }

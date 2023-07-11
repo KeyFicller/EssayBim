@@ -7,6 +7,9 @@
 
 namespace EB
 {
+    class Handle;
+    class Texture2D;
+
     /**
      * @brief   get statistic of last batch render
      */
@@ -79,6 +82,57 @@ namespace EB
          * @brief  pop a color for latter batch render.
          */
         static void popColor();
+
+        /**
+         * @brief   push a transparency for latter batch render.
+         * @param[in]   alpha      transparency.
+         */
+        static void pushTransparency(float alpha);
+
+        /**
+         * @brief   pop a transparency for latter batch render.
+         */
+        static void popTransparency();
+
+        /**
+         * @brief   push an object id for latter batch render.
+         * @param[in]     hdl      persistent object id.
+         */
+        static void pushObjectId(const Handle& hdl);
+
+        /**
+         * @brief   pop an object id for latter batch render.
+         */
+        static void popObjectId();
+
+        /**
+         * @brief   register a texture id to batch render.
+         * @param[in]    texture     texture to register.
+         * @return   allocated texture index.
+         */
+        static int addTexture(const Shared<Texture2D>& texture);
+
+        /**
+         * @brief  remove specified texture.
+         * @param[in]   allocatedIdx    texture id before.
+         */
+        static void removeTexture(int allocatedIdx);
+
+        /**
+         * @brief   remove all texture.
+         */
+        static void removeAllTextures();
+
+        /**
+         * @brief   push a texture id for latter batch render.
+         * @param[in]     texId        texture id.
+         */
+        static void pushTextureId(int texId);
+
+        /**
+         * @brief   pop a texture id for latter batch render.
+         */
+        static void popTextureId();
 
     public:
         /**

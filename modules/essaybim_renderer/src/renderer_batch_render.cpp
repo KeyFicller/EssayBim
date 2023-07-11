@@ -54,6 +54,51 @@ namespace EB
         pIns->m_pImpl->popColor();
     }
 
+    void BatchRender::pushTransparency(float alpha)
+    {
+        pIns->m_pImpl->pushTransparency(alpha);
+    }
+
+    void BatchRender::popTransparency()
+    {
+        pIns->m_pImpl->popTransparency();
+    }
+
+    void BatchRender::pushObjectId(const Handle& hdl)
+    {
+        pIns->m_pImpl->pushObjectId(hdl);
+    }
+
+    void BatchRender::popObjectId()
+    {
+        pIns->m_pImpl->popObjectId();
+    }
+
+    int BatchRender::addTexture(const Shared<Texture2D>& texture)
+    {
+        return pIns->m_pImpl->addTexture(texture);
+    }
+
+    void BatchRender::removeTexture(int allocatedIdx)
+    {
+        pIns->m_pImpl->removeTexture(allocatedIdx);
+    }
+
+    void BatchRender::removeAllTextures()
+    {
+        pIns->m_pImpl->removeAllTextures();
+    }
+
+    void BatchRender::pushTextureId(int texId)
+    {
+        pIns->m_pImpl->pushTextureId(texId);
+    }
+
+    void BatchRender::popTextureId()
+    {
+        pIns->m_pImpl->popTextureId();
+    }
+
     void BatchRender::line(const Vec3f& start, const Vec3f& end)
     {
         pIns->m_pImpl->line(start, end);

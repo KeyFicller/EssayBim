@@ -12,6 +12,8 @@
 #include "event_event_dispatcher.h"
 #include "event_key_event.h"
 #include "event_keycode_defines.h"
+#include "event_mouse_event.h"
+#include "event_mouse_button_event.h"
 #include "geometry_arithmetic.h"
 #include "geometry_circle_2d.h"
 #include "geometry_circle_3d.h"
@@ -150,6 +152,7 @@ namespace EB
             }
             frameBuffer->bind();
             RendererEntry::instance().clear();
+            frameBuffer->clearAttachment(1, -1);
             BatchRender::start(camera->viewProjectionMatrix());
 
             if (m_EmbedCommand)
@@ -172,6 +175,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Text, "Batch Call:  [%d]", statistic.RenderCall);
             EB_WIDGET_IMMEDIATE(Text, "Vertex Count:  [%d]", statistic.VertexCount);
             EB_WIDGET_IMMEDIATE(Text, "Element Count:  [%d]", statistic.ElementCount);
+            EB_WIDGET_IMMEDIATE(Text, "Hovered Entity: [%d]", hoveredEntity);
         };
 
         auto slot_3 = [&]() {
@@ -206,6 +210,7 @@ namespace EB
 
         EventDispatcher dispatcher(e);
         dispatcher.dispatch<KeyPressedEvent>(std::bind(&TestLayer::_onKeyPressedEvent, this, std::placeholders::_1));
+        dispatcher.dispatch<MouseMovedEvent>(std::bind(&TestLayer::_onMouseMovedEvent, this, std::placeholders::_1));
     }
 
     bool TestLayer::_onKeyPressedEvent(KeyPressedEvent& event)
@@ -233,6 +238,23 @@ namespace EB
         }
 
         return false;
+    }
+
+    bool TestLayer::_onMouseMovedEvent(MouseMovedEvent& event)
+    {
+        Shared<Window> window = Application::instance().window("DemoApp");
+
+        auto panelMouse = GeMatrix2d().setAsTranslation(viewPortOffset) * GePoint2d(event.x(), event.y());
+        frameBuffer->bind();
+        hoveredEntity = frameBuffer->pixel(1, panelMouse.x(), panelMouse.y());
+        frameBuffer->unbind();
+
+        return false;
+    }
+
+    bool TestLayer::_onMouseButtonPressedEvent(MouseButtonPressedEvent& event)
+    {
+
     }
 
     DbDatabase& TestLayer::currentDb()

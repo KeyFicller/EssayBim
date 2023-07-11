@@ -9,8 +9,9 @@
 #include "renderer_vertex_buffer.h"
 #include "renderer_texture.h"
 
-#include "basic_file_server.h"
 #include "basic_color_defines.h"
+#include "basic_file_server.h"
+#include "basic_handle.h"
 #include "geometry_arithmetic.h"
 #include "geometry_circle_3d.h"
 
@@ -18,10 +19,11 @@
 #pragma warning(disable: 4267)
 
 #define EB_BATCH_RENDER_DEFAULT_COLOR             EB_WHITE_3
+#define EB_BATCH_RENDER_DEFAULT_TRANSPARENCY      (1.0f)
 #define EB_BATCH_RENDER_DEFAULT_NORMAL            Vec3f(1.0f, 0.0f, 0.0f)
 #define EB_BATCH_RENDER_DEFAULT_TEXTURE_COORD     Vec2f(0.5f, 0.5f)
 #define EB_BATCH_RENDER_DEFAULT_OBJECT_ID         (-1)
-#define EB_BATCH_RENDER_DEFAULT_TEXTURE_ID        0
+#define EB_BATCH_RENDER_DEFAULT_TEXTURE_ID        (0)
 
 namespace EB
 {
@@ -81,9 +83,88 @@ namespace EB
         }
     }
 
-    Vec3f BatchRenderImpl::currentColor()
+    Vec3f BatchRenderImpl::currentColor() const
     {
         return m_ColorStack.size() ? m_ColorStack.top() : EB_BATCH_RENDER_DEFAULT_COLOR;
+    }
+
+    void BatchRenderImpl::pushTransparency(float alpha)
+    {
+        m_TransparencyStack.push(alpha);
+    }
+
+    void BatchRenderImpl::popTransparency()
+    {
+        if (m_TransparencyStack.size()) {
+            m_TransparencyStack.pop();
+        }
+    }
+
+    float BatchRenderImpl::currentTransparency() const
+    {
+        return m_TransparencyStack.size() ? m_TransparencyStack.top() : EB_BATCH_RENDER_DEFAULT_TRANSPARENCY;
+    }
+
+    void BatchRenderImpl::pushObjectId(const Handle& hdl)
+    {
+        m_ObjectIdStack.push((int)hdl);
+    }
+
+    void BatchRenderImpl::popObjectId()
+    {
+        if (m_ObjectIdStack.size()) {
+            m_ObjectIdStack.pop();
+        }
+    }
+
+    int BatchRenderImpl::currentObjectId() const
+    {
+        return m_ObjectIdStack.size() ? m_ObjectIdStack.top() : EB_BATCH_RENDER_DEFAULT_OBJECT_ID;
+    }
+
+    int BatchRenderImpl::addTexture(const Shared<Texture2D>& texture)
+    {
+        for (unsigned int i = 0; i < m_Textures.size(); i++) {
+            if (!m_Textures[i]) {
+                m_Textures[i] = texture;
+                return i;
+            }
+        }
+        int res = m_Textures.size();
+        EB_CORE_ASSERT(res < 32);
+        m_Textures.push_back(texture);
+        return res;
+    }
+
+    void BatchRenderImpl::removeTexture(int allocatedIdx)
+    {
+        m_Textures[allocatedIdx].reset();
+    }
+
+    void BatchRenderImpl::removeAllTextures()
+    {
+        for (unsigned int i = 0; i < m_Textures.size(); i++) {
+            m_Textures[i].reset();
+        }
+    }
+
+    void BatchRenderImpl::pushTextureId(int texId)
+    {
+        m_TextureIdStack.push(texId);
+    }
+
+    void BatchRenderImpl::popTextureId()
+    {
+        if (m_TextureIdStack.size()) {
+            m_TextureIdStack.pop();
+        }
+    }
+
+    int BatchRenderImpl::currentTextureId() const
+    {
+        return m_TextureIdStack.size() ?
+            (m_Textures[m_TextureIdStack.top()] ? m_TextureIdStack.top() + 1 : EB_BATCH_RENDER_DEFAULT_TEXTURE_ID) :
+            EB_BATCH_RENDER_DEFAULT_TEXTURE_ID;
     }
 
     void BatchRenderImpl::flush()
@@ -94,7 +175,7 @@ namespace EB
             m_MeshDataPatches.ShaderPerBatch->bind();
             g_WhiteTexture->bind(0);
             for (unsigned int i = 0; i < m_Textures.size(); i++) {
-                m_Textures[i + 1]->bind(i + 1);
+                m_Textures[i]->bind(i + 1);
             }
             RendererEntry::instance().mesh(m_MeshDataPatches.VAOPerBatch.get());
             m_Statistic.RenderCall += 1;
@@ -124,6 +205,7 @@ namespace EB
         BufferLayout layoutPatches = {
             {"aPos", eShaderDataType::kFloat3},
             {"aColor", eShaderDataType::kFloat3},
+            {"aAlpha", eShaderDataType::kFloat},
             {"aNormal", eShaderDataType::kFloat3},
             {"aTexCoord", eShaderDataType::kFloat2},
 
@@ -146,6 +228,7 @@ namespace EB
         BufferLayout layoutWireFrames = {
             {"aPos", eShaderDataType::kFloat3},
             {"aColor", eShaderDataType::kFloat3},
+            {"aAlpha", eShaderDataType::kFloat},
 
             {"aObjectId", eShaderDataType::kInt}
         };
@@ -198,13 +281,17 @@ namespace EB
         *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
             start,
             currentColor(),
-            EB_BATCH_RENDER_DEFAULT_OBJECT_ID
+            currentTransparency(),
+
+            currentObjectId(),
         };
         m_MeshDataWireFrames.pCurrent++;
         *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
             end,
             currentColor(),
-            EB_BATCH_RENDER_DEFAULT_OBJECT_ID
+            currentTransparency(),
+
+            currentObjectId(),
         };
         m_MeshDataWireFrames.pCurrent++;
 
@@ -240,7 +327,9 @@ namespace EB
             *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
                 vertices[i],
                 currentColor(),
-                EB_BATCH_RENDER_DEFAULT_OBJECT_ID
+                currentTransparency(),
+
+                currentObjectId(),
             };
             m_MeshDataWireFrames.pCurrent++;
         }
@@ -266,7 +355,9 @@ namespace EB
             *m_MeshDataWireFrames.pCurrent = MeshVertexInfo_WireFrames{
                 vertices[i],
                 currentColor(),
-                EB_BATCH_RENDER_DEFAULT_OBJECT_ID
+                currentTransparency(),
+
+                currentObjectId(),
             };
             m_MeshDataWireFrames.pCurrent++;
         }
@@ -296,11 +387,12 @@ namespace EB
             *m_MeshDataPatches.pCurrent = MeshVertexInfo_Patches{
                 vertices[i],
                 currentColor(),
+                currentTransparency(),
                 EB_BATCH_RENDER_DEFAULT_NORMAL,         // TODO: 
                 EB_BATCH_RENDER_DEFAULT_TEXTURE_COORD,
 
-                EB_BATCH_RENDER_DEFAULT_OBJECT_ID,
-                EB_BATCH_RENDER_DEFAULT_TEXTURE_ID
+                currentObjectId(),
+                currentTextureId(),
             };
             m_MeshDataPatches.pCurrent++;
         }
@@ -328,11 +420,12 @@ namespace EB
             *m_MeshDataPatches.pCurrent = MeshVertexInfo_Patches{
                 GePoint3d(center) + ((i == 1 || i == 2) ? 1.f : -1.f) * GeVector3d(xDir) + ((i == 2 || i == 3) ? 1.f : -1.f) * GeVector3d(yDir),
                 currentColor(),
+                currentTransparency(),
                 EB_BATCH_RENDER_DEFAULT_NORMAL,         // TODO: 
-                EB_BATCH_RENDER_DEFAULT_TEXTURE_COORD,
+                Vec2f(((i == 1 || i == 2) ? 1.f : -1.f), ((i == 2 || i == 3) ? 1.f : -1.f)),
 
-                EB_BATCH_RENDER_DEFAULT_OBJECT_ID,
-                EB_BATCH_RENDER_DEFAULT_TEXTURE_ID
+                currentObjectId(),
+                currentTextureId(),
             };
             m_MeshDataPatches.pCurrent++;
         }

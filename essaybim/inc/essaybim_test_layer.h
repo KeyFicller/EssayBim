@@ -21,6 +21,8 @@ namespace EB
     class CommandBase;
     class DbDatabase;
     class KeyPressedEvent;
+    class MouseMovedEvent;
+    class MouseButtonPressedEvent;
 
     class TestLayer : public Layer
     {
@@ -35,6 +37,8 @@ namespace EB
         void onEvent(Event& e) override;
 
         bool _onKeyPressedEvent(KeyPressedEvent& event);
+        bool _onMouseMovedEvent(MouseMovedEvent& event);
+        bool _onMouseButtonPressedEvent(MouseButtonPressedEvent& event);
 
         static DbDatabase& currentDb();
 
@@ -45,5 +49,7 @@ namespace EB
         bool viewHovered = false;
         CommandBase* m_EmbedCommand = nullptr;
         Vec2f viewPortOffset;
+        int hoveredEntity = -1;
+        int pickedEntity = -1;
     };
 }

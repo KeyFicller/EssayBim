@@ -2,12 +2,14 @@
 
 #include "database_geometry_undo_controller.h"
 
+#include "basic_file_server.h"
 #include "geometry_base.h"
 #include "geometry_circle_3d.h"
 #include "geometry_factory.h"
 #include "geometry_line_3d.h"
 #include "geometry_plane.h"
 #include "renderer_batch_render.h"
+#include "renderer_texture.h"
 
 namespace EB
 {
@@ -40,6 +42,7 @@ namespace EB
 
     void DbGeometryImpl::onRender() const
     {
+        BatchRender::pushObjectId(m_Handle);
         if (m_pGeometry->geometryType() == Geometry::eGeometryType::kLine3d) {
             BatchRender::line(((GeLine3d*)(m_pGeometry))->start(), ((GeLine3d*)(m_pGeometry))->end());
         }
@@ -47,11 +50,17 @@ namespace EB
             BatchRender::circle(((GeCircle3d*)(m_pGeometry))->center(), ((GeCircle3d*)(m_pGeometry))->radius(), ((GeCircle3d*)(m_pGeometry))->normal());
         }
         else if (m_pGeometry->geometryType() == Geometry::eGeometryType::kPlane) {
-            BatchRender::pushColor(Vec3f(0.5f, 0.5f, 0.5f));
+            static int g_PlaneTextureId = BatchRender::addTexture(
+                Texture2D::create(FileServer::instance().resourcesPathRoot() + "\\textures\\grid.png")
+            );
+            BatchRender::pushTransparency(0.8f);
+            BatchRender::pushTextureId(g_PlaneTextureId);
             GePlane* pPlane = (GePlane*)m_pGeometry;
             BatchRender::quad(pPlane->origin(), pPlane->xAxis(), pPlane->yAxis());
-            BatchRender::popColor();
+            BatchRender::popTextureId();
+            BatchRender::popTransparency();
         }
+        BatchRender::popObjectId();
     }
 
     DbObject* DbGeometryImpl::clone() const
