@@ -4,16 +4,15 @@
 
 namespace EB
 {
-    class RedoCmd : public CommandBase
+    class CreatePlaneCmd : public CommandBase
     {
     public:
-        RedoCmd();
-        ~RedoCmd() override;
+        CreatePlaneCmd();
+        ~CreatePlaneCmd() override;
 
     public:
         void beginInvoke() override;
         EditorBase* editor() override;
         CommandAttribute attribute() override;
-        bool isRunnable() const override;
     };
 }

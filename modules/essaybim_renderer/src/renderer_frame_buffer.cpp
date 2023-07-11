@@ -40,9 +40,9 @@ namespace EB
         EB_IMPL()->onResize(width, height);
     }
 
-    int FrameBuffer::pixel(unsigned int attachmentIdx, int x, int y) const
+    int FrameBuffer::pixel(unsigned int attachmentIdx, int x, int y, eSamplerPrecision precision) const
     {
-        return EB_IMPL()->pixel(attachmentIdx, x, y);
+        return EB_IMPL()->pixel(attachmentIdx, x, y, precision);
     }
 
     unsigned int FrameBuffer::colorAttachmentRendererId(unsigned int index /*= 0*/) const

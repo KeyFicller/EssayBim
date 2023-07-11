@@ -17,6 +17,11 @@ namespace EB
         virtual void reAdd(DbObject* pDbObj, const Handle& hdl);
         virtual void remove(const Handle& hdl);
         std::vector<Handle> allObjects() const;
+        void subYamlIn(const std::string& key);
+        void subYamlOut(const std::string& key);
+
+    protected:
+        void _clear();
 
     protected:
         DbDatabase* m_pFacade = nullptr;

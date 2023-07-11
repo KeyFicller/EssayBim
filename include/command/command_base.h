@@ -73,17 +73,17 @@ namespace EB
         /**
          * @brief  command execution.
          */
-        virtual InvokeResult invoke();
+        virtual bool onInvoke();
 
         /**
          * @brief   restore environment and clean up data after execution.
          */
-        virtual void endInvoke();
+        virtual InvokeResult endInvoke();
 
         /**
          * @brief   create editor for logic.
          */
-        virtual EditorBase& editor() = 0;
+        virtual EditorBase* editor() = 0;
 
         /**
          * @brief   get attribute of this command.

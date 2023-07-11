@@ -5,6 +5,8 @@
 namespace EB
 {
 
+    EB_YAML_DECLARE_KEYS(Objects);
+
     DbDatabaseImpl::DbDatabaseImpl(DbDatabase* pFacade)
         : m_pFacade(pFacade)
     {
@@ -49,6 +51,29 @@ namespace EB
     std::vector<Handle> DbDatabaseImpl::allObjects() const
     {
         return m_Handles;
+    }
+
+    void DbDatabaseImpl::subYamlIn(const std::string& key)
+    {
+        _clear();
+
+        // TODO:   need to add a class identifier.
+        //EB_YAML_IN_SEQ(s_Key.Objects, [&]() {
+        //    
+        //});
+    }
+
+    void DbDatabaseImpl::subYamlOut(const std::string& key)
+    {
+
+    }
+
+    void DbDatabaseImpl::_clear()
+    {
+        for (auto hdl : m_Handles) {
+            delete Handle::access<DbObject>(hdl);
+        }
+        m_Handles.clear();
     }
 
 }

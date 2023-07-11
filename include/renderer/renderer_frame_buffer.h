@@ -33,6 +33,18 @@ namespace EB
     };
 
     /**
+     * @brief  this enum defines sampler precision from frame buffer.
+     */
+    enum class eSamplerPrecision
+    {
+        kPrecisionHighest     = 4,               /** read for 4 * 4 pixels to get intersection */
+        kPrecisionHigh        = 8,               /** read for 8 * 8 pixels to get intersection */
+        kPrecisionMedium      = 16,              /** read for 16 * 16 pixels to get intersection */
+        kPrecisionLow         = 32,              /** read for 32 * 32 pixels to get intersection */
+        kPrecisionLowest      = 64,              /** read for 64 * 64 pixels to get intersection */
+    };
+
+    /**
      * @brief  this class is used to define frame buffer.
      */
     class EB_RENDERER_EXPORT FrameBuffer
@@ -87,7 +99,7 @@ namespace EB
          * @param[in]   y                y coordinate of pixel read.
          * @return     pixel data read.
          */
-        int pixel(unsigned int attachmentIdx, int x, int y) const;
+        int pixel(unsigned int attachmentIdx, int x, int y, eSamplerPrecision precision = eSamplerPrecision::kPrecisionMedium) const;
 
         /**
          * @brief    get renderer id of frame buffer layer.

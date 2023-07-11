@@ -40,4 +40,14 @@ namespace EB
         return EB_IMPL()->allObjects();
     }
 
+    void DbDatabase::subYamlIn(const std::string& key)
+    {
+        return EB_IMPL()->subYamlIn(key);
+    }
+
+    void DbDatabase::subYamlOut(const std::string& key)
+    {
+        return EB_IMPL()->subYamlOut(key);
+    }
+
 }

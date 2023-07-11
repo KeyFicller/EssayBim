@@ -11,7 +11,7 @@ namespace EB
         ~CreateLine2dCmd() override;
 
     public:
-        EditorBase& editor() override;
+        EditorBase* editor() override;
         CommandAttribute attribute() override;
 
     protected:

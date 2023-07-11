@@ -18,18 +18,26 @@ namespace EB
     void CommandBase::beginInvoke()
     {
         UndoManager::instance().beforeCommand(attribute());
-        editor().init();
+        if (editor()) {
+            editor()->init();
+        }
     }
 
-    CommandBase::InvokeResult CommandBase::invoke()
+    bool CommandBase::onInvoke()
     {
-        // TODO: redesign this part.
-        return editor().status() == EditorBase::EditorStatus::kConfirmed ? InvokeResult::kNormal : InvokeResult::kCancel;
+        return editor() ? editor()->status() == EditorBase::EditorStatus::kInterating : false;
     }
 
-    void CommandBase::endInvoke()
+    CommandBase::InvokeResult CommandBase::endInvoke()
     {
-        UndoManager::instance().afterCommand();
+        InvokeResult res = InvokeResult::kNormal;
+        if (editor()) {
+            res = editor()->status() == EditorBase::EditorStatus::kCanceled ? InvokeResult::kCancel : res;
+        }
+        if (res == InvokeResult::kNormal) {
+            UndoManager::instance().afterCommand();
+        }
+        return res;
     }
 
     bool CommandBase::isRunnable() const

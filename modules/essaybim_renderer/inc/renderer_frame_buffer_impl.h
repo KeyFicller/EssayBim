@@ -14,7 +14,7 @@ namespace EB
         void bind() const;
         void unbind() const;
         void onResize(unsigned int width, unsigned int height);
-        int pixel(unsigned int attachmentIdx, int x, int y) const;
+        int pixel(unsigned int attachmentIdx, int x, int y, eSamplerPrecision precision) const;
         unsigned int colorAttachmentRendererId(unsigned int index = 0) const;
         void clearAttachment(unsigned int attachmentIdx, int value);
 

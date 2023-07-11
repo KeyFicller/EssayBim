@@ -59,7 +59,7 @@ namespace EB
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_LINE_SMOOTH);
-        glLineWidth(2.0f);
+        glLineWidth(10.0f);
     }
 
 }

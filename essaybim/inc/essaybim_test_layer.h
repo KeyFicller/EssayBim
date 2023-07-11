@@ -49,6 +49,7 @@ namespace EB
         bool viewHovered = false;
         CommandBase* m_EmbedCommand = nullptr;
         Vec2f viewPortOffset;
+        Vec2f viewPortSize;
         int hoveredEntity = -1;
         int pickedEntity = -1;
     };

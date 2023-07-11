@@ -5,31 +5,14 @@
 
 namespace EB
 {
-    class UndoEditor : public EditorBase
-    {
-    public:
-        UndoEditor() = default;
-        ~UndoEditor() override = default;
-
-    public:
-        EditorStatus status() override { return EditorBase::EditorStatus::kConfirmed; }
-        void init() override {}
-        void handleInput(Event& e, const EventExtension& extension) override {}
-        void update() override {}
-        void updateDisplay() override {}
-        void confirm() override {}
-        void cancel() override {}
-    };
-
-
     UndoCmd::UndoCmd()
     {
-        m_pEditor = new UndoEditor();
+
     }
 
     UndoCmd::~UndoCmd()
     {
-        EB_SAFE_DELETE(m_pEditor);
+        
     }
 
     void UndoCmd::beginInvoke()
@@ -38,9 +21,9 @@ namespace EB
         UndoManager::instance().undo();
     }
 
-    EditorBase& UndoCmd::editor()
+    EditorBase* UndoCmd::editor()
     {
-        return *m_pEditor;
+        return nullptr;
     }
 
     CommandAttribute UndoCmd::attribute()

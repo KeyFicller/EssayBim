@@ -15,9 +15,9 @@ namespace EB
         EB_SAFE_DELETE(m_pEditor);
     }
 
-    EditorBase& CreateCircle2dCmd::editor()
+    EditorBase* CreateCircle2dCmd::editor()
     {
-        return *m_pEditor;
+        return m_pEditor;
     }
 
     CommandAttribute CreateCircle2dCmd::attribute()

@@ -15,9 +15,9 @@ namespace EB
         EB_SAFE_DELETE(m_pEditor);
     }
 
-    EditorBase& CreateLine2dCmd::editor()
+    EditorBase* CreateLine2dCmd::editor()
     {
-        return *m_pEditor;
+        return m_pEditor;
     }
 
     CommandAttribute CreateLine2dCmd::attribute()

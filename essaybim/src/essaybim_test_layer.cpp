@@ -78,11 +78,6 @@ namespace EB
         };
         frameBuffer = FrameBuffer::create(spec);
 
-        DbGeometry* pDbObj = new DbGeometry();
-        pDbObj->setGeometry(new GePlane());
-        Handle hdl;
-        TestLayer::currentDb().add(pDbObj, hdl);
-
         BatchRender::initialize();
     }
 
@@ -107,15 +102,15 @@ namespace EB
                 m_EmbedCommand->beginInvoke();
             }
         }
-        if (m_EmbedCommand && m_EmbedCommand->editor().status() != EditorBase::EditorStatus::kInterating)
+        if (m_EmbedCommand && !m_EmbedCommand->onInvoke())
         {
-            m_EmbedCommand->endInvoke();
+            CommandBase::InvokeResult result = m_EmbedCommand->endInvoke();
             EB_SAFE_DELETE(m_EmbedCommand);
         }
 
         if (m_EmbedCommand)
         {
-            m_EmbedCommand->editor().update();
+            m_EmbedCommand->editor()->update();
         }
         if (viewHovered) {
             camera->onUpdate(ts);
@@ -137,6 +132,7 @@ namespace EB
             Shared<MenuBarMenu> menuCreate = createShared<MenuBarMenu>("Create");
             menuCreate->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_CREATE_LINE_2D, "", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_CREATE_LINE_2D);)));
             menuCreate->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_CREATE_CIRCLE_2D, "", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_CREATE_CIRCLE_2D);)));
+            menuCreate->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_CREATE_PLANE, "", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_CREATE_PLANE);)));
             menubar.addMenu(menuCreate);
             menubarInit = true;
         }
@@ -145,10 +141,10 @@ namespace EB
         auto slot = [&]() {
             auto& bounds = Panel::viewportBounds();
             viewPortOffset = Panel::position();
-            Vec2f size = Vec2f(bounds[1].x() - bounds[0].x(), bounds[1].y() - bounds[0].y());
-            if (size.x() > 0 && size.y() > 0) {
-                frameBuffer->onResize((unsigned int)size.x(), (unsigned int)size.y());
-                camera->setViewportSize(size.x(), size.y());
+            viewPortSize = Vec2f(bounds[1].x() - bounds[0].x(), bounds[1].y() - bounds[0].y());
+            if (viewPortSize.x() > 0 && viewPortSize.y() > 0) {
+                frameBuffer->onResize((unsigned int)viewPortSize.x(), (unsigned int)viewPortSize.y());
+                camera->setViewportSize(viewPortSize.x(), viewPortSize.y());
             }
             frameBuffer->bind();
             RendererEntry::instance().clear();
@@ -157,7 +153,7 @@ namespace EB
 
             if (m_EmbedCommand)
             {
-                m_EmbedCommand->editor().updateDisplay();
+                m_EmbedCommand->editor()->updateDisplay();
             }
             auto persistObjs = TestLayer::currentDb().allObjects();
             for (auto obj : persistObjs) {
@@ -176,6 +172,7 @@ namespace EB
             EB_WIDGET_IMMEDIATE(Text, "Vertex Count:  [%d]", statistic.VertexCount);
             EB_WIDGET_IMMEDIATE(Text, "Element Count:  [%d]", statistic.ElementCount);
             EB_WIDGET_IMMEDIATE(Text, "Hovered Entity: [%d]", hoveredEntity);
+            EB_WIDGET_IMMEDIATE(Text, "Picked Entity: [%d]", pickedEntity);
         };
 
         auto slot_3 = [&]() {
@@ -204,13 +201,14 @@ namespace EB
             if (m_EmbedCommand)
             {
                 EditorBase::EventExtension extend = { camera->ray(GeMatrix2d().setAsTranslation(-viewPortOffset)), Handle::kNull };
-                m_EmbedCommand->editor().handleInput(e, extend);
+                m_EmbedCommand->editor()->handleInput(e, extend);
             }
         }
 
         EventDispatcher dispatcher(e);
         dispatcher.dispatch<KeyPressedEvent>(std::bind(&TestLayer::_onKeyPressedEvent, this, std::placeholders::_1));
         dispatcher.dispatch<MouseMovedEvent>(std::bind(&TestLayer::_onMouseMovedEvent, this, std::placeholders::_1));
+        dispatcher.dispatch<MouseButtonPressedEvent>(std::bind(&TestLayer::_onMouseButtonPressedEvent, this, std::placeholders::_1));
     }
 
     bool TestLayer::_onKeyPressedEvent(KeyPressedEvent& event)
@@ -243,10 +241,11 @@ namespace EB
     bool TestLayer::_onMouseMovedEvent(MouseMovedEvent& event)
     {
         Shared<Window> window = Application::instance().window("DemoApp");
-
-        auto panelMouse = GeMatrix2d().setAsTranslation(viewPortOffset) * GePoint2d(event.x(), event.y());
+        auto [x, y] = window->cursorPos();
+        auto panelMouse = GeMatrix2d().setAsTranslation(-viewPortOffset) * GePoint2d(x, y);
+        panelMouse.y() = viewPortSize.y() - panelMouse.y();
         frameBuffer->bind();
-        hoveredEntity = frameBuffer->pixel(1, panelMouse.x(), panelMouse.y());
+        hoveredEntity = frameBuffer->pixel(1, (int)panelMouse.x(), (int)panelMouse.y(), eSamplerPrecision::kPrecisionLow);
         frameBuffer->unbind();
 
         return false;
@@ -254,7 +253,10 @@ namespace EB
 
     bool TestLayer::_onMouseButtonPressedEvent(MouseButtonPressedEvent& event)
     {
-
+        if (hoveredEntity != -1) {
+            pickedEntity = hoveredEntity;
+        }
+        return false;
     }
 
     DbDatabase& TestLayer::currentDb()

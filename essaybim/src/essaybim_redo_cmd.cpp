@@ -5,31 +5,15 @@
 
 namespace EB
 {
-    class RedoEditor : public EditorBase
-    {
-    public:
-        RedoEditor() = default;
-        ~RedoEditor() override = default;
-
-    public:
-        EditorStatus status() override { return EditorBase::EditorStatus::kConfirmed; }
-        void init() override {}
-        void handleInput(Event& e, const EventExtension& extension) override {}
-        void update() override {}
-        void updateDisplay() override {}
-        void confirm() override {}
-        void cancel() override {}
-    };
-
 
     RedoCmd::RedoCmd()
     {
-        m_pEditor = new RedoEditor();
+        
     }
 
     RedoCmd::~RedoCmd()
     {
-        EB_SAFE_DELETE(m_pEditor);
+        
     }
 
     void RedoCmd::beginInvoke()
@@ -38,9 +22,9 @@ namespace EB
         UndoManager::instance().redo();
     }
 
-    EditorBase& RedoCmd::editor()
+    EditorBase* RedoCmd::editor()
     {
-        return *m_pEditor;
+        return nullptr;
     }
 
     CommandAttribute RedoCmd::attribute()

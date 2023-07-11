@@ -6,6 +6,8 @@
 
 #include <glad/glad.h>
 
+#include <map>
+
 namespace EB
 {
     namespace {
@@ -134,14 +136,30 @@ namespace EB
         invalidate();
     }
 
-    int FrameBufferImpl::pixel(unsigned int attachmentIdx, int x, int y) const
+    int FrameBufferImpl::pixel(unsigned int attachmentIdx, int x, int y, eSamplerPrecision precision) const
     {
         EB_GL_AUTO_TRACE();
         EB_CORE_ASSERT(attachmentIdx < m_ColorAttachments.size());
         glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIdx);
-        int pixelData = -1;
-        glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
-        return pixelData;
+        std::vector<int> pixelDatas;
+        int rowPixel = static_cast<int>(precision);
+
+        // TODO: add weight to avoid interference when two object is close.
+        pixelDatas.resize(rowPixel * rowPixel);
+        glReadPixels(x - rowPixel / 2, y - rowPixel / 2, rowPixel, rowPixel, GL_RED_INTEGER, GL_INT, pixelDatas.data());
+        std::map<int, int> countMap;
+        for (auto& pixD : pixelDatas) {
+            if (pixD != -1) {
+                countMap[pixD]++;
+            }
+        }
+        std::pair<int, int> res = std::make_pair(-1, 0);
+        for (auto& pair : countMap) {
+            if (pair.second > res.second) {
+                res = pair;
+            }
+        }
+        return res.first;
     }
 
     unsigned int FrameBufferImpl::colorAttachmentRendererId(unsigned int index /*= 0*/) const
