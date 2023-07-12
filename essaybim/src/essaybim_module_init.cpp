@@ -5,6 +5,7 @@
 #include "essaybim_create_plane.h"
 #include "essaybim_undo_cmd.h"
 #include "essaybim_redo_cmd.h"
+#include "essaybim_delete_cmd.h"
 
 #include "command_scheduler.h"
 #include "command_undo_manager.h"
@@ -24,6 +25,7 @@ namespace EB
                 CommandScheduler::instance().registerCommand(EB_CMD_CREATE_PLANE, []() {return new CreatePlaneCmd(); });
                 CommandScheduler::instance().registerCommand(EB_CMD_UNDO, []() {return new UndoCmd(); });
                 CommandScheduler::instance().registerCommand(EB_CMD_REDO, []() {return new RedoCmd(); });
+                CommandScheduler::instance().registerCommand(EB_CMD_DELETE, []() {return new DeleteCmd(); });
 
                 UndoManager::instance().addController(&DbGeUndoController::instance());
             }
@@ -35,6 +37,7 @@ namespace EB
                 CommandScheduler::instance().unregisterCommand(EB_CMD_CREATE_PLANE);
                 CommandScheduler::instance().unregisterCommand(EB_CMD_UNDO);
                 CommandScheduler::instance().unregisterCommand(EB_CMD_REDO);
+                CommandScheduler::instance().unregisterCommand(EB_CMD_DELETE);
             }
         };
 

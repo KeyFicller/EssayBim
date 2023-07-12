@@ -40,7 +40,7 @@ namespace EB
         return res;
     }
 
-    bool CommandBase::isRunnable() const
+    bool CommandBase::isRunnable(Layer* /*pLayer*/) const
     {
         return true;
     }

@@ -14,6 +14,6 @@ namespace EB
         void beginInvoke() override;
         EditorBase* editor() override;
         CommandAttribute attribute() override;
-        bool isRunnable() const override;
+        bool isRunnable(Layer* pLayer /*= nullptr*/) const override;
     };
 }

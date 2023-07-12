@@ -2,13 +2,17 @@
 
 #include "command_base.h"
 
+#include "basic_handle.h"
+
+#include <vector>
+
 namespace EB
 {
-    class RedoCmd : public CommandBase
+    class DeleteCmd : public CommandBase
     {
     public:
-        RedoCmd();
-        ~RedoCmd() override;
+        DeleteCmd();
+        ~DeleteCmd() override;
 
     public:
         void beginInvoke() override;

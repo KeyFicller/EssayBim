@@ -35,6 +35,8 @@ namespace EB
         CommandType Type;
     };
 
+    class Layer;
+
     /**
      * @brief  this class defines command base.
      */
@@ -93,8 +95,9 @@ namespace EB
 
         /**
          * @brief   is runnable.
+         * @param[in]   pLayer      command execution environment.
          * @return    whether command is runnable.
          */
-        virtual bool isRunnable() const;
+        virtual bool isRunnable(Layer* pLayer = nullptr) const;
     };
 }

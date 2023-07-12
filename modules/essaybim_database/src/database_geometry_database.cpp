@@ -22,6 +22,7 @@ namespace EB
     {
         pDbObj->open();
         pDbObj->filer()->writeInt(static_cast<int>(DbGeUndoOpCode::kObjectAdd));
+        pDbObj->filer()->writeInt(pDbObj->handle());
         pDbObj->close();
     }
 

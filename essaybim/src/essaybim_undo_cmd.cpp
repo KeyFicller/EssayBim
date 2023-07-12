@@ -31,7 +31,7 @@ namespace EB
         return { "Undo", CommandAttribute::CommandType::kUndo };
     }
 
-    bool UndoCmd::isRunnable() const
+    bool UndoCmd::isRunnable(Layer* /*pLayer*/) const
     {
         return UndoManager::instance().commandsInUndoStack().size();
     }

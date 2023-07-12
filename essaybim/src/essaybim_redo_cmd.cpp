@@ -32,7 +32,7 @@ namespace EB
         return { "Redo", CommandAttribute::CommandType::kRedo };
     }
 
-    bool RedoCmd::isRunnable() const
+    bool RedoCmd::isRunnable(Layer* /*pLayer*/) const
     {
         return UndoManager::instance().commandsInRedoStack().size();
     }

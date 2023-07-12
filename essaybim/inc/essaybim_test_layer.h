@@ -26,6 +26,7 @@ namespace EB
 
     class TestLayer : public Layer
     {
+        friend class DeleteCmd;
     public:
         TestLayer();
         ~TestLayer() override = default;

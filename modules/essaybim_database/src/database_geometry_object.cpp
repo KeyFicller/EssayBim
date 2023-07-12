@@ -2,8 +2,11 @@
 
 #include "database_geometry_object_impl.h"
 
+#include "basic_object_creator.h"
+
 namespace EB
 {
+    EB_OBJECT_CREATOR_REGISTRAION(DbGeometry);
 
     DbGeometry::DbGeometry()
         : DbObject(*new DbGeometryImpl(this))

@@ -9,11 +9,12 @@ namespace EB
 
     namespace
     {
-        void undo_on_object_added(void* pObject, Filer* /*pFiler*/)
+        void undo_on_object_added(void* /*pObject*/, Filer* pFiler)
         {
-            DbGeometry* pDbGeom = static_cast<DbGeometry*>(pObject);
+            Handle hdl = Handle(pFiler->readInt());
+            DbGeometry* pDbGeom = Handle::access<DbGeometry>(hdl);
             DbDatabase* pDb = pDbGeom->owner();
-            pDb->remove(pDbGeom->handle());
+            pDb->remove(hdl);
         }
 
         void undo_on_object_deleted(void* /*pObject*/, Filer* pFiler)

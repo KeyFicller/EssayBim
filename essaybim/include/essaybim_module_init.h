@@ -7,6 +7,7 @@
 // ------------------- General Command ---------------------
 #define EB_CMD_UNDO                       "Undo"
 #define EB_CMD_REDO                       "Redo"
+#define EB_CMD_DELETE                     "Delete"
 // ---------------------------------------------------------
 
 // ------------------- 2D Modeling Command -----------------

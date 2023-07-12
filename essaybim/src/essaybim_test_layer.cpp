@@ -95,7 +95,7 @@ namespace EB
         if (!m_EmbedCommand && CommandScheduler::instance().hasCommandToExecute())
         {
             m_EmbedCommand = CommandScheduler::instance().popCommand();
-            if (!m_EmbedCommand->isRunnable()) {
+            if (!m_EmbedCommand->isRunnable(this)) {
                 EB_SAFE_DELETE(m_EmbedCommand);
             }
             else {
@@ -128,6 +128,7 @@ namespace EB
             Shared<MenuBarMenu> menuEdit = createShared<MenuBarMenu>("Edit");
             menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_UNDO, "Ctrl + Z", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_UNDO);)));
             menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_REDO, "Ctrl + Y", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_REDO);)));
+            menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_DELETE, "Delete", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_DELETE);)));
             menubar.addMenu(menuEdit);
             Shared<MenuBarMenu> menuCreate = createShared<MenuBarMenu>("Create");
             menuCreate->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_CREATE_LINE_2D, "", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_CREATE_LINE_2D);)));
@@ -200,7 +201,7 @@ namespace EB
 
             if (m_EmbedCommand)
             {
-                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d().setAsTranslation(-viewPortOffset)), Handle::kNull };
+                EditorBase::EventExtension extend = { camera->ray(GeMatrix2d().setAsTranslation(-viewPortOffset)), Handle(hoveredEntity) };
                 m_EmbedCommand->editor()->handleInput(e, extend);
             }
         }
@@ -233,6 +234,12 @@ namespace EB
                     return true;
                 }
                 break;
+            case KEY_DELETE:
+                {
+                    CommandScheduler::instance().enqueueCommand(EB_CMD_DELETE);
+                    return true;
+                }
+                break;
         }
 
         return false;
@@ -240,13 +247,15 @@ namespace EB
 
     bool TestLayer::_onMouseMovedEvent(MouseMovedEvent& event)
     {
-        Shared<Window> window = Application::instance().window("DemoApp");
-        auto [x, y] = window->cursorPos();
-        auto panelMouse = GeMatrix2d().setAsTranslation(-viewPortOffset) * GePoint2d(x, y);
-        panelMouse.y() = viewPortSize.y() - panelMouse.y();
-        frameBuffer->bind();
-        hoveredEntity = frameBuffer->pixel(1, (int)panelMouse.x(), (int)panelMouse.y(), eSamplerPrecision::kPrecisionLow);
-        frameBuffer->unbind();
+        if (viewHovered) {
+            Shared<Window> window = Application::instance().window("DemoApp");
+            auto [x, y] = window->cursorPos();
+            auto panelMouse = GeMatrix2d().setAsTranslation(-viewPortOffset) * GePoint2d(x, y);
+            panelMouse.y() = viewPortSize.y() - panelMouse.y();
+            frameBuffer->bind();
+            hoveredEntity = frameBuffer->pixel(1, (int)panelMouse.x(), (int)panelMouse.y(), eSamplerPrecision::kPrecisionLow);
+            frameBuffer->unbind();
+        }
 
         return false;
     }
