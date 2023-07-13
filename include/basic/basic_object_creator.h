@@ -54,7 +54,9 @@ namespace EB
     };
 }
 
-
+#define EB_OBJECT_CLASS_NAME(_class)                                                     \
+    public:                                                                              \
+        inline virtual std::string className() const {return #_class;}
 #define EB_OBJECT_CREATOR_REGISTRAION(_class)                                            \
     template<>                                                                           \
     class ObjectCreatorRegister<_class>                                                  \

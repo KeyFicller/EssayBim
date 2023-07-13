@@ -42,11 +42,15 @@ namespace EB
 
     void DbDatabase::subYamlIn(const std::string& key)
     {
+        YamlBase::subYamlIn(key);
         return EB_IMPL()->subYamlIn(key);
     }
 
-    void DbDatabase::subYamlOut(const std::string& key)
+    void DbDatabase::subYamlOut(const std::string& key) const
     {
+        YamlBase::subYamlOut(key);
+        EB_YAML_AUTO_MAP();
+
         return EB_IMPL()->subYamlOut(key);
     }
 

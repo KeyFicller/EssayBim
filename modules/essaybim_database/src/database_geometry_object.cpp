@@ -61,4 +61,20 @@ namespace EB
         return EB_IMPL(DbGeometry)->deSerialize(pFiler);
     }
 
+    void DbGeometry::subYamlIn(const std::string& key)
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        DbObject::subYamlIn(key);
+        EB_IMPL(DbGeometry)->subYamlIn(key);
+    }
+
+    void DbGeometry::subYamlOut(const std::string& key) const
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        DbObject::subYamlOut(key);
+        EB_YAML_AUTO_MAP();
+
+        EB_IMPL(DbGeometry)->subYamlOut(key);
+    }
+
 }

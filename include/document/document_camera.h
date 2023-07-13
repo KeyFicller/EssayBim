@@ -60,6 +60,6 @@ namespace EB
          * @brief   interface for override export class data.
          * @param[in]    key    for yaml map.
          */
-        void subYamlOut(const std::string& key) override final;
+        void subYamlOut(const std::string& key) const override final;
     };
 }

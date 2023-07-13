@@ -33,8 +33,8 @@ namespace EB
         GeLine3d ray(const GeMatrix2d& windowMatrix) const;
 
     protected:
-        void subYamlIn(const std::string& key) override;
-        void subYamlOut(const std::string& key) override;
+        void subYamlIn(const std::string& key);
+        void subYamlOut(const std::string& key);
 
     private:
         void updateProjectionMatrix();

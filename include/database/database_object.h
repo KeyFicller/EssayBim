@@ -122,6 +122,18 @@ namespace EB
          * @param[in]      pFiler       filer to give binary data.
          */
         virtual void deSerialize(Filer* pFiler);
+
+        /**
+         * @brief   interface for override import class data.
+         * @param[in]    key    for yaml map.
+         */
+        void subYamlIn(const std::string& key) override;
+
+        /**
+         * @brief   interface for override export class data.
+         * @param[in]    key    for yaml map.
+         */
+        void subYamlOut(const std::string& key) const override;
     };
 }
 

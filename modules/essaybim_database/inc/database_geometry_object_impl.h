@@ -21,6 +21,8 @@ namespace EB
         DbObject* clone() const override;
         void serialize(Filer* pFiler) const override;
         void deSerialize(Filer* pFiler) override;
+        void subYamlIn(const std::string& key);
+        void subYamlOut(const std::string& key) const;
 
     public:
         Geometry* m_pGeometry = nullptr;

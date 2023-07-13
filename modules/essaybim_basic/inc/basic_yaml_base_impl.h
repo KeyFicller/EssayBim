@@ -93,7 +93,6 @@ namespace EB
     YAML::Emitter& operator << (YAML::Emitter& out, const Vec3f& v);
     YAML::Emitter& operator << (YAML::Emitter& out, const Vec4f& v);
 
-
     class YamlServerImpl
     {
         friend class YamlBase;
@@ -128,7 +127,6 @@ namespace EB
             YAML::Node& topNode = m_CurNodeStack.top();
             value = topNode[key].as<T>();
         }
-
     protected:
         void popNode();
 

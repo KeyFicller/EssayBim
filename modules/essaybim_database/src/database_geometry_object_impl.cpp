@@ -13,6 +13,7 @@
 
 namespace EB
 {
+    EB_YAML_DECLARE_KEYS(GeometryType, GeometryData);
 
     DbGeometryImpl::DbGeometryImpl(DbObject* pFacade)
         : DbObjectImpl(pFacade)
@@ -51,7 +52,7 @@ namespace EB
         }
         else if (m_pGeometry->geometryType() == Geometry::eGeometryType::kPlane) {
             static int g_PlaneTextureId = BatchRender::addTexture(
-                Texture2D::create(FileServer::instance().resourcesPathRoot() + "\\textures\\grid.png")
+                Texture2D::create(FileServer::resourcesPathRoot() + "\\textures\\grid.png")
             );
             BatchRender::pushTransparency(0.8f);
             BatchRender::pushTextureId(g_PlaneTextureId);
@@ -84,6 +85,21 @@ namespace EB
         EB_SAFE_DELETE(m_pGeometry);
         m_pGeometry = GeFactory::create(type);
         m_pGeometry->load(pFiler);
+    }
+
+    void DbGeometryImpl::subYamlIn(const std::string& key)
+    {
+        int type;
+        EB_YAML_IN(s_Key.GeometryType, type);
+        EB_SAFE_DELETE(m_pGeometry);
+        m_pGeometry = GeFactory::create((Geometry::eGeometryType)type);
+        m_pGeometry->yamlIn(s_Key.GeometryData);
+    }
+
+    void DbGeometryImpl::subYamlOut(const std::string& key) const
+    {
+        EB_YAML_OUT(s_Key.GeometryType, (int)m_pGeometry->geometryType());
+        m_pGeometry->yamlOut(s_Key.GeometryData);
     }
 
 }

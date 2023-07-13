@@ -92,4 +92,20 @@ namespace EB
         EB_IMPL()->deSerialize(pFiler);
     }
 
+    void DbObject::subYamlIn(const std::string& key)
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        YamlBase::subYamlIn(key);
+        EB_IMPL()->subYamlIn(key);
+    }
+
+    void DbObject::subYamlOut(const std::string& key) const
+    {
+        EB_DB_CHECK_WRITE_ENABLED();
+        YamlBase::subYamlOut(key);
+        EB_YAML_AUTO_MAP();
+
+        EB_IMPL()->subYamlOut(key);
+    }
+
 }

@@ -4,6 +4,7 @@
 #include "basic_impl_template.h"
 
 #include <string>
+#include <windows.h>
 
 namespace EB
 {
@@ -52,37 +53,44 @@ namespace EB
 
     public:
         /**
-         * @brief  get global filer server instance.
-         * @return reference to global filer server.
-         */
-        static const FileServer& instance();
-
-    public:
-        /**
          * @brief    return the root path of module.
          * @param[in]    mod    module enum.
          * @return   directory of module.
          */
-        std::string projectPathRoot(eModules mod) const;
+        static std::string projectPathRoot(eModules mod);
 
         /**
          * @brief   return the root path of resources.
          * @return  directory of resources.
          */
-        std::string resourcesPathRoot() const;
+        static std::string resourcesPathRoot();
 
         /**
          * @brief   read string from file path.
          * @param[in]   filePath     file location.
          * @return    string read out.
          */
-        std::string readFromFilePath(const std::string& filePath) const;
+        static std::string readFromFilePath(const std::string& filePath);
 
         /**
          * @brief   get file name of file path.
          * @param[in]   filePath     file location.
          * @return  file name without suffix.
          */
-        std::string fileNameOfPath(const std::string& filePath) const;
+        static std::string fileNameOfPath(const std::string& filePath);
+
+        /**
+         * @brief   get open file path.
+         * @param[in]   filter       fmt of file filter.
+         * @param[in]   owner        owner of modal window.
+         */
+        static std::string openFile(const char* filter, HWND owner = nullptr);
+
+        /**
+         * @brief   get save file path.
+         * @param[in]   filter       fmt of file filter.
+         * @param[in]   owner        owner of modal window.
+         */
+        static std::string saveFile(const char* filter, HWND owner = nullptr);
     };
 }

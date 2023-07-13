@@ -125,6 +125,10 @@ namespace EB
         static MenuBar menubar;
         static bool menubarInit = false;
         if (!menubarInit) {
+            Shared<MenuBarMenu> menuFile = createShared<MenuBarMenu>("File");
+            menuFile->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_SAVE, "Ctrl + S", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_SAVE);)));
+            menuFile->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_LOAD, "Ctrl + L", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_LOAD);)));
+            menubar.addMenu(menuFile);
             Shared<MenuBarMenu> menuEdit = createShared<MenuBarMenu>("Edit");
             menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_UNDO, "Ctrl + Z", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_UNDO);)));
             menuEdit->addMenuItem(createShared<MenuBarMenuItem>(EB_CMD_REDO, "Ctrl + Y", EB_WIDGET_SLOT(CommandScheduler::instance().enqueueCommand(EB_CMD_REDO);)));
@@ -228,9 +232,21 @@ namespace EB
                     return true;
                 }
                 break;
+            case KEY_S:
+                if (ctrlPressed) {
+                    CommandScheduler::instance().enqueueCommand(EB_CMD_SAVE);
+                    return true;
+                }
+                break;
             case KEY_Y:
                 if (ctrlPressed) {
                     CommandScheduler::instance().enqueueCommand(EB_CMD_REDO);
+                    return true;
+                }
+                break;
+            case KEY_L:
+                if (ctrlPressed) {
+                    CommandScheduler::instance().enqueueCommand(EB_CMD_LOAD);
                     return true;
                 }
                 break;

@@ -22,16 +22,16 @@ namespace EB
     ShaderImpl::ShaderImpl(const std::string& name, const std::string& filePath)
         : m_Name(name)
     {
-        std::string source = FileServer::instance().readFromFilePath(filePath);
+        std::string source = FileServer::readFromFilePath(filePath);
         std::unordered_map<GLenum, std::string> sources = Utils_Renderer::parseShaderSource(source);
         _compile(sources);
 
     }
 
     ShaderImpl::ShaderImpl(const std::string& filePath)
-        : m_Name(FileServer::instance().fileNameOfPath(filePath))
+        : m_Name(FileServer::fileNameOfPath(filePath))
     {
-        std::string source = FileServer::instance().readFromFilePath(filePath);
+        std::string source = FileServer::readFromFilePath(filePath);
         std::unordered_map<GLenum, std::string> sources = Utils_Renderer::parseShaderSource(source);
         _compile(sources);
     }

@@ -80,7 +80,7 @@ namespace EB
         {   // button widget test
             static ColoredButton::ButtonColor color{ EB_RED_4, EB_GREEN_4, EB_BLUE_4 };
             // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
-            static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\icons\\error.png");
+            static Texture2D* texture = new Texture2D(FileServer::resourcesPathRoot() + "\\icons\\error.png");
             static int radioIndex = 0;
             
             EB_WIDGET_IMMEDIATE(Button, "button", EB_WIDGET_SLOT(EB_CORE_INFO("Button Clicked");));
@@ -201,7 +201,7 @@ namespace EB
 
         {   // image widget
             // notes:  i found that if i try to destruct global instance created by OpenGL, there will be an error
-            static Texture2D* texture = new Texture2D(FileServer::instance().resourcesPathRoot() + "\\textures\\game.jpg");
+            static Texture2D* texture = new Texture2D(FileServer::resourcesPathRoot() + "\\textures\\game.jpg");
 
             EB_WIDGET_IMMEDIATE(ImageWidgetWithMagnifier, texture->rendererId(), Vec2f(640.f, 400.f), 4.0f);
             ImGui::Separator();

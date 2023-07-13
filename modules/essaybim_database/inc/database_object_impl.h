@@ -26,6 +26,8 @@ namespace EB
         virtual DbObject* clone() const;
         virtual void serialize(Filer* pFiler) const;
         virtual void deSerialize(Filer* pFiler);
+        void subYamlIn(const std::string& key);
+        void subYamlOut(const std::string& key) const;
 
     protected:
         DbObject* m_pFacade = nullptr;

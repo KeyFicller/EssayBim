@@ -22,7 +22,7 @@ namespace EB
 
     }
 
-    void ShaderLibrary::subYamlOut(const std::string& key)
+    void ShaderLibrary::subYamlOut(const std::string& key) const
     {
 
     }

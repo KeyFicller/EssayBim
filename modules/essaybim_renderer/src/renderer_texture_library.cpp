@@ -23,7 +23,7 @@ namespace EB
 
     }
 
-    void Texture2DLibrary::subYamlOut(const std::string& key)
+    void Texture2DLibrary::subYamlOut(const std::string& key) const
     {
 
     }

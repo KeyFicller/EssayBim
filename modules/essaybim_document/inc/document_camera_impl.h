@@ -17,8 +17,8 @@ namespace EB
         Window* window() const;
 
     public:
-        virtual void subYamlIn(const std::string& key);
-        virtual void subYamlOut(const std::string& key);
+        void subYamlIn(const std::string& key);
+        void subYamlOut(const std::string& key);
 
     protected:
         Camera* m_pFacade = nullptr;

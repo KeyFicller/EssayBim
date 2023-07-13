@@ -3,6 +3,7 @@
 #include "basic_export.h"
 #include "basic_impl_template.h"
 #include "basic_vector.h"
+#include "basic_object_creator.h"
 
 #include <string>
 #include <functional>
@@ -185,6 +186,48 @@ namespace EB
         void yamlOut(const std::string& key, const Vec4f& value);
 
         /**
+         * @brief   read a string vector value with key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  string vector value.
+         */
+        void yamlIn(const std::string& key, std::vector<std::string>& value);
+
+        /**
+         * @brief  write a string vector value of key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  string vector value.
+         */
+        void yamlOut(const std::string& key, const std::vector<std::string>& value);
+
+        /**
+         * @brief   read a int vector value with key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  int vector value.
+         */
+        void yamlIn(const std::string& key, std::vector<int>& value);
+
+        /**
+         * @brief  write a int vector value of key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  int vector value.
+         */
+        void yamlOut(const std::string& key, const std::vector<int>& value);
+
+        /**
+         * @brief   read a float vector value with key from yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[in]   value  float vector value.
+         */
+        void yamlIn(const std::string& key, std::vector<float>& value);
+
+        /**
+         * @brief  write a float vector value of key to yaml cache.
+         * @param[in]   key    yaml map key.
+         * @param[out]  value  float vector value.
+         */
+        void yamlOut(const std::string& key, const std::vector<float>& value);
+
+        /**
          * @brief  read a sequence from yaml cache.
          * @param[in]   key    yaml map key.
          * @param[in]   func   function return object pointer during reading.
@@ -200,12 +243,17 @@ namespace EB
     };
 
 
+    /**
+     * Notes:   When a class has it's implement class, call subYamlIn/Out at facade rather than impl.
+     *          Thus don't inherit implement class from YamlBase, just define subYamlIn/Out as a non-virtual class.
+     */
 
     /**
      * @brief  this class is used to serialize data into yaml file.
      */
     class EB_BASIC_EXPORT YamlBase
     {
+        EB_OBJECT_CLASS_NAME(YamlBase)
     public:
         /**
          * @brief  this class is used to auto insert yaml map key word.
@@ -246,7 +294,7 @@ namespace EB
          * @brief   convert from class data to yaml data with key.
          * @param[in]    key     for yaml map.
          */
-        void yamlOut(const std::string& key);
+        void yamlOut(const std::string& key) const;
 
     protected:
         /**
@@ -259,7 +307,7 @@ namespace EB
          * @brief   interface for override export class data.
          * @param[in]    key    for yaml map.
          */
-        virtual void subYamlOut(const std::string& key);
+        virtual void subYamlOut(const std::string& key) const;
     };
 }
 

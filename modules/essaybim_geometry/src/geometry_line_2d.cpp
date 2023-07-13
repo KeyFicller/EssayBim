@@ -92,7 +92,7 @@ namespace EB
         m_PtEnd.yamlIn(s_Key.End);
     }
 
-    void GeLine2d::subYamlOut(const std::string& key)
+    void GeLine2d::subYamlOut(const std::string& key) const
     {
         GeCurve2d::subYamlOut(key);
         EB_YAML_AUTO_MAP();

@@ -4,7 +4,13 @@
  * @brief  this block defines command name.
  */
 
-// ------------------- General Command ---------------------
+// ------------------- File Command ---------------------
+#define EB_CMD_SAVE                       "Save"
+#define EB_CMD_LOAD                       "Load"
+// ------------------------------------------------------
+
+
+// ------------------- Edit Command ---------------------
 #define EB_CMD_UNDO                       "Undo"
 #define EB_CMD_REDO                       "Redo"
 #define EB_CMD_DELETE                     "Delete"

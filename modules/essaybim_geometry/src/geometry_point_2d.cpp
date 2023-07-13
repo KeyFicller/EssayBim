@@ -45,7 +45,7 @@ namespace EB
         EB_YAML_IN(s_Key.Y, m_Y);
     }
 
-    void GePoint2d::subYamlOut(const std::string& key)
+    void GePoint2d::subYamlOut(const std::string& key) const
     {
         Geometry2d::subYamlOut(key);
         EB_YAML_AUTO_MAP();

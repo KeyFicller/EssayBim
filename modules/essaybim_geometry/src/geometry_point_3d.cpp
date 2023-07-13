@@ -45,7 +45,7 @@ namespace EB
         EB_YAML_IN(s_Key.Z, m_Z);
     }
 
-    void GePoint3d::subYamlOut(const std::string& key)
+    void GePoint3d::subYamlOut(const std::string& key) const
     {
         Geometry3d::subYamlOut(key);
         EB_YAML_AUTO_MAP();

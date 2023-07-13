@@ -32,11 +32,13 @@ namespace EB
 
     void Camera::subYamlIn(const std::string& key)
     {
+        YamlBase::subYamlIn(key);
         EB_IMPL()->subYamlIn(key);
     }
 
-    void Camera::subYamlOut(const std::string& key)
+    void Camera::subYamlOut(const std::string& key) const
     {
+        YamlBase::subYamlOut(key);
         EB_IMPL()->subYamlOut(key);
     }
 

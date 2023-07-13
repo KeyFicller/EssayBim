@@ -216,7 +216,7 @@ namespace EB
         m_MeshDataPatches.VAOPerBatch->addVertexBuffer(m_MeshDataPatches.VBOPerBatch);
         m_MeshDataPatches.pBase = new MeshVertexInfo_Patches[MeshBatchData_Patches::MaxVerticesPerBatch];
         m_MeshDataPatches.pCurrent = m_MeshDataPatches.pBase;
-        m_MeshDataPatches.ShaderPerBatch = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
+        m_MeshDataPatches.ShaderPerBatch = Shader::create(FileServer::resourcesPathRoot() + "\\shaders\\flat_mvp.glsl");
         m_MeshDataPatches.ShaderPerBatch->bind();
         m_MeshDataPatches.ShaderPerBatch->setIntArray("uTextures", 32, g_Sampler2D);
         m_MeshDataPatches.ShaderPerBatch->unbind();
@@ -236,7 +236,7 @@ namespace EB
         m_MeshDataWireFrames.VAOPerBatch->addVertexBuffer(std::shared_ptr<VertexBuffer>(m_MeshDataWireFrames.VBOPerBatch));
         m_MeshDataWireFrames.pBase = new MeshVertexInfo_WireFrames[MeshBatchData_WireFrames::MaxVerticesPerBatch];
         m_MeshDataWireFrames.pCurrent = m_MeshDataWireFrames.pBase;
-        m_MeshDataWireFrames.ShaderPerBatch = Shader::create(FileServer::instance().resourcesPathRoot() + "\\shaders\\flat_mvp_2.glsl");
+        m_MeshDataWireFrames.ShaderPerBatch = Shader::create(FileServer::resourcesPathRoot() + "\\shaders\\flat_mvp_2.glsl");
         m_MeshDataWireFrames.ShaderPerBatch->unbind();
 
         m_CameraBuffer = UniformBuffer::create(sizeof(CameraData), 0);

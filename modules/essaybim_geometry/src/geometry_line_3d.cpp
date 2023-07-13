@@ -66,7 +66,7 @@ namespace EB
         m_PtEnd.yamlIn(s_Key.End);
     }
 
-    void GeLine3d::subYamlOut(const std::string& key)
+    void GeLine3d::subYamlOut(const std::string& key) const
     {
         GeCurve3d::subYamlOut(key);
         EB_YAML_AUTO_MAP();

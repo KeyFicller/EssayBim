@@ -5,6 +5,11 @@
 namespace EB
 {
 
+    namespace
+    {
+        static FileServer g_Server;
+    }
+
     FileServer::FileServer()
     {
         EB_IMPL() = createScoped<FileServerImpl>();
@@ -15,30 +20,34 @@ namespace EB
         EB_IMPL().reset();
     }
 
-    const EB::FileServer& FileServer::instance()
+    std::string FileServer::projectPathRoot(eModules mod)
     {
-        static const FileServer server;
-        return server;
+        return g_Server.m_pImpl->projectPathRoot(mod);
     }
 
-    std::string FileServer::projectPathRoot(eModules mod) const
+    std::string FileServer::resourcesPathRoot()
     {
-        return EB_IMPL()->projectPathRoot(mod);
+        return g_Server.m_pImpl->resourcesPathRoot();
     }
 
-    std::string FileServer::resourcesPathRoot() const
+    std::string FileServer::readFromFilePath(const std::string& filePath)
     {
-        return EB_IMPL()->resourcesPathRoot();
+        return g_Server.m_pImpl->readFromFilePath(filePath);
     }
 
-    std::string FileServer::readFromFilePath(const std::string& filePath) const
+    std::string FileServer::fileNameOfPath(const std::string& filePath)
     {
-        return EB_IMPL()->readFromFilePath(filePath);
+        return g_Server.m_pImpl->fileNameOfPath(filePath);
     }
 
-    std::string FileServer::fileNameOfPath(const std::string& filePath) const
+    std::string FileServer::openFile(const char* filter, HWND owner /*= nullptr*/)
     {
-        return EB_IMPL()->fileNameOfPath(filePath);
+        return g_Server.m_pImpl->openFile(filter, owner);
+    }
+
+    std::string FileServer::saveFile(const char* filter, HWND owner /*= nullptr*/)
+    {
+        return g_Server.m_pImpl->saveFile(filter, owner);
     }
 
 }

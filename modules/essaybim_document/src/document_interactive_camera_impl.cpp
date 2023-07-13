@@ -132,7 +132,6 @@ namespace EB
 
     void InteractiveCameraImpl::subYamlIn(const std::string& key)
     {
-        CameraImpl::subYamlIn(key);
         EB_YAML_IN(s_Key.VerticalFov, m_VerticalFov);
         EB_YAML_IN(s_Key.AspectRatio, m_AspectRatio);
         EB_YAML_IN(s_Key.NearClip, m_NearClip);
@@ -151,7 +150,6 @@ namespace EB
 
     void InteractiveCameraImpl::subYamlOut(const std::string& key)
     {
-        CameraImpl::subYamlOut(key);
         EB_YAML_AUTO_MAP();
 
         EB_YAML_OUT(s_Key.VerticalFov, m_VerticalFov);

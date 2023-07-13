@@ -74,10 +74,10 @@ namespace EB
         struct Fonts
         {
             /** < file path of font > */
-            std::string FontPath = FileServer::instance().resourcesPathRoot() + "\\fonts\\OpenSans-Semibold.ttf";
+            std::string FontPath = FileServer::resourcesPathRoot() + "\\fonts\\OpenSans-Semibold.ttf";
 
             /** < file path of default font > */
-            std::string DefaultFontPath = FileServer::instance().resourcesPathRoot() + "\\fonts\\Karla-Regular.ttf";
+            std::string DefaultFontPath = FileServer::resourcesPathRoot() + "\\fonts\\Karla-Regular.ttf";
 
             /** < size of font > */
             float FontSize = 30.f;

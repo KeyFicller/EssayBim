@@ -3,7 +3,6 @@
 
 namespace EB
 {
-
     YamlServer::YamlServer()
     {
         EB_IMPL() = createScoped<YamlServerImpl>();
@@ -95,6 +94,21 @@ namespace EB
         EB_IMPL()->yamlIn<Vec4f>(key, value);
     }
 
+    void YamlServer::yamlIn(const std::string& key, std::vector<std::string>& value)
+    {
+        EB_IMPL()->yamlIn<std::vector<std::string>>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, std::vector<int>& value)
+    {
+        EB_IMPL()->yamlIn<std::vector<int>>(key, value);
+    }
+
+    void YamlServer::yamlIn(const std::string& key, std::vector<float>& value)
+    {
+        EB_IMPL()->yamlIn<std::vector<float>>(key, value);
+    }
+
     void YamlServer::yamlOut(const std::string& key)
     {
         EB_IMPL()->yamlOut(key);
@@ -135,6 +149,21 @@ namespace EB
         EB_IMPL()->yamlOut<Vec4f>(key, value);
     }
 
+    void YamlServer::yamlOut(const std::string& key, const std::vector<std::string>& value)
+    {
+        EB_IMPL()->yamlOut<std::vector<std::string>>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, const std::vector<int>& value)
+    {
+        EB_IMPL()->yamlOut<std::vector<int>>(key, value);
+    }
+
+    void YamlServer::yamlOut(const std::string& key, const std::vector<float>& value)
+    {
+        EB_IMPL()->yamlOut<std::vector<float>>(key, value);
+    }
+
     void YamlServer::yamlInSequence(const std::string& key, std::function<YamlBase* ()> func)
     {
         EB_IMPL()->yamlInSequence(key, func);
@@ -169,7 +198,7 @@ namespace EB
         YamlServer::instance().m_pImpl->popNode();
     }
 
-    void YamlBase::yamlOut(const std::string& key)
+    void YamlBase::yamlOut(const std::string& key) const
     {
         subYamlOut(key);
     }
@@ -179,7 +208,7 @@ namespace EB
         YamlServer::instance().yamlIn(key);
     }
 
-    void YamlBase::subYamlOut(const std::string& key)
+    void YamlBase::subYamlOut(const std::string& key) const
     {
         YamlServer::instance().yamlOut(key);
     }

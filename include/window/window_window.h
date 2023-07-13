@@ -6,6 +6,9 @@
 
 #include <string>
 #include <functional>
+#include <windows.h>
+#undef min
+#undef max
 
 struct GLFWwindow;
 
@@ -106,6 +109,12 @@ namespace EB
          * @return   glfw window native pointer.
          */
         GLFWwindow* native() const;
+
+        /**
+         * @brief   get win32 hwnd.
+         * @return    win32 hwnd.
+         */
+        HWND hwnd() const;
 
         /**
          * @brief   is key pressed for this window.

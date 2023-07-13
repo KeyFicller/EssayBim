@@ -16,7 +16,7 @@ namespace EB
 {
 
     Texture2DImpl::Texture2DImpl(const std::string& filePath, const std::string& name)
-        : m_FilePath(filePath), m_Name(name.empty() ? FileServer::instance().fileNameOfPath(filePath) : name)
+        : m_FilePath(filePath), m_Name(name.empty() ? FileServer::fileNameOfPath(filePath) : name)
     {
         EB_GL_AUTO_TRACE();
         stbi_set_flip_vertically_on_load(1);

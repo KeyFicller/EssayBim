@@ -79,7 +79,7 @@ namespace EB
         EB_YAML_IN(s_Key.Radius, m_Radius);
     }
 
-    void GeCircle2d::subYamlOut(const std::string& key)
+    void GeCircle2d::subYamlOut(const std::string& key) const
     {
         GeCurve2d::subYamlOut(key);
         EB_YAML_AUTO_MAP();

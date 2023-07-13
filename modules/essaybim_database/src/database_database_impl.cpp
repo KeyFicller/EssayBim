@@ -2,10 +2,12 @@
 
 #include "database_object.h"
 
+#include "basic_object_creator.h"
+
 namespace EB
 {
 
-    EB_YAML_DECLARE_KEYS(Objects);
+    EB_YAML_DECLARE_KEYS(Classes, Handles, Objects);
 
     DbDatabaseImpl::DbDatabaseImpl(DbDatabase* pFacade)
         : m_pFacade(pFacade)
@@ -57,15 +59,44 @@ namespace EB
     {
         _clear();
 
-        // TODO:   need to add a class identifier.
-        //EB_YAML_IN_SEQ(s_Key.Objects, [&]() {
-        //    
-        //});
+        std::vector<std::string> classes;
+        std::vector<int> handles;
+        EB_YAML_IN(s_Key.Classes, classes);
+        EB_YAML_IN(s_Key.Handles, handles);
+
+        auto iter = classes.begin();
+        std::vector<DbObject*> created;
+        EB_YAML_IN_SEQ(s_Key.Objects, [&]() {
+            created.push_back(ObjectCreator::create<DbObject>(*iter));
+            iter++;
+            return created.back();
+        });
+
+        for (unsigned int i = 0; i < created.size(); i++) {
+            m_pFacade->reAdd(created[i], Handle(handles[i]));
+        }
     }
 
     void DbDatabaseImpl::subYamlOut(const std::string& key)
     {
+        std::vector<std::string> classes;
+        std::vector<int> handles;
+        for (auto& hdl : m_Handles) {
+            classes.emplace_back(Handle::access<DbObject>(hdl)->className());
+            handles.push_back((int)hdl);
+        }
+        EB_YAML_OUT(s_Key.Classes, classes);
+        EB_YAML_OUT(s_Key.Handles, handles);
 
+        auto iter = m_Handles.begin();
+        EB_YAML_OUT_SEQ(s_Key.Objects, [&]() {
+            YamlBase* pYamlObj = nullptr;
+            if (iter != m_Handles.end()) {
+                pYamlObj = Handle::access<DbObject>(*iter);
+                iter++;
+            }
+            return pYamlObj;
+        });
     }
 
     void DbDatabaseImpl::_clear()

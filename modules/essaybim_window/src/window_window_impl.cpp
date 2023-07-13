@@ -7,6 +7,8 @@
 #include "event_mouse_event.h"
 
 #include <GLFW/glfw3.h>
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
 
 namespace EB
 {
@@ -62,6 +64,11 @@ namespace EB
     GLFWwindow* WindowImpl::native() const
     {
         return m_pWindow;
+    }
+
+    HWND WindowImpl::hwnd() const
+    {
+        return glfwGetWin32Window(m_pWindow);
     }
 
     bool WindowImpl::isKeyPressed(int keyCode)

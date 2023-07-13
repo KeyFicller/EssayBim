@@ -35,7 +35,7 @@ namespace EB
         }
     }
 
-    void MaterialLibrary::subYamlOut(const std::string& key)
+    void MaterialLibrary::subYamlOut(const std::string& key) const
     {
         YamlBase::subYamlOut(key);
         EB_YAML_AUTO_MAP();

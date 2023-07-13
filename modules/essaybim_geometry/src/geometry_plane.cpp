@@ -42,7 +42,7 @@ namespace EB
         m_YAxis.yamlIn(s_Key.YAxis);
     }
 
-    void GePlane::subYamlOut(const std::string& key)
+    void GePlane::subYamlOut(const std::string& key) const
     {
         GeSurface::subYamlOut(key);
         EB_YAML_AUTO_MAP();

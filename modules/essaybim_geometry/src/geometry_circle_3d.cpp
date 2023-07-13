@@ -74,7 +74,7 @@ namespace EB
         m_Normal.yamlIn(s_Key.Normal);
     }
 
-    void GeCircle3d::subYamlOut(const std::string& key)
+    void GeCircle3d::subYamlOut(const std::string& key) const
     {
         GeCurve3d::subYamlOut(key);
         EB_YAML_AUTO_MAP();

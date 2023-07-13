@@ -40,7 +40,7 @@ namespace EB
         EB_YAML_IN(s_Key.Y, m_Y);
     }
 
-    void GeVector2d::subYamlOut(const std::string& key)
+    void GeVector2d::subYamlOut(const std::string& key) const
     {
         YamlBase::subYamlOut(key);
         EB_YAML_AUTO_MAP();

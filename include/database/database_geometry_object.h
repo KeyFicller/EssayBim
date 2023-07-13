@@ -11,6 +11,7 @@ namespace EB
      */
     class EB_DATABASE_EXPORT DbGeometry : public DbObject
     {
+        EB_OBJECT_CLASS_NAME(DbGeometry)
     public:
         /**
          * @brief   constructor for DbGeometry.
@@ -64,5 +65,16 @@ namespace EB
          */
         void deSerialize(Filer* pFiler) override;
 
+        /**
+         * @brief   interface for override import class data.
+         * @param[in]    key    for yaml map.
+         */
+        void subYamlIn(const std::string& key) override;
+
+        /**
+         * @brief   interface for override export class data.
+         * @param[in]    key    for yaml map.
+         */
+        void subYamlOut(const std::string& key) const override;
     };
 }

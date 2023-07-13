@@ -2,6 +2,7 @@
 
 namespace EB
 {
+    EB_YAML_DECLARE_KEYS(Handle);
 
     DbObjectImpl::DbObjectImpl(DbObject* pFacade)
         : m_pFacade(pFacade), m_IsOpened(false)
@@ -93,6 +94,16 @@ namespace EB
     }
 
     void DbObjectImpl::deSerialize(Filer* pFiler)
+    {
+
+    }
+
+    void DbObjectImpl::subYamlIn(const std::string& key)
+    {
+
+    }
+
+    void DbObjectImpl::subYamlOut(const std::string& key) const
     {
 
     }

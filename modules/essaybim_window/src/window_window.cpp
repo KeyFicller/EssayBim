@@ -69,6 +69,11 @@ namespace EB
         return EB_IMPL()->native();
     }
 
+    HWND Window::hwnd() const
+    {
+        return EB_IMPL()->hwnd();
+    }
+
     bool Window::isKeyPressed(int keyCode)
     {
         return EB_IMPL()->isKeyPressed(keyCode);
